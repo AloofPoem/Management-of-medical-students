@@ -1,0 +1,19 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+
+    <persistence-unit name="estudiantes_equipos"> 
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/estudiantes_medicina"/>
+
+            <property name="javax.persistence.jdbc.user" value="user_java"/>
+            <property name="javax.persistence.jdbc.password" value="0000"/> 
+            
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/> 
+            
+            <property name="hibernate.hbm2ddl.auto" value="update"/> 
+        </properties>
+    </persistence-unit>
+
+</persistence>

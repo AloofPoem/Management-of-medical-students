@@ -1,4 +1,4 @@
-package com.gestionestudiantesmedicina.entities;
+package com.gestionestudiantesmedicina.enumeration;
 
 public enum RelationShip {
     SON,

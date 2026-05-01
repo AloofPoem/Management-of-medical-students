@@ -1,5 +1,6 @@
 package com.gestionestudiantesmedicina.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -7,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.gestionestudiantesmedicina.enumeration.BloodType;
 
 @Entity
 @Table(name = "health_data")
@@ -18,19 +17,32 @@ public class HealthData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "general_diseases")
     private String generalDiseases;
+
+    @Column(name = "mental_illness")
     private String mentalIllness;
+
+    @Column(name = "medications")
     private String medications;
+
+    @Column(name = "allergies")
     private String allergies;
+
+    @Column(name = "weight")
     private double weight;
+
+    @Column(name = "size")
     private double size;
+
+    @Column(name = "bmi")
     private double bmi;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "blood_type")
     private BloodType bloodType;
 
-    public HealthData() {
-    }
+    public HealthData() {}
 
     public HealthData(String generalDiseases, String mentalIllness, String medications, String allergies, double weight,
             double size, double bmi, BloodType bloodType) {

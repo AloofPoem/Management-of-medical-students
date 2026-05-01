@@ -3,6 +3,7 @@ package com.gestionestudiantesmedicina.entities;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,8 +21,13 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long IdRecord;
 
+    @Column(name = "date", nullable = false)
     private LocalDate date;
+
+    @Column(name = "time_in", nullable = false)
     private LocalTime timeIn;
+
+    @Column(name = "time_out")
     private LocalTime timeOut;
 
     @OneToOne
@@ -32,8 +38,7 @@ public class Record {
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    public Record() {
-    }
+    public Record() {}
 
     public Record(Long idRecord, LocalDate date, LocalTime timeIn, LocalTime timeOut, Person person,
             Schedule schedule) {

@@ -1,10 +1,13 @@
 package com.gestionestudiantesmedicina.entities;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,15 +18,16 @@ public class University {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUniversity;
 
+    @Column(name = "university_name", nullable = false)
     private String universityName;
 
-    @OneToOne(mappedBy = "university")
-    private AcademicData academicData;
+    @OneToMany(mappedBy = "university")
+    private List<AcademicData> academicData;
 
     public University() {
     }
 
-    public University(Long idUniversity, String universityName, AcademicData academicData) {
+    public University(Long idUniversity, String universityName, List<AcademicData> academicData) {
         this.idUniversity = idUniversity;
         this.universityName = universityName;
         this.academicData = academicData;
@@ -45,11 +49,11 @@ public class University {
         this.universityName = universityName;
     }
 
-    public AcademicData getAcademicData() {
+    public List<AcademicData> getAcademicData() {
         return academicData;
     }
 
-    public void setAcademicData(AcademicData academicData) {
+    public void setAcademicData(List<AcademicData> academicData) {
         this.academicData = academicData;
     }
 }

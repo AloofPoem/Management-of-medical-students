@@ -1,5 +1,6 @@
 package com.gestionestudiantesmedicina.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long IdSubject;
 
+    @Column(name = "name_subject", nullable = false)
     private String nameSubject;
 
     @ManyToOne

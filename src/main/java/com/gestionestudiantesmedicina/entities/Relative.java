@@ -1,5 +1,6 @@
 package com.gestionestudiantesmedicina.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.gestionestudiantesmedicina.enumeration.RelationShip;
-
 @Entity
 @Table(name = "relative")
 public class Relative {
@@ -20,7 +19,10 @@ public class Relative {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRelative;
 
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @ManyToOne
@@ -28,10 +30,10 @@ public class Relative {
     private Student student;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "relationship", nullable = false)
     private RelationShip relationship;
 
-    public Relative() {
-    }
+    public Relative() {}
 
     public Relative(Long idRelative, String name, String lastName, Student student, RelationShip relationship) {
         this.idRelative = idRelative;

@@ -2,6 +2,7 @@ package com.gestionestudiantesmedicina.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.gestionestudiantesmedicina.enumeration.RelationShip;
-
 @Entity
 @Table(name = "legal_representative")
 public class Legalrepresentative {
@@ -22,21 +21,30 @@ public class Legalrepresentative {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLegalRe;
 
+    @Column(name = "name_legal_re", nullable = false)
     private String nameLegalRe;
+
+    @Column(name = "phone_number", nullable = false)
     private String phoneNu;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    @Column(name = "city")
     private String city;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "relationship")
     private RelationShip relationship;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
-    public Legalrepresentative() {
-    }
+    public Legalrepresentative() {}
 
     public Legalrepresentative(Long idLegalRe, String nameLegalRe, String phoneNu, String address, LocalDate birthDate,
             String city, RelationShip relationship, Student student) {

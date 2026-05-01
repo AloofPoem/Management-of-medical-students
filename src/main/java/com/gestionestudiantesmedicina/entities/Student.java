@@ -19,8 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.gestionestudiantesmedicina.enumeration.MaritalStatus;
-
 @Entity
 @Table(name = "student")
 public class Student {
@@ -29,20 +27,38 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStudent;
 
+    @Column(name = "identity_student", nullable = false)
     private String identityStudent;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "marital_status")
+    @Column(name = "marital_status", nullable = false)
     private MaritalStatus maritalStatus;
 
+    @Column(name = "birth_place", nullable = false)
     private String birthPlace;
+
+    @Column(name = "address_tunja", nullable = false)
     private String addressTunja;
+
+    @Column(name = "permanent_address", nullable = false)
     private String permanentAddress;
+
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "second_language", nullable = true)
     private String secondLanguage;
+
+    @Column(name = "roomies", nullable = false)
     private int roomies;
+
+    @Column(name = "family_core_tunja", nullable = false)
     private int familyCoreTunja;
+
+    @Column(name = "entry_date", nullable = false)
     private LocalDate entryDate;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -70,7 +86,7 @@ public class Student {
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Legalrepresentative> legalRepresentatives;
-
+    
     public Student() {}
 
     public Student(Long idStudent, String identityStudent, MaritalStatus maritalStatus, String birthPlace,

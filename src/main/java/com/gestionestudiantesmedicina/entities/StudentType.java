@@ -3,6 +3,7 @@ package com.gestionestudiantesmedicina.entities;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,7 @@ public class StudentType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStuType;
 
+    @Column(name = "name_stu_type", nullable = false)
     private String nameStuType;
 
     @OneToMany(mappedBy = "studentType")

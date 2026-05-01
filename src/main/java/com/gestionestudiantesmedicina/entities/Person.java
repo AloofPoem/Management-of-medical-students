@@ -2,6 +2,7 @@ package com.gestionestudiantesmedicina.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "person")
@@ -21,15 +21,19 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     @OneToOne(mappedBy = "person")
     private Record record;
 
-    public Person() {
-    }
+    public Person() {}
 
     public Person(String name, String lastName, LocalDate birthDate, Record record) {
         this.name = name;

@@ -1,5 +1,6 @@
 package com.gestionestudiantesmedicina.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,7 @@ public class Teacher extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long IdTeacher;
 
+    @Column(name = "speciality", nullable = false)
     private String specialty;
 
     public Teacher() {

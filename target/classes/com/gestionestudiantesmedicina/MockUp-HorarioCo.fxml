@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox style="-fx-background-color: #F8F9FA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juanboterojuangaleano.controller.VisitorController">
+   <children>
+      <Label prefHeight="30.0" prefWidth="166.0" text="Gestión Horario" textFill="#3f2b63">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="225.0" />
+         </VBox.margin>
+      </Label>
+      <GridPane prefHeight="174.0" prefWidth="600.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.20001220703125" minWidth="10.0" prefWidth="134.400048828125" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.2000244140625" minWidth="10.0" prefWidth="465.599951171875" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" top="5.0" />
+               </GridPane.margin></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HORA INICIO:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" top="5.0" />
+               </GridPane.margin></Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HORA FINAL:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" top="5.0" />
+               </GridPane.margin></Text>
+            <TextField fx:id="idField" style="-fx-background-color: #FFFFFF; -fx-border-color: #2C3E50; -fx-border-radius: 3;" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" right="265.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="nameField" promptText="HH:MM" style="-fx-background-color: #FFFFFF; -fx-border-color: #2C3E50; -fx-border-radius: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" right="265.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="razonField" prefHeight="26.0" prefWidth="179.0" promptText="HH:MM" style="-fx-background-color: #FFFFFF; -fx-border-color: #2C3E50; -fx-border-radius: 3;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" right="265.0" />
+               </GridPane.margin>
+            </TextField>
+            <DatePicker fx:id="dayPicker" editable="false" prefHeight="27.0" prefWidth="179.0" style="-fx-border-color: #2C3E50; -fx-border-radius: 3;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </DatePicker>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" top="5.0" />
+               </GridPane.margin>
+            </Text>
+            <TextField fx:id="idField1" style="-fx-background-color: #FFFFFF; -fx-border-color: #2C3E50; -fx-border-radius: 3;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="20.0" right="265.0" />
+               </GridPane.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID INGRESO/SALIDA:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" top="5.0" />
+               </GridPane.margin>
+            </Text>
+         </children>
+      </GridPane>
+      <HBox prefHeight="39.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleCreate" style="-fx-background-color: #1DB9A3;" text="Crear" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="100.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleUpdate" style="-fx-background-color: #4C3675;" text="Actualizar" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-color: #4C3675;" text="Eliminar" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleSearch" style="-fx-background-color: #4C3675;" text="Buscar Por ID" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleClear" style="-fx-background-color: #4C3675;" text="Limpiar" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <Label />
+      <TableView fx:id="visitorTable" prefHeight="513.0" prefWidth="600.0" style="-fx-background-color: f000; -fx-base: #3F2B63;">
+        <columns>
+          <TableColumn fx:id="idColumn" prefWidth="75.0" style="-fx-background-color: #3F2B63;" text="ID" />
+          <TableColumn fx:id="nameColumn" prefWidth="138.4000244140625" style="-fx-background-color: #3F2B63; -fx-text-fill: white;" text="HORA INICIO" />
+            <TableColumn fx:id="visitRColumn" prefWidth="139.199951171875" style="-fx-background-color: #3F2B63;" text="HORA FINAL" />
+            <TableColumn fx:id="visitRColumn1" prefWidth="118.4000244140625" style="-fx-background-color: #3F2B63;" text="FECHA" />
+            <TableColumn fx:id="visitRColumn2" prefWidth="128.0" style="-fx-background-color: #3F2B63;" text="ID INGRESO/SALIDA" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

@@ -1,0 +1,9 @@
+com\gestionestudiantesmedicina\daos\AbstractGenericDAO.class
+com\gestionestudiantesmedicina\daos\GenericDAO.class
+com\gestionestudiantesmedicina\entities\Prueba.class
+com\gestionestudiantesmedicina\App.class
+com\gestionestudiantesmedicina\controller\PruebaController.class
+com\gestionestudiantesmedicina\SecondaryController.class
+module-info.class
+com\gestionestudiantesmedicina\daos\PruebaDAO.class
+com\gestionestudiantesmedicina\PrimaryController.class

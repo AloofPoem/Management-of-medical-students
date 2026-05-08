@@ -2,6 +2,7 @@ package com.gestionestudiantesmedicina.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.awt.Desktop;
 
 import com.gestionestudiantesmedicina.daos.PruebaDAO;
 import com.gestionestudiantesmedicina.entities.Prueba;
@@ -93,12 +94,11 @@ public class PruebaController {
         try {
             FileOutputStream fot = new FileOutputStream(tempFile);
             fot.write(cont);
-
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(tempFile);
             }
         } catch (Exception e) {
-            // TODO: handle exception
+            
         }
     }
 }

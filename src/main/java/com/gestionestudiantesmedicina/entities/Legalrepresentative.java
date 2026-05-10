@@ -17,7 +17,7 @@ import com.gestionestudiantesmedicina.enumeration.RelationShip;
 
 @Entity
 @Table(name = "legal_representative")
-public class Legalrepresentative {
+public class LegalRepresentative {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,9 +46,9 @@ public class Legalrepresentative {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    public Legalrepresentative() {}
+    public LegalRepresentative() {}
 
-    public Legalrepresentative(Long idLegalRe, String nameLegalRe, String phoneNu, String address, LocalDate birthDate,
+    public LegalRepresentative(Long idLegalRe, String nameLegalRe, String phoneNu, String address, LocalDate birthDate,
             String city, RelationShip relationship, Student student) {
         this.idLegalRe = idLegalRe;
         this.nameLegalRe = nameLegalRe;

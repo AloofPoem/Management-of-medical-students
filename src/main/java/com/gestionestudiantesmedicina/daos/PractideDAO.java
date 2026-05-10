@@ -4,7 +4,7 @@ import com.gestionestudiantesmedicina.entities.Practice;
 
 public class PractideDAO extends AbstractGenericDAO<Practice, Long> {
 
-    protected PractideDAO() {
+    public PractideDAO() {
         super(Practice.class);
     }
 

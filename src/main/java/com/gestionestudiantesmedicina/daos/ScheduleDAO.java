@@ -4,7 +4,7 @@ import com.gestionestudiantesmedicina.entities.Schedule;
 
 public class ScheduleDAO extends AbstractGenericDAO<Schedule, Long> {
 
-    protected ScheduleDAO() {
+    public ScheduleDAO() {
         super(Schedule.class);
     }
 

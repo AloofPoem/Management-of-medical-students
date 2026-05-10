@@ -72,11 +72,7 @@ public class Student {
     private AcademicData academicData;
 
     @ManyToMany
-    @JoinTable(
-        name = "student_class",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "class_id")
-    )
+    @JoinTable(name = "student_class", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "class_id"))
     private List<Class> classes;
 
     @ManyToOne
@@ -87,15 +83,16 @@ public class Student {
     private List<Relative> relatives;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<Legalrepresentative> legalRepresentatives;
-    
-    public Student() {}
+    private List<LegalRepresentative> legalRepresentatives;
+
+    public Student() {
+    }
 
     public Student(Long idStudent, String identityStudent, MaritalStatus maritalStatus, String birthPlace,
             String addressTunja, String permanentAddress, String phoneNumber, String email, String secondLanguage,
             int roomies, int familyCoreTunja, LocalDate entryDate, HealthData healthData, AcademicData academicData,
             List<Class> classes, StudentType studentType, List<Relative> relatives,
-            List<Legalrepresentative> legalRepresentatives) {
+            List<LegalRepresentative> legalRepresentatives) {
         this.idStudent = idStudent;
         this.identityStudent = identityStudent;
         this.maritalStatus = maritalStatus;
@@ -252,11 +249,11 @@ public class Student {
         this.relatives = relatives;
     }
 
-    public List<Legalrepresentative> getLegalRepresentatives() {
+    public List<LegalRepresentative> getLegalRepresentatives() {
         return legalRepresentatives;
     }
 
-    public void setLegalRepresentatives(List<Legalrepresentative> legalRepresentatives) {
+    public void setLegalRepresentatives(List<LegalRepresentative> legalRepresentatives) {
         this.legalRepresentatives = legalRepresentatives;
     }
 

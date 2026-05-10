@@ -4,7 +4,7 @@ import com.gestionestudiantesmedicina.entities.StudentType;
 
 public class StudentTypeDAO extends AbstractGenericDAO<StudentType, Long> {
 
-    protected StudentTypeDAO() {
+    public StudentTypeDAO() {
         super(StudentType.class);
     }
 

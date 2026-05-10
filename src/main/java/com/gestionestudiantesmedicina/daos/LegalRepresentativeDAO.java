@@ -1,11 +1,11 @@
 package com.gestionestudiantesmedicina.daos;
 
-import com.gestionestudiantesmedicina.entities.Legalrepresentative;
+import com.gestionestudiantesmedicina.entities.LegalRepresentative;
 
-public class LegalRepresentativeDAO extends AbstractGenericDAO<Legalrepresentative, Long> {
+public class LegalRepresentativeDAO extends AbstractGenericDAO<LegalRepresentative, Long> {
 
-    protected LegalRepresentativeDAO() {
-        super(Legalrepresentative.class);
+    public LegalRepresentativeDAO() {
+        super(LegalRepresentative.class);
     }
 
 }

@@ -2,9 +2,9 @@ package com.gestionestudiantesmedicina.daos;
 
 import com.gestionestudiantesmedicina.entities.University;
 
-public class UniversityDAO extends AbstractGenericDAO< University, Long>{
+public class UniversityDAO extends AbstractGenericDAO<University, Long> {
 
-    protected UniversityDAO() {
+    public UniversityDAO() {
         super(University.class);
     }
 

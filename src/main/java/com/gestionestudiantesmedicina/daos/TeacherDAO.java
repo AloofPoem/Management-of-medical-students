@@ -4,7 +4,7 @@ import com.gestionestudiantesmedicina.entities.Teacher;
 
 public class TeacherDAO extends AbstractGenericDAO<Teacher, Long> {
 
-    protected TeacherDAO() {
+    public TeacherDAO() {
         super(Teacher.class);
     }
 

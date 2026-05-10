@@ -4,7 +4,7 @@ import com.gestionestudiantesmedicina.entities.HealthData;
 
 public class HealhDataDAO extends AbstractGenericDAO<HealthData, Long> {
 
-    protected HealhDataDAO() {
+    public HealhDataDAO() {
         super(HealthData.class);
     }
 

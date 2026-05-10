@@ -2,7 +2,7 @@ package com.gestionestudiantesmedicina.daos;
 
 public class RecordDAO extends AbstractGenericDAO<Record, Long> {
 
-    protected RecordDAO() {
+    public RecordDAO() {
         super(Record.class);
     }
 

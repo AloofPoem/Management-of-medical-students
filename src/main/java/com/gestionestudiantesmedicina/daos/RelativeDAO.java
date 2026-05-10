@@ -4,7 +4,7 @@ import com.gestionestudiantesmedicina.entities.Relative;
 
 public class RelativeDAO extends AbstractGenericDAO<Relative, Long> {
 
-    protected RelativeDAO() {
+    public RelativeDAO() {
         super(Relative.class);
     }
 

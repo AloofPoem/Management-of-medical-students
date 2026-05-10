@@ -4,7 +4,7 @@ import com.gestionestudiantesmedicina.entities.Subject;
 
 public class SubjectDAO extends AbstractGenericDAO<Subject, Long> {
 
-    protected SubjectDAO() {
+    public SubjectDAO() {
         super(Subject.class);
     }
 

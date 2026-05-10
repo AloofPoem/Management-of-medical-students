@@ -4,7 +4,7 @@ import com.gestionestudiantesmedicina.entities.Person;
 
 public class PersonDAO extends AbstractGenericDAO<Person, Long> {
 
-    protected PersonDAO() {
+    public PersonDAO() {
         super(Person.class);
     }
 

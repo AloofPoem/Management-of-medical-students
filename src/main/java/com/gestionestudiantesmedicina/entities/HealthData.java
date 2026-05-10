@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.gestionestudiantesmedicina.enumeration.BloodType;
+
 @Entity
 @Table(name = "health_data")
 public class HealthData {

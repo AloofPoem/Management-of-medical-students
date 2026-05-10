@@ -19,7 +19,7 @@ public class StudentType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStuType;
 
-    @Column(name = "name_stu_type", nullable = false)
+    @Column(name = "name_student_type", nullable = false)
     private String nameStuType;
 
     @OneToMany(mappedBy = "studentType")

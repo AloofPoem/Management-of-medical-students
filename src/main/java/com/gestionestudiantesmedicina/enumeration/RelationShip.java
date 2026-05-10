@@ -8,4 +8,3 @@ public enum RelationShip {
     GRANDPARENT,
     PARENT
 }
-

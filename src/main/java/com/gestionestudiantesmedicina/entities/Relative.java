@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.gestionestudiantesmedicina.enumeration.RelationShip;
+
 @Entity
 @Table(name = "relative")
 public class Relative {

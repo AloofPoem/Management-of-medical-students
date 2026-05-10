@@ -22,15 +22,15 @@ public class Subject {
 
     @ManyToOne
     @JoinColumn(name = "class_id")
-    private Practice classSubject;
+    private Practice ptactice;
 
     public Subject() {
     }
 
-    public Subject(Long idSubject, String nameSubject, Practice classSubject) {
+    public Subject(Long idSubject, String nameSubject, Practice ptactice) {
         IdSubject = idSubject;
         this.nameSubject = nameSubject;
-        this.classSubject = classSubject;
+        this.ptactice = ptactice;
     }
 
     public Long getIdSubject() {
@@ -50,10 +50,10 @@ public class Subject {
     }
 
     public Practice getClassSubject() {
-        return classSubject;
+        return ptactice;
     }
 
-    public void setClassSubject(Practice classSubject) {
-        this.classSubject = classSubject;
+    public void setClassSubject(Practice ptactice) {
+        this.ptactice = ptactice;
     }
 }

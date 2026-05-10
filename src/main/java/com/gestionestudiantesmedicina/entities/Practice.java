@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "class_entity")
-public class Class {
+public class Practice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +36,9 @@ public class Class {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    public Class() {}
+    public Practice() {}
 
-    public Class(Long idClass, List<Subject> subjects, Schedule schedule, List<Student> students, Teacher teacher) {
+    public Practice(Long idClass, List<Subject> subjects, Schedule schedule, List<Student> students, Teacher teacher) {
         this.idClass = idClass;
         this.subjects = subjects;
         this.schedule = schedule;

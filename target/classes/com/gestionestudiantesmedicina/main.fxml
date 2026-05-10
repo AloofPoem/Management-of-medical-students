@@ -28,5 +28,6 @@
     
     
     <ProgressBar fx:id="progressBar" prefWidth="200.0" visible="false" />
+   <Button fx:id="idEnviar" mnemonicParsing="false" onAction="#handleEnviar" text="enviar" />
 
 </VBox>

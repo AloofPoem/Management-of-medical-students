@@ -5,10 +5,11 @@ module com.gestionestudiantesmedicina {
     requires java.sql;
     requires org.hibernate.orm.core;
     requires java.desktop;
+    requires javafx.graphics;
 
     opens com.gestionestudiantesmedicina to javafx.fxml;
     opens com.gestionestudiantesmedicina.controller to javafx.fxml;
-    //se supone que es para hibernate
+    // se supone que es para hibernate
     opens com.gestionestudiantesmedicina.entities to org.hibernate.orm.core, javafx.base;
 
     exports com.gestionestudiantesmedicina.controller;

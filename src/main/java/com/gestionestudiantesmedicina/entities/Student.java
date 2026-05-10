@@ -8,9 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -19,15 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.gestionestudiantesmedicina.enumeration.MaritalStatus;
-
 @Entity
 @Table(name = "student")
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idStudent;
+public class Student extends Person {
 
     @Column(name = "identity_student", nullable = false)
     private String identityStudent;
@@ -51,7 +42,7 @@ public class Student {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "second_language", nullable = true)
+    @Column(name = "second_language")
     private String secondLanguage;
 
     @Column(name = "roomies", nullable = false)
@@ -73,30 +64,37 @@ public class Student {
 
     @ManyToMany
     @JoinTable(
-        name = "student_class",
+        name = "student_practice",
         joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "class_id")
+        inverseJoinColumns = @JoinColumn(name = "practice_id")
     )
-    private List<Class> classes;
+    private List<Practice> practices;
 
     @ManyToOne
     @JoinColumn(name = "student_type_id")
     private StudentType studentType;
 
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
+
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Relative> relatives;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<Legalrepresentative> legalRepresentatives;
-    
-    public Student() {}
+    private List<Legalrepresentative> legalrepresentatives;
 
-    public Student(Long idStudent, String identityStudent, MaritalStatus maritalStatus, String birthPlace,
-            String addressTunja, String permanentAddress, String phoneNumber, String email, String secondLanguage,
-            int roomies, int familyCoreTunja, LocalDate entryDate, HealthData healthData, AcademicData academicData,
-            List<Class> classes, StudentType studentType, List<Relative> relatives,
+    public Student() {
+
+    }
+
+    public Student(String identityStudent, MaritalStatus maritalStatus, String birthPlace,
+            String addressTunja, String permanentAddress, String phoneNumber, String email,
+            String secondLanguage, int roomies, int familyCoreTunja, LocalDate entryDate,
+            HealthData healthData, AcademicData academicData, List<Practice> practices,
+            StudentType studentType, Teacher teacher, List<Relative> relatives,
             List<Legalrepresentative> legalRepresentatives) {
-        this.idStudent = idStudent;
+
         this.identityStudent = identityStudent;
         this.maritalStatus = maritalStatus;
         this.birthPlace = birthPlace;
@@ -110,18 +108,11 @@ public class Student {
         this.entryDate = entryDate;
         this.healthData = healthData;
         this.academicData = academicData;
-        this.classes = classes;
+        this.practices = practices;
         this.studentType = studentType;
+        this.teacher = teacher;
         this.relatives = relatives;
-        this.legalRepresentatives = legalRepresentatives;
-    }
-
-    public Long getIdStudent() {
-        return idStudent;
-    }
-
-    public void setIdStudent(Long idStudent) {
-        this.idStudent = idStudent;
+        this.legalrepresentatives = legalRepresentatives;
     }
 
     public String getIdentityStudent() {
@@ -228,12 +219,12 @@ public class Student {
         this.academicData = academicData;
     }
 
-    public List<Class> getClasses() {
-        return classes;
+    public List<Practice> getPractices() {
+        return practices;
     }
 
-    public void setClasses(List<Class> classes) {
-        this.classes = classes;
+    public void setPractices(List<Practice> practices) {
+        this.practices = practices;
     }
 
     public StudentType getStudentType() {
@@ -242,6 +233,14 @@ public class Student {
 
     public void setStudentType(StudentType studentType) {
         this.studentType = studentType;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public List<Relative> getRelatives() {
@@ -253,14 +252,15 @@ public class Student {
     }
 
     public List<Legalrepresentative> getLegalRepresentatives() {
-        return legalRepresentatives;
+        return legalrepresentatives;
     }
 
     public void setLegalRepresentatives(List<Legalrepresentative> legalRepresentatives) {
-        this.legalRepresentatives = legalRepresentatives;
+        this.legalrepresentatives = legalRepresentatives;
     }
 
     public void uploadDoc(String documentName) {
         System.out.println("Subiendo documento: " + documentName);
     }
+
 }

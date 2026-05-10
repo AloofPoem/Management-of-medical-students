@@ -1,10 +1,13 @@
 package com.gestionestudiantesmedicina.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,25 +16,29 @@ public class Teacher extends Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long IdTeacher;
+    private Long idTeacher;
 
-    @Column(name = "speciality", nullable = false)
+    @Column(name = "specialty", nullable = false)
     private String specialty;
+
+    @OneToMany(mappedBy = "teacher")
+    private List<Student> students;
 
     public Teacher() {
     }
 
-    public Teacher(Long idTeacher, String specialty) {
-        this.IdTeacher = idTeacher;
+    public Teacher(Long idTeacher, String specialty, List<Student> students) {
+        this.idTeacher = idTeacher;
         this.specialty = specialty;
+        this.students = students;
     }
 
     public Long getIdTeacher() {
-        return IdTeacher;
+        return idTeacher;
     }
 
     public void setIdTeacher(Long idTeacher) {
-        this.IdTeacher = idTeacher;
+        this.idTeacher = idTeacher;
     }
 
     public String getSpecialty() {
@@ -40,5 +47,13 @@ public class Teacher extends Person {
 
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

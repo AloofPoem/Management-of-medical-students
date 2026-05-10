@@ -22,12 +22,12 @@ public class Subject {
 
     @ManyToOne
     @JoinColumn(name = "class_id")
-    private Class classSubject;
+    private Practice classSubject;
 
     public Subject() {
     }
 
-    public Subject(Long idSubject, String nameSubject, Class classSubject) {
+    public Subject(Long idSubject, String nameSubject, Practice classSubject) {
         IdSubject = idSubject;
         this.nameSubject = nameSubject;
         this.classSubject = classSubject;
@@ -49,11 +49,11 @@ public class Subject {
         this.nameSubject = nameSubject;
     }
 
-    public Class getClassSubject() {
+    public Practice getClassSubject() {
         return classSubject;
     }
 
-    public void setClassSubject(Class classSubject) {
+    public void setClassSubject(Practice classSubject) {
         this.classSubject = classSubject;
     }
 }

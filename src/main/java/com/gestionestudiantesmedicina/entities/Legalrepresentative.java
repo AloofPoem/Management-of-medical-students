@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.gestionestudiantesmedicina.enumeration.RelationShip;
-
 @Entity
 @Table(name = "legal_representative")
 public class Legalrepresentative {

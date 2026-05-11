@@ -21,7 +21,7 @@ public class AcademicData {
     private String academicProgram;
 
     @Column(name = "semester", nullable = false)
-    private Integer semester;
+    private String semester;
 
     @Column(name = "cumulative_average", nullable = false)
     private double cumulativeAverage;
@@ -32,7 +32,7 @@ public class AcademicData {
 
     public AcademicData() {}
 
-    public AcademicData(String academicProgram, Integer semester, double cumulativeAverage, University university) {
+    public AcademicData(String academicProgram, String semester, double cumulativeAverage, University university) {
         this.academicProgram = academicProgram;
         this.semester = semester;
         this.cumulativeAverage = cumulativeAverage;
@@ -51,11 +51,11 @@ public class AcademicData {
         this.academicProgram = academicProgram;
     }
 
-    public Integer getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(Integer semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 

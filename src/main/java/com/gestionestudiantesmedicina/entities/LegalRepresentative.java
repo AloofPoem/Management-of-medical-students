@@ -46,7 +46,8 @@ public class LegalRepresentative {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    public LegalRepresentative() {}
+    public LegalRepresentative() {
+    }
 
     public LegalRepresentative(Long idLegalRe, String nameLegalRe, String phoneNu, String address, LocalDate birthDate,
             String city, RelationShip relationship, Student student) {

@@ -20,7 +20,7 @@ public class Practice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idClass;
+    private Long idPractice;
 
     @OneToMany(mappedBy = "classEntity", cascade = CascadeType.ALL)
     private List<Subject> subjects;
@@ -29,7 +29,7 @@ public class Practice {
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    @ManyToMany(mappedBy = "classes")
+    @ManyToMany(mappedBy = "practices")
     private List<Student> students;
 
     @ManyToOne
@@ -38,20 +38,20 @@ public class Practice {
 
     public Practice() {}
 
-    public Practice(Long idClass, List<Subject> subjects, Schedule schedule, List<Student> students, Teacher teacher) {
-        this.idClass = idClass;
+    public Practice(Long idPractice, List<Subject> subjects, Schedule schedule, List<Student> students, Teacher teacher) {
+        this.idPractice = idPractice;
         this.subjects = subjects;
         this.schedule = schedule;
         this.students = students;
         this.teacher = teacher;
     }
 
-    public Long getIdClass() {
-        return idClass;
+    public Long getIdPractice() {
+        return idPractice;
     }
 
-    public void setIdClass(Long idClass) {
-        this.idClass = idClass;
+    public void setIdPractice(Long idPractice) {
+        this.idPractice = idPractice;
     }
 
     public List<Subject> getSubjects() {

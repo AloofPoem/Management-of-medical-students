@@ -2,13 +2,16 @@ package com.gestionestudiantesmedicina.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.StudentDAO;
+import com.gestionestudiantesmedicina.daos.StudentTypeDAO;
 import com.gestionestudiantesmedicina.daos.UniversityDAO;
 import com.gestionestudiantesmedicina.entities.AcademicData;
 import com.gestionestudiantesmedicina.entities.HealthData;
 import com.gestionestudiantesmedicina.entities.LegalRepresentative;
 import com.gestionestudiantesmedicina.entities.Student;
+import com.gestionestudiantesmedicina.entities.StudentType;
 import com.gestionestudiantesmedicina.entities.University;
 import com.gestionestudiantesmedicina.enumeration.BloodType;
 import com.gestionestudiantesmedicina.enumeration.MaritalStatus;
@@ -21,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 //import javafx.scene.control.Label;
@@ -94,9 +98,6 @@ public class StudentController {
     private TableColumn<Student, LocalDate> colLegalRepBirthDate;
 
     @FXML
-    private TableColumn<Student, Long> colLegalRepId;
-
-    @FXML
     private TableColumn<Student, String> colLegalRepCity;
 
     @FXML
@@ -147,6 +148,9 @@ public class StudentController {
     
     @FXML
     private TableColumn<Student, String> colStudentTypeId;
+    
+    @FXML
+    private TableColumn<Student, String> colMedications;
 
     @FXML
     private DatePicker dpBirthDate;
@@ -220,31 +224,13 @@ public class StudentController {
     private TextField txtLastName;
 
     @FXML
-    private TextField txtHeight;
-
-    @FXML
     private TextField txtId;
-
-    @FXML
-    private TextField txtIdentity;
 
     @FXML
     private TextField txtLegalRepAddress;
 
     @FXML
-    private TextField txtLegalRepDocument;
-
-    @FXML
-    private TextField txtLegalRepEmail;
-
-    @FXML
-    private TextField txtLegalRepId;
-
-    @FXML
     private TextField txtLegalRepName;
-
-    @FXML
-    private TextField txtLegalRepOccupation;
 
     @FXML
     private TextField txtLegalRepPhone;
@@ -278,7 +264,7 @@ public class StudentController {
 
     @FXML
     private void initialize() {
-
+        //completo 33/33
         // Mapeo de datos directos de la entidad Student
         colIdentity.setCellValueFactory(new PropertyValueFactory<>("identityStudent"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -294,6 +280,7 @@ public class StudentController {
         colRoomies.setCellValueFactory(new PropertyValueFactory<>("roomies"));
         colFamilyCoreTunja.setCellValueFactory(new PropertyValueFactory<>("familyCoreTunja"));
         colEntryDate.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
+        colMedications.setCellValueFactory(new PropertyValueFactory<>("medications"));
 
         // Mapeo de datos anidados (HealthData)
         colBloodType.setCellValueFactory(
@@ -326,8 +313,6 @@ public class StudentController {
                 cellData -> new SimpleObjectProperty<>(cellData.getValue().getAcademicData().getCumulativeAverage()));
 
         // Mapeo de datos anidados (LegalRepresentative)
-        colLegalRepId.setCellValueFactory(
-                cellData -> new SimpleObjectProperty<>(cellData.getValue().getLegalRepresentative().getIdLegalRe()));
         colLegalRepName.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getLegalRepresentative().getNameLegalRe()));
         colLegalRepAddress.setCellValueFactory(
@@ -338,6 +323,7 @@ public class StudentController {
                 cellData -> new SimpleStringProperty(cellData.getValue().getLegalRepresentative().getCity()));
         colLegalRepRelationship.setCellValueFactory(
                 cellData -> new SimpleObjectProperty<>(cellData.getValue().getLegalRepresentative().getRelationship()));
+        colLegalRepPhone.setCellValueFactory(new PropertyValueFactory<>("legalRepPhone"));
 
         colIdUni.setCellValueFactory(cellData -> {
             Student student = cellData.getValue();
@@ -389,6 +375,7 @@ public class StudentController {
 
     private void populateForm(Student s) {
         // no teacher
+        //completo 33
         txtId.setText(String.valueOf(s.getIdentityStudent()));
         txtName.setText(s.getName());
         txtLastName.setText(s.getLastName());
@@ -401,8 +388,8 @@ public class StudentController {
         txtEmail.setText(s.getEmail());
         txtSecondLanguage.setText(s.getSecondLanguage());
         dpEntryDate.setValue(s.getEntryDate());
-
-        
+        txtStudentTypeId.setText(s.getStudentType() != null ? String.valueOf(s.getStudentType().getIdStuType()) : "");
+        //podria mostrarse el nombre en vez del id ?
 
         spRoomies.getValueFactory().setValue(s.getRoomies());
         spFamilyCoreTunja.getValueFactory().setValue(s.getFamilyCoreTunja());
@@ -426,7 +413,6 @@ public class StudentController {
         cbBloodType.setValue(hd.getBloodType());
 
         LegalRepresentative lr = s.getLegalRepresentative();
-        txtLegalRepId.setText(String.valueOf(lr.getIdLegalRe()));
         txtLegalRepName.setText(lr.getNameLegalRe());
         txtLegalRepPhone.setText(lr.getPhoneNu());
         txtLegalRepAddress.setText(lr.getAddress());
@@ -438,6 +424,7 @@ public class StudentController {
 
     @FXML
     private void handleClear(ActionEvent e){
+        //completo 33
         txtId.clear();
         txtName.clear();
         txtLastName.clear();
@@ -452,6 +439,7 @@ public class StudentController {
         cbMaritalStatus.setValue(null);
         spRoomies.getValueFactory().setValue(0);
         spFamilyCoreTunja.getValueFactory().setValue(0);
+        txtStudentTypeId.clear();
         
         txtIdUni.clear();
         txtProgram.clear();
@@ -467,7 +455,6 @@ public class StudentController {
         txtAllergies.clear();   // TextArea
         cbBloodType.setValue(null);
         
-        txtLegalRepId.clear();
         txtLegalRepName.clear();
         txtLegalRepPhone.clear();
         txtLegalRepAddress.clear();
@@ -480,64 +467,189 @@ public class StudentController {
     }
 
     @FXML
-    private void handleRegister(ActionEvent e){
+    private void handleRegister(ActionEvent event){
+        //completo 33
+        try {
+            if (isInvalid()) {
+                showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos son obligatorios.");
+                return;
+            }
 
-        Long identity = Long.parseLong(txtId.getText().trim()); 
-        String name = txtName.getText();
-        String lastName = txtLastName.getText();
-        LocalDate birthDate = dpBirthDate.getValue();
-        String birthPlace = txtBirthPlace.getText();
-        MaritalStatus maritalStatus = cbMaritalStatus.getValue();
-        String addressTunja = txtAddressTunja.getText();
-        String permanentAddress = txtPermanentAddress.getText();
-        String phone = txtPhone.getText();
-        String email = txtEmail.getText();
-        String secondLanguage = txtSecondLanguage.getText();
-        LocalDate entryDate = dpEntryDate.getValue();
-        Integer roomies = spRoomies.getValue();
-        Integer familyCore = spFamilyCoreTunja.getValue();
+            Long identity = Long.parseLong(txtId.getText().trim()); 
+            String name = txtName.getText();
+            String lastName = txtLastName.getText();
+            LocalDate birthDate = dpBirthDate.getValue();
+            String birthPlace = txtBirthPlace.getText();
+            MaritalStatus maritalStatus = cbMaritalStatus.getValue();
+            String addressTunja = txtAddressTunja.getText();
+            String phone = txtPhone.getText();
+            String permanentAddress = txtPermanentAddress.getText();
+            String email = txtEmail.getText();
+            String secondLanguage = txtSecondLanguage.getText();
+            LocalDate entryDate = dpEntryDate.getValue();
+            Integer roomies = spRoomies.getValue();
+            Integer familyCore = spFamilyCoreTunja.getValue();
+            Long studentTypeId = Long.parseLong(txtStudentTypeId.getText().trim());
+            StudentTypeDAO studentTypeDAO = new StudentTypeDAO();
+            StudentType studentType = studentTypeDAO.findById(studentTypeId);
 
-        UniversityDAO uDAO = new UniversityDAO();
+            UniversityDAO universityDAO = new UniversityDAO();
 
-        Long academicDataId = identity;
-        Long universityId = Long.parseLong(txtIdUni.getText().trim());
-        University university = uDAO.findById(universityId);
-        String program = txtProgram.getText();
-        Integer semester = spSemester.getValue(); 
-        double average = Double.parseDouble(txtAverage.getText());
+            Long academicDataId = identity;
+            Long universityId = Long.parseLong(txtIdUni.getText().trim());
+            University university = universityDAO.findById(universityId);
+            String program = txtProgram.getText();
+            Integer semester = spSemester.getValue(); 
+            double average = Double.parseDouble(txtAverage.getText());
 
-        Long healthDataId = identity;
-        String diseases = txtDiseases.getText();
-        String illness = txtIllness.getText();
-        String medications = txtMedications.getText();
-        String allergies = txtAllergies.getText();
-        double weight = Double.parseDouble(txtWeight.getText().trim());
-        double size = Double.parseDouble(txtSize.getText().trim());
-        double bmi = Double.parseDouble(txtBmi.getText().trim());
-        BloodType bloodType = cbBloodType.getValue();
-        
-        Long legalRepId = Long.parseLong(txtLegalRepId.getText().trim());
-        String legalRepName = txtLegalRepName.getText();
-        String legalRepPhone = txtLegalRepPhone.getText();
-        String legalRepAddress = txtLegalRepAddress.getText();
-        String legalRepCity = txtLegalRepCity.getText();
-        LocalDate legalRepBirthDate = dpLegalRepBirthDate.getValue();
-        RelationShip legalRepRel = cbLegalRepRelationship.getValue();
-
-        if (isInvalid()) {
-            showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos son obligatorios.");
-            return;
+            Long healthDataId = identity;
+            String diseases = txtDiseases.getText();
+            String illness = txtIllness.getText();
+            String medications = txtMedications.getText();
+            String allergies = txtAllergies.getText();
+            double weight = Double.parseDouble(txtWeight.getText().trim());
+            double size = Double.parseDouble(txtSize.getText().trim());
+            double bmi = Double.parseDouble(txtBmi.getText().trim());
+            BloodType bloodType = cbBloodType.getValue();
+            
+            String legalRepName = txtLegalRepName.getText();
+            String legalRepPhone = txtLegalRepPhone.getText();
+            String legalRepAddress = txtLegalRepAddress.getText();
+            String legalRepCity = txtLegalRepCity.getText();
+            LocalDate legalRepBirthDate = dpLegalRepBirthDate.getValue();
+            RelationShip legalRepRel = cbLegalRepRelationship.getValue();
+            
+            AcademicData academicData = new AcademicData(academicDataId, program, semester, average, university);
+            HealthData healthData = new HealthData(healthDataId, diseases, illness, medications, allergies, weight, size, bmi, bloodType);
+            LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone, legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
+            
+            Student student = new Student(name, lastName, birthDate, identity, maritalStatus, birthPlace, addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate, healthData, academicData, null, studentType, null, null, legalRepresentative);
+            
+            studentDAO.save(student);
+            
+            loadStudentList();
+            handleClear(null);
+        }catch (NumberFormatException e){
+            showAlert(AlertType.ERROR, "Error de Formato", "Algunos campos deben ser numeros");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            showAlert(AlertType.ERROR, "Error de Creacion", "No se pudo crear el estudiante: " + e.getMessage());
         }
-        
-        AcademicData academicData = new AcademicData(identity, program, semester, average, university);
-        HealthData healthData = new HealthData(identity, diseases, illness, medications, allergies, weight, size, bmi, bloodType);
-        LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone, legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
+    }
 
-        Student student = new Student(identity, maritalStatus, birthPlace, addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate, healthData, academicData, null, null, null, null, legalRepresentative);
+    @FXML
+    private void handleUpdate(ActionEvent event){
+        //completo 33
+        try {
+            Long idStudent = Long.parseLong(txtId.getText().trim());
+            Student student = studentDAO.findById(idStudent);
+            AcademicData academicData = student.getAcademicData();
+            HealthData healthData = student.getHealthData();
+            LegalRepresentative legalRepresentative = student.getLegalRepresentative();
+
+            if (student == null||academicData == null|| healthData == null|| legalRepresentative == null) {
+                showAlert(AlertType.ERROR, "Error", "Empleado no encontrado con ID: " + idStudent);
+                return;
+            }
+
+            student.setIdentityStudent(Long.parseLong(txtId.getText().trim()));
+            student.setName(txtName.getText().trim());
+            student.setLastName(txtLastName.getText().trim());
+            student.setBirthDate(dpBirthDate.getValue());
+            student.setBirthPlace(txtBirthPlace.getText().trim());
+            student.setAddressTunja(txtAddressTunja.getText().trim());
+            student.setPermanentAddress(txtPermanentAddress.getText().trim());
+            student.setPhoneNumber(txtPhone.getText().trim());
+            student.setEmail(txtEmail.getText().trim());
+            student.setSecondLanguage(txtSecondLanguage.getText().trim());
+            student.setMaritalStatus(cbMaritalStatus.getValue());
+            student.setEntryDate(dpEntryDate.getValue());
+            student.setRoomies(spRoomies.getValue());
+            student.setFamilyCoreTunja(spFamilyCoreTunja.getValue());
+            
+            academicData.setAcademicProgram(txtProgram.getText().trim());
+            academicData.setCumulativeAverage(Double.parseDouble(txtAverage.getText().trim()));
+            academicData.setSemester(spSemester.getValue());
+            
+            UniversityDAO universityDAO = new UniversityDAO();
+            University university = universityDAO.findById(Long.parseLong(txtIdUni.getText().trim()));
+            academicData.setUniversity(university);
+
+            StudentTypeDAO studentTypeDAO = new StudentTypeDAO();
+            StudentType studentType = studentTypeDAO.findById(Long.parseLong(txtStudentTypeId.getText().trim()));
+            student.setStudentType(studentType);
+            
+            healthData.setBloodType(cbBloodType.getValue());
+            healthData.setWeight(Double.parseDouble(txtWeight.getText().trim()));
+            healthData.setSize(Double.parseDouble(txtSize.getText().trim()));
+            healthData.setBmi(Double.parseDouble(txtBmi.getText().trim()));
+            healthData.setGeneralDiseases(txtDiseases.getText().trim());
+            healthData.setMentalIllness(txtIllness.getText().trim());
+            healthData.setMedications(txtMedications.getText().trim());
+            healthData.setAllergies(txtAllergies.getText().trim());
+
+            legalRepresentative.setNameLegalRe(txtLegalRepName.getText().trim());
+            legalRepresentative.setPhoneNu(txtLegalRepPhone.getText().trim());
+            legalRepresentative.setAddress(txtLegalRepAddress.getText().trim());
+            legalRepresentative.setCity(txtLegalRepCity.getText().trim());
+            legalRepresentative.setBirthDate(dpLegalRepBirthDate.getValue());
+            legalRepresentative.setRelationship(cbLegalRepRelationship.getValue());
+
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Error de Formato", "Algunos campos deben ser numeros");
+        } catch (Exception e) {
+            showAlert(AlertType.ERROR, "Error de Actualización", "No se pudo actualizar: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleDelete(ActionEvent event){
+        try {
+            Long id = Long.parseLong(txtId.getText());
+            Student student = studentDAO.findById(id);
+
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Eliminación");
+            alert.setHeaderText("¿Está seguro de que desea eliminar al Estudiante con ID " + id + "?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                studentDAO.delete(id);
+                loadStudentList();
+                handleClear(null);
+            }
+            
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
+        } catch (Exception e) {
+            showAlert(AlertType.ERROR, "Error de Eliminación", "No se pudo eliminar: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleSearch(ActionEvent event){
+        try {
+            Long id = Long.parseLong(txtId.getText());
+            Student student = studentDAO.findById(id);
+
+            if (student != null) {
+                populateForm(student);
+                tableStudents.getItems().setAll(student);
+                tableStudents.getSelectionModel().select(student);
+            } else {
+                showAlert(AlertType.INFORMATION, "Búsqueda", "Estudiante no encontrado con ID: " + id);
+            }
+            
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");   
+        }
     }
 
     private boolean isInvalid() {
         if (dpBirthDate.getValue() == null || dpEntryDate.getValue() == null || dpLegalRepBirthDate.getValue() == null) return true;
+
+        //revisar <= 0 es necesario
+        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spRoomies.getValue() == null || spFamilyCoreTunja.getValue() == null) return true;
 
         ComboBox<?>[] allCombos = {cbMaritalStatus, cbBloodType, cbLegalRepRelationship};
 
@@ -554,8 +666,8 @@ public class StudentController {
             txtProgram, txtIdUni, txtAverage,
             txtWeight, txtSize, txtDiseases, txtIllness, 
             txtMedications, txtAllergies,
-            txtLegalRepId, txtLegalRepName, txtLegalRepPhone, 
-            txtLegalRepAddress, txtLegalRepCity
+            txtLegalRepName, txtLegalRepPhone, 
+            txtLegalRepAddress, txtLegalRepCity,txtStudentTypeId
         };
 
         for (TextInputControl field : fields) {
@@ -563,17 +675,6 @@ public class StudentController {
             if (field == null || field.getText() == null || field.getText().trim() == null) {
                 return true;
             }
-        }
-
-        try {
-            Long.parseLong(txtId.getText().trim());
-            Long.parseLong(txtLegalRepId.getText().trim());
-            Long.parseLong(txtIdUni.getText().trim());
-            Double.parseDouble(txtWeight.getText().trim());
-            Double.parseDouble(txtSize.getText().trim());
-            Double.parseDouble(txtAverage.getText().trim());
-        } catch (NumberFormatException e) {
-            return true; 
         }
 
         return false;

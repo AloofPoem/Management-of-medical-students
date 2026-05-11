@@ -9,8 +9,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.gestionestudiantesmedicina.enumeration.RelationShip;
@@ -23,42 +21,36 @@ public class LegalRepresentative {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idLegalRe;
 
-    @Column(name = "name_legal_re", nullable = false)
+    @Column(name = "name_legal_representative", nullable = false)
     private String nameLegalRe;
 
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNu;
+    @Column(name = "legal_representative_phone", nullable = false)
+    private String legalRepPhone;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "legal_representative_address")
+    private String legalRepAddress;
 
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
+    @Column(name = "legal_representative_birth_date")
+    private LocalDate legalRepBirthDate;
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "legal_representative_city")
+    private String legalRepCity;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "relationship")
-    private RelationShip relationship;
-
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+    @Column(name = "legal_representative_relationship")
+    private RelationShip legalRepRelationship;
 
     public LegalRepresentative() {
     }
 
-    public LegalRepresentative(Long idLegalRe, String nameLegalRe, String phoneNu, String address, LocalDate birthDate,
-            String city, RelationShip relationship, Student student) {
-        this.idLegalRe = idLegalRe;
+    public LegalRepresentative(String nameLegalRe, String legalRepPhone, String legalRepAddress, LocalDate legalRepBirthDate,
+            String legalRepCity, RelationShip legalRepRelationship) {
         this.nameLegalRe = nameLegalRe;
-        this.phoneNu = phoneNu;
-        this.address = address;
-        this.birthDate = birthDate;
-        this.city = city;
-        this.relationship = relationship;
-        this.student = student;
+        this.legalRepPhone = legalRepPhone;
+        this.legalRepAddress = legalRepAddress;
+        this.legalRepBirthDate = legalRepBirthDate;
+        this.legalRepCity = legalRepCity;
+        this.legalRepRelationship = legalRepRelationship;
     }
 
     public Long getIdLegalRe() {
@@ -78,50 +70,43 @@ public class LegalRepresentative {
     }
 
     public String getPhoneNu() {
-        return phoneNu;
+        return legalRepPhone;
     }
 
-    public void setPhoneNu(String phoneNu) {
-        this.phoneNu = phoneNu;
+    public void setPhoneNu(String legalRepPhone){
+        this.legalRepPhone = legalRepPhone;
     }
 
     public String getAddress() {
-        return address;
+        return legalRepAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(String legalRepAddress) {
+        this.legalRepAddress = legalRepAddress;
     }
 
     public LocalDate getBirthDate() {
-        return birthDate;
+        return legalRepBirthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDate(LocalDate legalRepBirthDate) {
+        this.legalRepBirthDate = legalRepBirthDate;
     }
 
     public String getCity() {
-        return city;
+        return legalRepCity;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity(String legalRepCity) {
+        this.legalRepCity = legalRepCity;
     }
 
     public RelationShip getRelationship() {
-        return relationship;
+        return legalRepRelationship;
     }
 
-    public void setRelationship(RelationShip relationship) {
-        this.relationship = relationship;
+    public void setRelationship(RelationShip legalRepRelationship) {
+        this.legalRepRelationship = legalRepRelationship;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
 }

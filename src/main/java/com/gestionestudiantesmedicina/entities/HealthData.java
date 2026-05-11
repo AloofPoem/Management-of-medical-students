@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,7 +14,6 @@ import com.gestionestudiantesmedicina.enumeration.BloodType;
 public class HealthData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "general_diseases")
@@ -46,8 +43,9 @@ public class HealthData {
 
     public HealthData() {}
 
-    public HealthData(String generalDiseases, String mentalIllness, String medications, String allergies, double weight,
+    public HealthData(Long id, String generalDiseases, String mentalIllness, String medications, String allergies, double weight,
             double size, double bmi, BloodType bloodType) {
+        this.id = id;
         this.generalDiseases = generalDiseases;
         this.mentalIllness = mentalIllness;
         this.medications = medications;

@@ -8,8 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -26,7 +24,6 @@ import com.gestionestudiantesmedicina.enumeration.MaritalStatus;
 public class Student extends Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long identityStudent;
 
     @Enumerated(EnumType.STRING)
@@ -52,10 +49,10 @@ public class Student extends Person {
     private String secondLanguage;
 
     @Column(name = "roomies", nullable = false)
-    private int roomies;
+    private Integer roomies;
 
     @Column(name = "family_core_tunja", nullable = false)
-    private int familyCoreTunja;
+    private Integer familyCoreTunja;
 
     @Column(name = "entry_date", nullable = false)
     private LocalDate entryDate;
@@ -83,8 +80,9 @@ public class Student extends Person {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Relative> relatives;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<LegalRepresentative> legalRepresentatives;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "legal_representative")
+    private LegalRepresentative legalRepresentative;
 
     public Student() {
 
@@ -92,10 +90,10 @@ public class Student extends Person {
 
     public Student(Long identityStudent, MaritalStatus maritalStatus, String birthPlace,
             String addressTunja, String permanentAddress, String phoneNumber, String email,
-            String secondLanguage, int roomies, int familyCoreTunja, LocalDate entryDate,
+            String secondLanguage,Integer roomies,Integer familyCoreTunja, LocalDate entryDate,
             HealthData healthData, AcademicData academicData, List<Practice> practices,
             StudentType studentType, Teacher teacher, List<Relative> relatives,
-            List<LegalRepresentative> legalRepresentatives) {
+            LegalRepresentative legalRepresentative) {
 
         this.identityStudent = identityStudent;
         this.maritalStatus = maritalStatus;
@@ -114,7 +112,7 @@ public class Student extends Person {
         this.studentType = studentType;
         this.teacher = teacher;
         this.relatives = relatives;
-        this.legalRepresentatives = legalRepresentatives;
+        this.legalRepresentative = legalRepresentative;
     }
 
     public Long getIdentityStudent() {
@@ -181,7 +179,7 @@ public class Student extends Person {
         this.secondLanguage = secondLanguage;
     }
 
-    public int getRoomies() {
+    public Integer getRoomies() {
         return roomies;
     }
 
@@ -189,7 +187,7 @@ public class Student extends Person {
         this.roomies = roomies;
     }
 
-    public int getFamilyCoreTunja() {
+    public Integer getFamilyCoreTunja() {
         return familyCoreTunja;
     }
 
@@ -253,12 +251,12 @@ public class Student extends Person {
         this.relatives = relatives;
     }
 
-    public List<LegalRepresentative> getLegalRepresentatives() {
-        return legalRepresentatives;
+    public LegalRepresentative getLegalRepresentative() {
+        return legalRepresentative;
     }
 
-    public void setLegalRepresentatives(List<LegalRepresentative> legalRepresentatives) {
-        this.legalRepresentatives = legalRepresentatives;
+    public void setLegalRepresentative(LegalRepresentative legalRepresentative) {
+        this.legalRepresentative = legalRepresentative;
     }
 
     public void uploadDoc(String documentName) {

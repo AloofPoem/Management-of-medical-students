@@ -2,8 +2,6 @@ package com.gestionestudiantesmedicina.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,14 +12,13 @@ import javax.persistence.Table;
 public class AcademicData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "academic_program", nullable = false)
     private String academicProgram;
 
     @Column(name = "semester", nullable = false)
-    private String semester;
+    private Integer semester;
 
     @Column(name = "cumulative_average", nullable = false)
     private double cumulativeAverage;
@@ -30,9 +27,11 @@ public class AcademicData {
     @JoinColumn(name = "university_id")
     private University university;
 
-    public AcademicData() {}
+    public AcademicData() {
+    }
 
-    public AcademicData(String academicProgram, String semester, double cumulativeAverage, University university) {
+    public AcademicData(Long id, String academicProgram,Integer semester, double cumulativeAverage, University university) {
+        this.id = id;
         this.academicProgram = academicProgram;
         this.semester = semester;
         this.cumulativeAverage = cumulativeAverage;
@@ -51,11 +50,11 @@ public class AcademicData {
         this.academicProgram = academicProgram;
     }
 
-    public String getSemester() {
+    public Integer getSemester() {
         return semester;
     }
 
-    public void setSemester(String semester) {
+    public void setSemester(int semester) {
         this.semester = semester;
     }
 

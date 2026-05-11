@@ -88,13 +88,12 @@ public class Student extends Person {
 
     }
 
-    public Student(Long identityStudent, MaritalStatus maritalStatus, String birthPlace,
-            String addressTunja, String permanentAddress, String phoneNumber, String email,
-            String secondLanguage,Integer roomies,Integer familyCoreTunja, LocalDate entryDate,
-            HealthData healthData, AcademicData academicData, List<Practice> practices,
-            StudentType studentType, Teacher teacher, List<Relative> relatives,
-            LegalRepresentative legalRepresentative) {
-
+    public Student(String name, String lastName, LocalDate birthDate, Long identityStudent, MaritalStatus maritalStatus,
+            String birthPlace, String addressTunja, String permanentAddress, String phoneNumber, String email,
+            String secondLanguage, Integer roomies, Integer familyCoreTunja, LocalDate entryDate, HealthData healthData,
+            AcademicData academicData, List<Practice> practices, StudentType studentType, Teacher teacher,
+            List<Relative> relatives, LegalRepresentative legalRepresentative) {
+        super(name, lastName, birthDate);
         this.identityStudent = identityStudent;
         this.maritalStatus = maritalStatus;
         this.birthPlace = birthPlace;

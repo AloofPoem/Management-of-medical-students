@@ -8,6 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -22,8 +25,9 @@ import com.gestionestudiantesmedicina.enumeration.MaritalStatus;
 @Table(name = "student")
 public class Student extends Person {
 
-    @Column(name = "identity_student", nullable = false)
-    private String identityStudent;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long identityStudent;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "marital_status", nullable = false)
@@ -80,13 +84,13 @@ public class Student extends Person {
     private List<Relative> relatives;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<LegalRepresentative> legalrepresentatives;
+    private List<LegalRepresentative> legalRepresentatives;
 
     public Student() {
 
     }
 
-    public Student(String identityStudent, MaritalStatus maritalStatus, String birthPlace,
+    public Student(Long identityStudent, MaritalStatus maritalStatus, String birthPlace,
             String addressTunja, String permanentAddress, String phoneNumber, String email,
             String secondLanguage, int roomies, int familyCoreTunja, LocalDate entryDate,
             HealthData healthData, AcademicData academicData, List<Practice> practices,
@@ -110,14 +114,14 @@ public class Student extends Person {
         this.studentType = studentType;
         this.teacher = teacher;
         this.relatives = relatives;
-        this.legalrepresentatives = legalRepresentatives;
+        this.legalRepresentatives = legalRepresentatives;
     }
 
-    public String getIdentityStudent() {
+    public Long getIdentityStudent() {
         return identityStudent;
     }
 
-    public void setIdentityStudent(String identityStudent) {
+    public void setIdentityStudent(Long identityStudent) {
         this.identityStudent = identityStudent;
     }
 

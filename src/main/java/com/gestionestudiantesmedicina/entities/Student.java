@@ -250,11 +250,11 @@ public class Student extends Person {
     }
 
     public List<LegalRepresentative> getLegalRepresentatives() {
-        return legalrepresentatives;
+        return legalRepresentatives;
     }
 
     public void setLegalRepresentatives(List<LegalRepresentative> legalRepresentatives) {
-        this.legalrepresentatives = legalRepresentatives;
+        this.legalRepresentatives = legalRepresentatives;
     }
 
     public void uploadDoc(String documentName) {

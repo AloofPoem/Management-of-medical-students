@@ -65,11 +65,7 @@ public class Student extends Person {
     private AcademicData academicData;
 
     @ManyToMany
-    @JoinTable(
-        name = "student_practice",
-        joinColumns = @JoinColumn(name = "student_id"),
-        inverseJoinColumns = @JoinColumn(name = "practice_id")
-    )
+    @JoinTable(name = "student_practice", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "practice_id"))
     private List<Practice> practices;
 
     @ManyToOne
@@ -84,7 +80,7 @@ public class Student extends Person {
     private List<Relative> relatives;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<Legalrepresentative> legalrepresentatives;
+    private List<LegalRepresentative> legalrepresentatives;
 
     public Student() {
 
@@ -95,7 +91,7 @@ public class Student extends Person {
             String secondLanguage, int roomies, int familyCoreTunja, LocalDate entryDate,
             HealthData healthData, AcademicData academicData, List<Practice> practices,
             StudentType studentType, Teacher teacher, List<Relative> relatives,
-            List<Legalrepresentative> legalRepresentatives) {
+            List<LegalRepresentative> legalRepresentatives) {
 
         this.identityStudent = identityStudent;
         this.maritalStatus = maritalStatus;
@@ -253,11 +249,11 @@ public class Student extends Person {
         this.relatives = relatives;
     }
 
-    public List<Legalrepresentative> getLegalRepresentatives() {
+    public List<LegalRepresentative> getLegalRepresentatives() {
         return legalrepresentatives;
     }
 
-    public void setLegalRepresentatives(List<Legalrepresentative> legalRepresentatives) {
+    public void setLegalRepresentatives(List<LegalRepresentative> legalRepresentatives) {
         this.legalrepresentatives = legalRepresentatives;
     }
 

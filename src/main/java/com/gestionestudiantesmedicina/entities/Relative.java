@@ -37,8 +37,7 @@ public class Relative {
 
     public Relative() {}
 
-    public Relative(Long idRelative, String name, String lastName, Student student, RelationShip relationship) {
-        this.idRelative = idRelative;
+    public Relative(String name, String lastName, Student student, RelationShip relationship) {
         this.name = name;
         this.lastName = lastName;
         this.student = student;

@@ -1,9 +1,11 @@
 package com.gestionestudiantesmedicina.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.gestionestudiantesmedicina.App;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
 import com.gestionestudiantesmedicina.daos.StudentTypeDAO;
 import com.gestionestudiantesmedicina.daos.UniversityDAO;
@@ -22,6 +24,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -36,6 +41,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class StudentController {
 
@@ -685,5 +691,36 @@ public class StudentController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleEnviar(ActionEvent event) {
+        String fxmlName = "viewRelative";
+        
+        try {
+            //tambien se podria intentar enviar de una vez el estudiante, pero al final el id hace lo mismo
+            Long id = Long.parseLong(txtId.getText().trim());
+            if (studentDAO.findById(id) == null) {
+                showAlert(AlertType.ERROR, "Error", "Debe seleccionar un estudiante");
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
+            Parent view = loader.load();
+
+            RelativeController relativeController = loader.getController();
+            relativeController.setStudentId(id);
+            /*
+            No se si sea necesario o si se pueda hacer asi 
+            MainController mainController = new MainController();
+            mainMenuPane.setCenter(view);
+            */
+
+        }catch(NumberFormatException e){
+            showAlert(AlertType.ERROR, "Error de formato", "El ID debe ser un número.");
+        }catch (IOException e) {
+            e.printStackTrace();
+            showAlert(AlertType.INFORMATION, "Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
+        }
+
     }
 }

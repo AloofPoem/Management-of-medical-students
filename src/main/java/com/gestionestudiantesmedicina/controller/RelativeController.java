@@ -53,8 +53,8 @@ public class RelativeController {
     @FXML
     private TableColumn<Relative, RelationShip> colRelRelationship;
 
-    //ponerlo de una vez en Long
-    private String studentId;
+    //ponerlo de una vez con Student ???
+    private Long studentId;
     private RelativeDAO relativeDAO = new RelativeDAO();
     private ObservableList<Relative> relativeList = FXCollections.observableArrayList();
 
@@ -123,8 +123,7 @@ public class RelativeController {
             String relLastName = txtRelLastName.getText();
             RelationShip relRelationShip = cbRelRelationship.getValue();
             StudentDAO studentDAO = new StudentDAO();
-            //si se deja este parseo agregar un catch para este error
-            Student student = studentDAO.findById(Long.parseLong(studentId));
+            Student student = studentDAO.findById(studentId);
 
             Relative relative = new Relative(relName, relLastName, student, relRelationShip);
 
@@ -213,6 +212,10 @@ public class RelativeController {
         } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
         }
+    }
+
+    public void setStudentId(Long id){
+        this.studentId = id;
     }
 
     private void showAlert(AlertType alertType, String title, String message) {

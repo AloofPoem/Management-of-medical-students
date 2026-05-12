@@ -467,7 +467,7 @@ public class StudentController {
     }
 
     @FXML
-    private void handleRegister(ActionEvent event){
+    private void handleCreate(ActionEvent event){
         //completo 33
         try {
             if (isInvalid()) {
@@ -606,7 +606,6 @@ public class StudentController {
     private void handleDelete(ActionEvent event){
         try {
             Long id = Long.parseLong(txtId.getText());
-            Student student = studentDAO.findById(id);
 
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Eliminación");

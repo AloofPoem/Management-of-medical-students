@@ -421,7 +421,7 @@ public class StudentController {
         txtAllergies.setText(hd.getAllergies());
         txtWeight.setText(String.valueOf(hd.getWeight()));
         txtSize.setText(String.valueOf(hd.getSize()));
-        // txtBmi.setText(String.valueOf(hd.getBmi()));
+        txtBmi.setText(String.valueOf(hd.getBmi()));
         cbBloodType.setValue(hd.getBloodType());
 
         LegalRepresentative lr = s.getLegalRepresentative();
@@ -460,7 +460,7 @@ public class StudentController {
 
         txtWeight.clear();
         txtSize.clear();
-        // txtBmi.clear();
+        txtBmi.clear();
         txtDiseases.clear(); // TextArea
         txtIllness.clear(); // TextArea
         txtMedications.clear(); // TextArea
@@ -524,7 +524,7 @@ public class StudentController {
             String allergies = txtAllergies.getText();
             double weight = Double.parseDouble(txtWeight.getText().trim());
             double size = Double.parseDouble(txtSize.getText().trim());
-            // double bmi = Double.parseDouble(txtBmi.getText().trim());
+            double bmi = weight / Math.pow(size, 2);
             BloodType bloodType = cbBloodType.getValue();
 
             String legalRepName = txtLegalRepName.getText();
@@ -536,7 +536,7 @@ public class StudentController {
 
             AcademicData academicData = new AcademicData(academicDataId, program, semester, average, university);
             HealthData healthData = new HealthData(healthDataId, diseases, illness, medications, allergies, weight,
-                    size, 2.2, bloodType);
+                    size, bmi, bloodType);
             LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone,
                     legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
 
@@ -568,7 +568,7 @@ public class StudentController {
             LegalRepresentative legalRepresentative = student.getLegalRepresentative();
 
             if (student == null || academicData == null || healthData == null || legalRepresentative == null) {
-                showAlert(AlertType.ERROR, "Error", "Empleado no encontrado con ID: " + idStudent);
+                showAlert(AlertType.ERROR, "Error", "Estudiante no encontrado con ID: " + idStudent);
                 return;
             }
 
@@ -603,7 +603,7 @@ public class StudentController {
             healthData.setBloodType(cbBloodType.getValue());
             healthData.setWeight(Double.parseDouble(txtWeight.getText().trim()));
             healthData.setSize(Double.parseDouble(txtSize.getText().trim()));
-            // healthData.setBmi(Double.parseDouble(txtBmi.getText().trim()));
+            healthData.setBmi(healthData.getWeight() / Math.pow(healthData.getSize(), 2));
             healthData.setGeneralDiseases(txtDiseases.getText().trim());
             healthData.setMentalIllness(txtIllness.getText().trim());
             healthData.setMedications(txtMedications.getText().trim());

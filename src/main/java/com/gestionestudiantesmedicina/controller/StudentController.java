@@ -149,10 +149,10 @@ public class StudentController {
 
     @FXML
     private TableColumn<Student, LocalDate> colEntryDate;
-    
+
     @FXML
     private TableColumn<Student, String> colStudentTypeId;
-    
+
     @FXML
     private TableColumn<Student, String> colMedications;
 
@@ -229,6 +229,10 @@ public class StudentController {
 
     @FXML
     private TextField txtId;
+    
+    //password no tiene col para que no se pueda ver asi como asi
+    @FXML
+    private TextField txtPassword;
 
     @FXML
     private TextField txtLegalRepAddress;
@@ -259,7 +263,7 @@ public class StudentController {
 
     @FXML
     private TextField txtBmi;
-    
+
     @FXML
     private TextField txtStudentTypeId;
 
@@ -268,7 +272,7 @@ public class StudentController {
 
     @FXML
     private void initialize() {
-        //completo 33/33
+        // completo 33/33
         // Mapeo de datos directos de la entidad Student
         colIdentity.setCellValueFactory(new PropertyValueFactory<>("identityStudent"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -307,13 +311,13 @@ public class StudentController {
         colProgram.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getAcademicData().getAcademicProgram()));
 
-       colSemester.setCellValueFactory(cellData -> {
+        colSemester.setCellValueFactory(cellData -> {
             AcademicData ad = cellData.getValue().getAcademicData();
             Integer semesterValue = (ad != null) ? ad.getSemester() : 0;
-            
+
             return new SimpleObjectProperty<Integer>(semesterValue);
         });
-                
+
         colAverage.setCellValueFactory(
                 cellData -> new SimpleObjectProperty<>(cellData.getValue().getAcademicData().getCumulativeAverage()));
 
@@ -347,7 +351,8 @@ public class StudentController {
             String studentDisplay = "";
             if (student.getStudentType() != null) {
                 studentDisplay = String.valueOf(student.getStudentType().getNameStuType());
-                //si se cambia por .getIdStuType se entrega el numero, como se ve en id university
+                // si se cambia por .getIdStuType se entrega el numero, como se ve en id
+                // university
             }
 
             return new SimpleStringProperty(studentDisplay);
@@ -382,7 +387,7 @@ public class StudentController {
 
     private void populateForm(Student s) {
         // no teacher
-        //completo 33
+        // completo 33
         txtId.setText(String.valueOf(s.getId()));
         txtName.setText(s.getName());
         txtLastName.setText(s.getLastName());
@@ -396,12 +401,12 @@ public class StudentController {
         txtSecondLanguage.setText(s.getSecondLanguage());
         dpEntryDate.setValue(s.getEntryDate());
         txtStudentTypeId.setText(s.getStudentType() != null ? String.valueOf(s.getStudentType().getIdStuType()) : "");
-        //podria mostrarse el nombre en vez del id ?
+        // podria mostrarse el nombre en vez del id ?
 
         spRoomies.getValueFactory().setValue(s.getRoomies());
         spFamilyCoreTunja.getValueFactory().setValue(s.getFamilyCoreTunja());
 
-        //if para los datos anidados
+        // if para los datos anidados
         AcademicData ac = s.getAcademicData();
         txtProgram.setText(ac.getAcademicProgram());
         // try_catch
@@ -416,7 +421,7 @@ public class StudentController {
         txtAllergies.setText(hd.getAllergies());
         txtWeight.setText(String.valueOf(hd.getWeight()));
         txtSize.setText(String.valueOf(hd.getSize()));
-        //txtBmi.setText(String.valueOf(hd.getBmi()));
+        // txtBmi.setText(String.valueOf(hd.getBmi()));
         cbBloodType.setValue(hd.getBloodType());
 
         LegalRepresentative lr = s.getLegalRepresentative();
@@ -430,8 +435,8 @@ public class StudentController {
     }
 
     @FXML
-    private void handleClear(ActionEvent e){
-        //completo 33
+    private void handleClear(ActionEvent e) {
+        // completo 33
         txtId.clear();
         txtName.clear();
         txtLastName.clear();
@@ -447,42 +452,45 @@ public class StudentController {
         spRoomies.getValueFactory().setValue(0);
         spFamilyCoreTunja.getValueFactory().setValue(0);
         txtStudentTypeId.clear();
-        
+
         txtIdUni.clear();
         txtProgram.clear();
         txtAverage.clear();
         spSemester.getValueFactory().setValue(1);
-        
+
         txtWeight.clear();
         txtSize.clear();
-        //txtBmi.clear();
+        // txtBmi.clear();
         txtDiseases.clear(); // TextArea
-        txtIllness.clear();  // TextArea
+        txtIllness.clear(); // TextArea
         txtMedications.clear(); // TextArea
-        txtAllergies.clear();   // TextArea
+        txtAllergies.clear(); // TextArea
         cbBloodType.setValue(null);
-        
+
         txtLegalRepName.clear();
         txtLegalRepPhone.clear();
         txtLegalRepAddress.clear();
         txtLegalRepCity.clear();
         dpLegalRepBirthDate.setValue(null);
         cbLegalRepRelationship.setValue(null);
-        
+
         tableStudents.getSelectionModel().clearSelection();
         loadStudentList();
     }
 
     @FXML
-    private void handleCreate(ActionEvent event){
-        //completo 33
+    private void handleCreate(ActionEvent event) {
+        // completo 33
         try {
             if (isInvalid()) {
                 showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos son obligatorios.");
                 return;
             }
 
-            Long identity = Long.parseLong(txtId.getText().trim()); 
+            Long identity = Long.parseLong(txtId.getText().trim());
+
+            String password = txtPassword.getText();
+
             String name = txtName.getText();
             String lastName = txtLastName.getText();
             LocalDate birthDate = dpBirthDate.getValue();
@@ -506,7 +514,7 @@ public class StudentController {
             Long universityId = Long.parseLong(txtIdUni.getText().trim());
             University university = universityDAO.findById(universityId);
             String program = txtProgram.getText();
-            Integer semester = spSemester.getValue(); 
+            Integer semester = spSemester.getValue();
             double average = Double.parseDouble(txtAverage.getText());
 
             Long healthDataId = identity;
@@ -516,27 +524,29 @@ public class StudentController {
             String allergies = txtAllergies.getText();
             double weight = Double.parseDouble(txtWeight.getText().trim());
             double size = Double.parseDouble(txtSize.getText().trim());
-            //double bmi = Double.parseDouble(txtBmi.getText().trim());
+            // double bmi = Double.parseDouble(txtBmi.getText().trim());
             BloodType bloodType = cbBloodType.getValue();
-            
+
             String legalRepName = txtLegalRepName.getText();
             String legalRepPhone = txtLegalRepPhone.getText();
             String legalRepAddress = txtLegalRepAddress.getText();
             String legalRepCity = txtLegalRepCity.getText();
             LocalDate legalRepBirthDate = dpLegalRepBirthDate.getValue();
             RelationShip legalRepRel = cbLegalRepRelationship.getValue();
-            
+
             AcademicData academicData = new AcademicData(academicDataId, program, semester, average, university);
-            HealthData healthData = new HealthData(healthDataId, diseases, illness, medications, allergies, weight, size, 2.2, bloodType);
-            LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone, legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
-            
-            Student student = new Student(name, lastName, birthDate, identity, maritalStatus, birthPlace, addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate, healthData, academicData, null, studentType, null, null, legalRepresentative);
-            
+            HealthData healthData = new HealthData(healthDataId, diseases, illness, medications, allergies, weight,
+                    size, 2.2, bloodType);
+            LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone,
+                    legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
+
+            Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace, addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate, healthData, academicData, null, studentType, null, null, legalRepresentative);
+
             studentDAO.save(student);
-            
+
             loadStudentList();
             handleClear(null);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de Formato", "Algunos campos deben ser numeros");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -545,21 +555,25 @@ public class StudentController {
     }
 
     @FXML
-    private void handleUpdate(ActionEvent event){
-        //completo 33
+    private void handleUpdate(ActionEvent event) {
+        // completo 33
         try {
             Long idStudent = Long.parseLong(txtId.getText().trim());
+
+            String password = txtPassword.getText();
+
             Student student = studentDAO.findById(idStudent);
             AcademicData academicData = student.getAcademicData();
             HealthData healthData = student.getHealthData();
             LegalRepresentative legalRepresentative = student.getLegalRepresentative();
 
-            if (student == null||academicData == null|| healthData == null|| legalRepresentative == null) {
+            if (student == null || academicData == null || healthData == null || legalRepresentative == null) {
                 showAlert(AlertType.ERROR, "Error", "Empleado no encontrado con ID: " + idStudent);
                 return;
             }
 
             student.setId(Long.parseLong(txtId.getText().trim()));
+            student.setPassword(password);
             student.setName(txtName.getText().trim());
             student.setLastName(txtLastName.getText().trim());
             student.setBirthDate(dpBirthDate.getValue());
@@ -573,11 +587,11 @@ public class StudentController {
             student.setEntryDate(dpEntryDate.getValue());
             student.setRoomies(spRoomies.getValue());
             student.setFamilyCoreTunja(spFamilyCoreTunja.getValue());
-            
+
             academicData.setAcademicProgram(txtProgram.getText().trim());
             academicData.setCumulativeAverage(Double.parseDouble(txtAverage.getText().trim()));
             academicData.setSemester(spSemester.getValue());
-            
+
             UniversityDAO universityDAO = new UniversityDAO();
             University university = universityDAO.findById(Long.parseLong(txtIdUni.getText().trim()));
             academicData.setUniversity(university);
@@ -585,11 +599,11 @@ public class StudentController {
             StudentTypeDAO studentTypeDAO = new StudentTypeDAO();
             StudentType studentType = studentTypeDAO.findById(Long.parseLong(txtStudentTypeId.getText().trim()));
             student.setStudentType(studentType);
-            
+
             healthData.setBloodType(cbBloodType.getValue());
             healthData.setWeight(Double.parseDouble(txtWeight.getText().trim()));
             healthData.setSize(Double.parseDouble(txtSize.getText().trim()));
-            //healthData.setBmi(Double.parseDouble(txtBmi.getText().trim()));
+            // healthData.setBmi(Double.parseDouble(txtBmi.getText().trim()));
             healthData.setGeneralDiseases(txtDiseases.getText().trim());
             healthData.setMentalIllness(txtIllness.getText().trim());
             healthData.setMedications(txtMedications.getText().trim());
@@ -615,7 +629,7 @@ public class StudentController {
     }
 
     @FXML
-    private void handleDelete(ActionEvent event){
+    private void handleDelete(ActionEvent event) {
         try {
             Long id = Long.parseLong(txtId.getText());
 
@@ -628,7 +642,7 @@ public class StudentController {
                 loadStudentList();
                 handleClear(null);
             }
-            
+
         } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
         } catch (Exception e) {
@@ -637,7 +651,7 @@ public class StudentController {
     }
 
     @FXML
-    private void handleSearch(ActionEvent event){
+    private void handleSearch(ActionEvent event) {
         try {
             Long id = Long.parseLong(txtId.getText());
             Student student = studentDAO.findById(id);
@@ -649,40 +663,43 @@ public class StudentController {
             } else {
                 showAlert(AlertType.INFORMATION, "Búsqueda", "Estudiante no encontrado con ID: " + id);
             }
-            
+
         } catch (NumberFormatException e) {
-            showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");   
+            showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
         }
     }
 
     private boolean isInvalid() {
-        if (dpBirthDate.getValue() == null || dpEntryDate.getValue() == null || dpLegalRepBirthDate.getValue() == null) return true;
+        if (dpBirthDate.getValue() == null || dpEntryDate.getValue() == null || dpLegalRepBirthDate.getValue() == null)
+            return true;
 
-        //revisar <= 0 es necesario
-        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spRoomies.getValue() == null || spFamilyCoreTunja.getValue() == null) return true;
+        // revisar <= 0 es necesario
+        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spRoomies.getValue() == null
+                || spFamilyCoreTunja.getValue() == null)
+            return true;
 
-        ComboBox<?>[] allCombos = {cbMaritalStatus, cbBloodType, cbLegalRepRelationship};
+        ComboBox<?>[] allCombos = { cbMaritalStatus, cbBloodType, cbLegalRepRelationship };
 
         for (ComboBox<?> combo : allCombos) {
-           if (combo == null || combo.getValue() == null) {
+            if (combo == null || combo.getValue() == null) {
                 return true;
             }
         }
 
-        //txtBmi
-        TextInputControl[] fields ={
-            txtId, txtName, txtLastName, txtBirthPlace, 
-            txtAddressTunja, txtPermanentAddress, txtPhone, 
-            txtEmail, txtSecondLanguage,
-            txtProgram, txtIdUni, txtAverage,
-            txtWeight, txtSize, txtDiseases, txtIllness, 
-            txtMedications, txtAllergies,
-            txtLegalRepName, txtLegalRepPhone, 
-            txtLegalRepAddress, txtLegalRepCity,txtStudentTypeId
+        // txtBmi
+        TextInputControl[] fields = {
+                txtId, txtName, txtLastName, txtBirthPlace,
+                txtAddressTunja, txtPermanentAddress, txtPhone,
+                txtEmail, txtSecondLanguage, txtPassword,
+                txtProgram, txtIdUni, txtAverage,
+                txtWeight, txtSize, txtDiseases, txtIllness,
+                txtMedications, txtAllergies,
+                txtLegalRepName, txtLegalRepPhone,
+                txtLegalRepAddress, txtLegalRepCity, txtStudentTypeId
         };
 
         for (TextInputControl field : fields) {
-            //field == null se debe quitar
+            // field == null se debe quitar
             if (field == null || field.getText() == null || field.getText().trim() == null) {
                 return true;
             }
@@ -702,9 +719,10 @@ public class StudentController {
     @FXML
     private void handleEnviar(ActionEvent event) {
         String fxmlName = "viewRelative";
-        
+
         try {
-            //tambien se podria intentar enviar de una vez el estudiante, pero al final el id hace lo mismo
+            // tambien se podria intentar enviar de una vez el estudiante, pero al final el
+            // id hace lo mismo
             Long id = Long.parseLong(txtId.getText().trim());
             if (studentDAO.findById(id) == null) {
                 showAlert(AlertType.ERROR, "Error", "Debe seleccionar un estudiante");
@@ -716,14 +734,14 @@ public class StudentController {
             RelativeController relativeController = loader.getController();
             relativeController.setStudentId(id);
             /*
-            No se si sea necesario o si se pueda hacer asi 
-            MainController mainController = new MainController();
-            mainMenuPane.setCenter(view);
-            */
+             * No se si sea necesario o si se pueda hacer asi
+             * MainController mainController = new MainController();
+             * mainMenuPane.setCenter(view);
+             */
 
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de formato", "El ID debe ser un número.");
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             showAlert(AlertType.INFORMATION, "Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
         }

@@ -2,7 +2,6 @@ package com.gestionestudiantesmedicina.entities;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,37 +9,39 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "class_entity")
+@Table(name = "practice")
 public class Practice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPractice;
 
-    @OneToMany(mappedBy = "ptactice", cascade = CascadeType.ALL)
-    private List<Subject> subjects;
+    @ManyToOne
+    @JoinColumn(name = "sunject")
+    private Subject subject;
 
     @OneToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    @ManyToMany(mappedBy = "practices")
+    @ManyToMany(mappedBy = "practice")
     private List<Student> students;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    public Practice() {}
+    public Practice() {
+    }
 
-    public Practice(Long idPractice, List<Subject> subjects, Schedule schedule, List<Student> students, Teacher teacher) {
+    public Practice(Long idPractice, Subject subject, Schedule schedule, List<Student> students,
+            Teacher teacher) {
         this.idPractice = idPractice;
-        this.subjects = subjects;
+        this.subject = subject;
         this.schedule = schedule;
         this.students = students;
         this.teacher = teacher;
@@ -54,12 +55,12 @@ public class Practice {
         this.idPractice = idPractice;
     }
 
-    public List<Subject> getSubjects() {
-        return subjects;
+    public Subject getSubjects() {
+        return subject;
     }
 
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
+    public void setSubjects(Subject subject) {
+        this.subject = subject;
     }
 
     public Schedule getSchedule() {

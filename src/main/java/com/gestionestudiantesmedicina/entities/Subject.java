@@ -1,12 +1,14 @@
 package com.gestionestudiantesmedicina.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,17 +22,16 @@ public class Subject {
     @Column(name = "name_subject", nullable = false)
     private String nameSubject;
 
-    @ManyToOne
-    @JoinColumn(name = "practice_id")
-    private Practice ptactice;
+    @OneToMany(mappedBy = "practice", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<Practice> practices;
 
     public Subject() {
     }
 
-    public Subject(Long idSubject, String nameSubject, Practice ptactice) {
+    public Subject(Long idSubject, String nameSubject, List<Practice> practices) {
         IdSubject = idSubject;
         this.nameSubject = nameSubject;
-        this.ptactice = ptactice;
+        this.practices = practices;
     }
 
     public Long getIdSubject() {
@@ -49,11 +50,11 @@ public class Subject {
         this.nameSubject = nameSubject;
     }
 
-    public Practice getClassSubject() {
-        return ptactice;
+    public List<Practice> getListPractices() {
+        return practices;
     }
 
-    public void setClassSubject(Practice ptactice) {
-        this.ptactice = ptactice;
+    public void setPractices(List<Practice> practices) {
+        this.practices = practices;
     }
 }

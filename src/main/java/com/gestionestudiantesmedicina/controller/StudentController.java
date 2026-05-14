@@ -26,7 +26,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -41,7 +40,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 public class StudentController {
 
@@ -286,7 +284,6 @@ public class StudentController {
         colRoomies.setCellValueFactory(new PropertyValueFactory<>("roomies"));
         colFamilyCoreTunja.setCellValueFactory(new PropertyValueFactory<>("familyCoreTunja"));
         colEntryDate.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
-        colMedications.setCellValueFactory(new PropertyValueFactory<>("medications"));
 
         // Mapeo de datos anidados (HealthData)
         colBloodType.setCellValueFactory(
@@ -303,6 +300,8 @@ public class StudentController {
                 cellData -> new SimpleStringProperty(cellData.getValue().getHealthData().getMentalIllness()));
         colAllergies.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getHealthData().getAllergies()));
+        colMedications.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getHealthData().getMedications()));
 
         // Mapeo de datos anidados (AcademicData)
         colProgram.setCellValueFactory(
@@ -329,7 +328,8 @@ public class StudentController {
                 cellData -> new SimpleStringProperty(cellData.getValue().getLegalRepresentative().getCity()));
         colLegalRepRelationship.setCellValueFactory(
                 cellData -> new SimpleObjectProperty<>(cellData.getValue().getLegalRepresentative().getRelationship()));
-        colLegalRepPhone.setCellValueFactory(new PropertyValueFactory<>("legalRepPhone"));
+        colLegalRepPhone.setCellValueFactory(
+                cellData -> new SimpleObjectProperty<>(cellData.getValue().getLegalRepresentative().getPhoneNu()));
 
         colIdUni.setCellValueFactory(cellData -> {
             Student student = cellData.getValue();
@@ -346,7 +346,8 @@ public class StudentController {
             Student student = cellData.getValue();
             String studentDisplay = "";
             if (student.getStudentType() != null) {
-                studentDisplay = String.valueOf(student.getStudentType().getIdStuType());
+                studentDisplay = String.valueOf(student.getStudentType().getNameStuType());
+                //si se cambia por .getIdStuType se entrega el numero, como se ve en id university
             }
 
             return new SimpleStringProperty(studentDisplay);
@@ -415,7 +416,7 @@ public class StudentController {
         txtAllergies.setText(hd.getAllergies());
         txtWeight.setText(String.valueOf(hd.getWeight()));
         txtSize.setText(String.valueOf(hd.getSize()));
-        txtBmi.setText(String.valueOf(hd.getBmi()));
+        //txtBmi.setText(String.valueOf(hd.getBmi()));
         cbBloodType.setValue(hd.getBloodType());
 
         LegalRepresentative lr = s.getLegalRepresentative();
@@ -454,7 +455,7 @@ public class StudentController {
         
         txtWeight.clear();
         txtSize.clear();
-        txtBmi.clear();
+        //txtBmi.clear();
         txtDiseases.clear(); // TextArea
         txtIllness.clear();  // TextArea
         txtMedications.clear(); // TextArea
@@ -515,7 +516,7 @@ public class StudentController {
             String allergies = txtAllergies.getText();
             double weight = Double.parseDouble(txtWeight.getText().trim());
             double size = Double.parseDouble(txtSize.getText().trim());
-            double bmi = Double.parseDouble(txtBmi.getText().trim());
+            //double bmi = Double.parseDouble(txtBmi.getText().trim());
             BloodType bloodType = cbBloodType.getValue();
             
             String legalRepName = txtLegalRepName.getText();
@@ -526,7 +527,7 @@ public class StudentController {
             RelationShip legalRepRel = cbLegalRepRelationship.getValue();
             
             AcademicData academicData = new AcademicData(academicDataId, program, semester, average, university);
-            HealthData healthData = new HealthData(healthDataId, diseases, illness, medications, allergies, weight, size, bmi, bloodType);
+            HealthData healthData = new HealthData(healthDataId, diseases, illness, medications, allergies, weight, size, 2.2, bloodType);
             LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone, legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
             
             Student student = new Student(name, lastName, birthDate, identity, maritalStatus, birthPlace, addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate, healthData, academicData, null, studentType, null, null, legalRepresentative);
@@ -588,7 +589,7 @@ public class StudentController {
             healthData.setBloodType(cbBloodType.getValue());
             healthData.setWeight(Double.parseDouble(txtWeight.getText().trim()));
             healthData.setSize(Double.parseDouble(txtSize.getText().trim()));
-            healthData.setBmi(Double.parseDouble(txtBmi.getText().trim()));
+            //healthData.setBmi(Double.parseDouble(txtBmi.getText().trim()));
             healthData.setGeneralDiseases(txtDiseases.getText().trim());
             healthData.setMentalIllness(txtIllness.getText().trim());
             healthData.setMedications(txtMedications.getText().trim());
@@ -600,6 +601,11 @@ public class StudentController {
             legalRepresentative.setCity(txtLegalRepCity.getText().trim());
             legalRepresentative.setBirthDate(dpLegalRepBirthDate.getValue());
             legalRepresentative.setRelationship(cbLegalRepRelationship.getValue());
+
+            studentDAO.update(student);
+
+            loadStudentList();
+            handleClear(null);
 
         } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de Formato", "Algunos campos deben ser numeros");
@@ -617,7 +623,6 @@ public class StudentController {
             alert.setTitle("Confirmar Eliminación");
             alert.setHeaderText("¿Está seguro de que desea eliminar al Estudiante con ID " + id + "?");
             Optional<ButtonType> result = alert.showAndWait();
-
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 studentDAO.delete(id);
                 loadStudentList();
@@ -664,10 +669,11 @@ public class StudentController {
             }
         }
 
+        //txtBmi
         TextInputControl[] fields ={
             txtId, txtName, txtLastName, txtBirthPlace, 
             txtAddressTunja, txtPermanentAddress, txtPhone, 
-            txtEmail, txtSecondLanguage, txtBmi,
+            txtEmail, txtSecondLanguage,
             txtProgram, txtIdUni, txtAverage,
             txtWeight, txtSize, txtDiseases, txtIllness, 
             txtMedications, txtAllergies,

@@ -2,6 +2,7 @@ package com.gestionestudiantesmedicina.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,8 +20,11 @@ public class Teacher extends Person {
     @Column(name = "specialty", nullable = false)
     private String specialty;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Student> students;
+
+    @OneToMany(mappedBy = "teacher", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
+    private Record record;
 
     public Teacher() {
     }

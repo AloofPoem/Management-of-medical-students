@@ -3,6 +3,7 @@ package com.gestionestudiantesmedicina.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class StudentType {
     @Column(name = "name_student_type", nullable = false)
     private String nameStuType;
 
-    @OneToMany(mappedBy = "studentType")
+    @OneToMany(mappedBy = "studentType", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Student> students;
 
     public StudentType() {

@@ -6,10 +6,10 @@ module com.gestionestudiantesmedicina {
     requires org.hibernate.orm.core;
 
     opens com.gestionestudiantesmedicina to javafx.fxml;
+    opens com.gestionestudiantesmedicina.controller to javafx.fxml;
 
     //se supone que es para hibernate
     opens com.gestionestudiantesmedicina.entities to org.hibernate.orm.core, javafx.base;
-    //opens com.gestionestudiantesmedicina to javafx.fxml;
 
     exports com.gestionestudiantesmedicina;
 }

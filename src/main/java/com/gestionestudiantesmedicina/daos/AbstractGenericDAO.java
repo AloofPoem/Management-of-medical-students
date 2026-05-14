@@ -39,7 +39,7 @@ public class AbstractGenericDAO<T,K> implements GenericDAO<T,K> {
     @Override
     public List<T> findAll() {
         EntityManager em = emf.createEntityManager();
-        List<T> list = em.createQuery("FROM" + entityClass.getSimpleName()).getResultList();
+        List<T> list = em.createQuery("FROM " + entityClass.getSimpleName()).getResultList();
         em.close();
         return list;
     }

@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,9 +29,9 @@ public class Record {
     @Column(name = "time_out")
     private LocalTime timeOut;
 
-    @OneToOne
-    @JoinColumn(name = "person_id")
-    private Person person;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id")
@@ -40,13 +39,13 @@ public class Record {
 
     public Record() {}
 
-    public Record(Long idRecord, LocalDate date, LocalTime timeIn, LocalTime timeOut, Person person,
+    public Record(Long idRecord, LocalDate date, LocalTime timeIn, LocalTime timeOut, Teacher teacher,
             Schedule schedule) {
         IdRecord = idRecord;
         this.date = date;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
-        this.person = person;
+        this.teacher = teacher;
         this.schedule = schedule;
     }
 
@@ -82,12 +81,12 @@ public class Record {
         this.timeOut = timeOut;
     }
 
-    public Person getPerson() {
-        return person;
+    public Teacher getteacher() {
+        return teacher;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setteacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public Schedule getSchedule() {

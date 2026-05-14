@@ -22,7 +22,7 @@ public class Practice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPractice;
 
-    @OneToMany(mappedBy = "classEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ptactice", cascade = CascadeType.ALL)
     private List<Subject> subjects;
 
     @OneToOne

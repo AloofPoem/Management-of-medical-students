@@ -1,6 +1,6 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
 
-    <persistence-unit name="estudiantes_equipos"> 
+    <persistence-unit name="estudiantes_medicina"> 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

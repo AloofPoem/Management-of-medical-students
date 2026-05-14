@@ -21,7 +21,7 @@ public class Subject {
     private String nameSubject;
 
     @ManyToOne
-    @JoinColumn(name = "class_id")
+    @JoinColumn(name = "practice_id")
     private Practice ptactice;
 
     public Subject() {

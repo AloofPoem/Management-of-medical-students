@@ -77,7 +77,7 @@ public class Student extends Person {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "student", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Relative> relatives;
 
     @OneToOne(cascade = CascadeType.ALL)

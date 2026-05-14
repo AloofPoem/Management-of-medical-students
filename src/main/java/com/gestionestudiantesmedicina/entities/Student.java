@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -22,9 +21,6 @@ import com.gestionestudiantesmedicina.enumeration.MaritalStatus;
 @Entity
 @Table(name = "student")
 public class Student extends Person {
-
-    @Id
-    private Long identityStudent;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "marital_status", nullable = false)
@@ -88,13 +84,12 @@ public class Student extends Person {
 
     }
 
-    public Student(String name, String lastName, LocalDate birthDate, Long identityStudent, MaritalStatus maritalStatus,
+    public Student(String name, String lastName, LocalDate birthDate, Long id, MaritalStatus maritalStatus,
             String birthPlace, String addressTunja, String permanentAddress, String phoneNumber, String email,
             String secondLanguage, Integer roomies, Integer familyCoreTunja, LocalDate entryDate, HealthData healthData,
             AcademicData academicData, List<Practice> practices, StudentType studentType, Teacher teacher,
             List<Relative> relatives, LegalRepresentative legalRepresentative) {
-        super(name, lastName, birthDate);
-        this.identityStudent = identityStudent;
+        super(id, name, lastName, birthDate);
         this.maritalStatus = maritalStatus;
         this.birthPlace = birthPlace;
         this.addressTunja = addressTunja;
@@ -112,14 +107,6 @@ public class Student extends Person {
         this.teacher = teacher;
         this.relatives = relatives;
         this.legalRepresentative = legalRepresentative;
-    }
-
-    public Long getIdentityStudent() {
-        return identityStudent;
-    }
-
-    public void setIdentityStudent(Long identityStudent) {
-        this.identityStudent = identityStudent;
     }
 
     public MaritalStatus getMaritalStatus() {

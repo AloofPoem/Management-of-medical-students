@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
@@ -12,6 +13,9 @@ import javax.persistence.Table;
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
+
+    @Id
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -26,12 +30,14 @@ public abstract class Person {
 
     }
 
-    public Person(String name, String lastName, LocalDate birthDate) {
+    public Person(Long id, String name, String lastName, LocalDate birthDate) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.birthDate = birthDate;
-    
     }
+
+
 
     public String getName() {
         return name;
@@ -55,6 +61,14 @@ public abstract class Person {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

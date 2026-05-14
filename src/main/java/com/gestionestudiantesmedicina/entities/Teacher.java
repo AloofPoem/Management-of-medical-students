@@ -1,21 +1,17 @@
 package com.gestionestudiantesmedicina.entities;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "teacher")
 public class Teacher extends Person {
-
-    @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTeacher;
 
     @Column(name = "specialty", nullable = false)
     private String specialty;
@@ -24,23 +20,17 @@ public class Teacher extends Person {
     private List<Student> students;
 
     @OneToMany(mappedBy = "teacher", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
-    private Record record;
+    private List<Record> records;
 
     public Teacher() {
     }
 
-    public Teacher(Long idTeacher, String specialty, List<Student> students) {
-        this.idTeacher = idTeacher;
+    public Teacher(Long id, String name, String lastName, LocalDate birthDate, String specialty, List<Student> students,
+            List<Record> records) {
+        super(id, name, lastName, birthDate);
         this.specialty = specialty;
         this.students = students;
-    }
-
-    public Long getIdTeacher() {
-        return idTeacher;
-    }
-
-    public void setIdTeacher(Long idTeacher) {
-        this.idTeacher = idTeacher;
+        this.records = records;
     }
 
     public String getSpecialty() {
@@ -58,4 +48,13 @@ public class Teacher extends Person {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
+    }
+    
 }

@@ -383,7 +383,7 @@ public class StudentController {
     private void populateForm(Student s) {
         // no teacher
         //completo 33
-        txtId.setText(String.valueOf(s.getIdentityStudent()));
+        txtId.setText(String.valueOf(s.getId()));
         txtName.setText(s.getName());
         txtLastName.setText(s.getLastName());
         dpBirthDate.setValue(s.getBirthDate());
@@ -559,7 +559,7 @@ public class StudentController {
                 return;
             }
 
-            student.setIdentityStudent(Long.parseLong(txtId.getText().trim()));
+            student.setId(Long.parseLong(txtId.getText().trim()));
             student.setName(txtName.getText().trim());
             student.setLastName(txtLastName.getText().trim());
             student.setBirthDate(dpBirthDate.getValue());

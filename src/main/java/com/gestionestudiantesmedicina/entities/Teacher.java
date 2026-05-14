@@ -25,9 +25,9 @@ public class Teacher extends Person {
     public Teacher() {
     }
 
-    public Teacher(Long id, String name, String lastName, LocalDate birthDate, String specialty, List<Student> students,
-            List<Record> records) {
-        super(id, name, lastName, birthDate);
+    public Teacher(Long id, String name, String lastName, LocalDate birthDate, String password, String specialty,
+            List<Student> students, List<Record> records) {
+        super(id, name, lastName, birthDate, password);
         this.specialty = specialty;
         this.students = students;
         this.records = records;

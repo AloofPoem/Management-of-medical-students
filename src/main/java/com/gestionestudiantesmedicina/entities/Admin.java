@@ -9,9 +9,8 @@ import javax.persistence.Table;
 @Table(name = "admin")
 public class Admin extends Person {
 
-    public Admin(Long id,String name, String lastName, LocalDate birthDate) {
-        super(id, name, lastName, birthDate);
+    public Admin(Long id, String name, String lastName, LocalDate birthDate, String password) {
+        super(id, name, lastName, birthDate, password);
     }
-
     
 }

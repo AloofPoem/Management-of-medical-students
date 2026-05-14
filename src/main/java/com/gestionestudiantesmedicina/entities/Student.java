@@ -80,16 +80,13 @@ public class Student extends Person {
     @JoinColumn(name = "legal_representative")
     private LegalRepresentative legalRepresentative;
 
-    public Student() {
-
-    }
-
-    public Student(String name, String lastName, LocalDate birthDate, Long id, MaritalStatus maritalStatus,
-            String birthPlace, String addressTunja, String permanentAddress, String phoneNumber, String email,
-            String secondLanguage, Integer roomies, Integer familyCoreTunja, LocalDate entryDate, HealthData healthData,
-            AcademicData academicData, List<Practice> practices, StudentType studentType, Teacher teacher,
-            List<Relative> relatives, LegalRepresentative legalRepresentative) {
-        super(id, name, lastName, birthDate);
+    public Student(Long id, String name, String lastName, LocalDate birthDate, String password,
+            MaritalStatus maritalStatus, String birthPlace, String addressTunja, String permanentAddress,
+            String phoneNumber, String email, String secondLanguage, Integer roomies, Integer familyCoreTunja,
+            LocalDate entryDate, HealthData healthData, AcademicData academicData, List<Practice> practices,
+            StudentType studentType, Teacher teacher, List<Relative> relatives,
+            LegalRepresentative legalRepresentative) {
+        super(id, name, lastName, birthDate, password);
         this.maritalStatus = maritalStatus;
         this.birthPlace = birthPlace;
         this.addressTunja = addressTunja;

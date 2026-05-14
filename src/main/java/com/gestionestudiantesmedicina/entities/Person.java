@@ -25,16 +25,20 @@ public abstract class Person {
 
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
+    
+    @Column(name = "password", nullable = false)
+    private String password;
 
     public Person() {
 
     }
 
-    public Person(Long id, String name, String lastName, LocalDate birthDate) {
+    public Person(Long id, String name, String lastName, LocalDate birthDate, String password) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.password = password;
     }
 
 
@@ -69,6 +73,14 @@ public abstract class Person {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

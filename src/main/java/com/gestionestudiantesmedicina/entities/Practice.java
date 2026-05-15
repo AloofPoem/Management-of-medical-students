@@ -21,14 +21,14 @@ public class Practice {
     private Long idPractice;
 
     @ManyToOne
-    @JoinColumn(name = "sunject")
+    @JoinColumn(name = "subject")
     private Subject subject;
 
     @OneToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
-    @ManyToMany(mappedBy = "practice")
+    @ManyToMany(mappedBy = "practices")
     private List<Student> students;
 
     @ManyToOne

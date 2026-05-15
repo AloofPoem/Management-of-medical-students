@@ -22,7 +22,7 @@ public class Subject {
     @Column(name = "name_subject", nullable = false)
     private String nameSubject;
 
-    @OneToMany(mappedBy = "practice", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "subject", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Practice> practices;
 
     public Subject() {

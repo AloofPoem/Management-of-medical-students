@@ -388,6 +388,7 @@ public class StudentController {
     private void populateForm(Student s) {
         // no teacher
         // completo 33
+        txtPassword.setText(s.getPassword());
         txtId.setText(String.valueOf(s.getId()));
         txtName.setText(s.getName());
         txtLastName.setText(s.getLastName());
@@ -557,6 +558,10 @@ public class StudentController {
     @FXML
     private void handleUpdate(ActionEvent event) {
         // completo 33
+        if (isInvalid()) {
+            showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos deben tener datos");
+            return;
+        }
         try {
             Long idStudent = Long.parseLong(txtId.getText().trim());
 
@@ -686,7 +691,6 @@ public class StudentController {
             }
         }
 
-        // txtBmi
         TextInputControl[] fields = {
                 txtId, txtName, txtLastName, txtBirthPlace,
                 txtAddressTunja, txtPermanentAddress, txtPhone,
@@ -699,8 +703,7 @@ public class StudentController {
         };
 
         for (TextInputControl field : fields) {
-            // field == null se debe quitar
-            if (field == null || field.getText() == null || field.getText().trim() == null) {
+            if (field == null || field.getText() == null || field.getText().trim().isEmpty()) {
                 return true;
             }
         }
@@ -731,7 +734,7 @@ public class StudentController {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
             Parent view = loader.load();
 
-            RelativeController relativeController = loader.getController();
+            RelativeController relativeController = new RelativeController();
             relativeController.setStudentId(id);
             /*
              * No se si sea necesario o si se pueda hacer asi

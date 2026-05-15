@@ -2,123 +2,685 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox style="-fx-background-color: #F8F9FA;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.juanboterojuangaleano.controller.VisitorController">
+<VBox prefHeight="800.0" prefWidth="1200.0" spacing="15.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label prefHeight="30.0" prefWidth="183.0" text="Gestión Estudiante" textFill="#3f2b63">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-         <VBox.margin>
-            <Insets left="215.0" />
-         </VBox.margin>
-      </Label>
-      <GridPane prefHeight="91.0" prefWidth="585.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.20001220703125" minWidth="10.0" prefWidth="134.400048828125" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="478.2000244140625" minWidth="10.0" prefWidth="465.599951171875" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <HBox alignment="CENTER" style="-fx-background-color: #3F2B63; -fx-padding: 20;">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
+            <Label text="SISTEMA DE GESTIÓN ESTUDIANTIL" textFill="WHITE">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="24.0" />
                </font>
-               <GridPane.margin>
-                  <Insets left="10.0" top="5.0" />
-               </GridPane.margin></Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE:" GridPane.rowIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="10.0" top="5.0" />
-               </GridPane.margin></Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NUMERO DE IDENTIDAD:" GridPane.rowIndex="2">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="10.0" top="5.0" />
-               </GridPane.margin></Text>
-            <TextField fx:id="idField" style="-fx-background-color: #FFFFFF; -fx-border-color: #2C3E50; -fx-border-radius: 3;" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="40.0" right="200.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="nameField" style="-fx-background-color: #FFFFFF; -fx-border-color: #2C3E50; -fx-border-radius: 3;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="40.0" right="200.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="razonField" prefHeight="26.0" prefWidth="179.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #2C3E50; -fx-border-radius: 3;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="40.0" right="200.0" />
-               </GridPane.margin>
-            </TextField>
-         </children>
-      </GridPane>
-      <HBox prefHeight="39.0" prefWidth="600.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#handleCreate" style="-fx-background-color: #1DB9A3;" text="Crear" textFill="WHITE">
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleUpdate" style="-fx-background-color: #4C3675;" text="Actualizar" textFill="WHITE">
-               <HBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-color: #4C3675;" text="Eliminar" textFill="WHITE">
-               <HBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleSearch" style="-fx-background-color: #4C3675;" text="Buscar Por ID" textFill="WHITE">
-               <HBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleClear" style="-fx-background-color: #4C3675;" text="Limpiar" textFill="WHITE">
-               <HBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleUpdate" style="-fx-background-color: #4C3675;" text="Datos Salud" textFill="WHITE">
-               <HBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleUpdate" style="-fx-background-color: #4C3675;" text="Datos Academicos" textFill="WHITE">
-               <HBox.margin>
-                  <Insets left="15.0" top="10.0" />
-               </HBox.margin>
-            </Button>
+               <tooltip>
+                  <Tooltip text="Sistema integral para gestión de estudiantes y representantes legales" />
+               </tooltip>
+            </Label>
          </children>
       </HBox>
-      <Label />
-      <TableView fx:id="visitorTable" prefHeight="513.0" prefWidth="600.0" style="-fx-background-color: f000; -fx-base: #3F2B63;">
-        <columns>
-          <TableColumn fx:id="idColumn" prefWidth="75.0" style="-fx-background-color: #3F2B63;" text="ID" />
-          <TableColumn fx:id="nameColumn" prefWidth="178.39996337890625" style="-fx-background-color: #3F2B63; -fx-text-fill: white;" text="NOMBRE" />
-            <TableColumn fx:id="visitRColumn" prefWidth="345.60003662109375" style="-fx-background-color: #3F2B63;" text="NUMERO DE IDENTIDAD" />
-        </columns>
-      </TableView>
+      
+      <TabPane style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER">
+        <tabs>
+          <Tab text="📋 Información Personal">
+            <content>
+              <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
+                <content>
+                  <GridPane hgap="15.0" style="-fx-padding: 25; -fx-background-color: white;" vgap="15.0">
+                    <columnConstraints>
+                      <ColumnConstraints prefWidth="150.0" />
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                      <ColumnConstraints prefWidth="150.0" />
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                    </columnConstraints>
+                    <children>
+                       <Label style="-fx-font-weight: bold;" text="ID Estudiante:">
+                          <tooltip>
+                             <Tooltip text="Identificador único del estudiante en el sistema" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtId" promptText="Ej: EST-2024-001" GridPane.columnIndex="1">
+                          <tooltip>
+                             <Tooltip text="Ingrese el código único del estudiante" />
+                          </tooltip>
+                       </TextField>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Documento Identidad:" GridPane.columnIndex="2">
+                          <tooltip>
+                             <Tooltip text="Número de documento de identidad" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtIdentity" promptText="Ej: 1234567890" GridPane.columnIndex="3">
+                          <tooltip>
+                             <Tooltip text="Cédula de ciudadanía o documento de identidad" />
+                          </tooltip>
+                       </TextField>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Nombre:" GridPane.rowIndex="1">
+                          <tooltip>
+                             <Tooltip text="Nombres del estudiante" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtName" promptText="Ej: Juan Carlos" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                          <tooltip>
+                             <Tooltip text="Ingrese los nombres" />
+                          </tooltip>
+                       </TextField>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Apellido:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                          <tooltip>
+                             <Tooltip text="Apellidos del estudiante" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtLastName" promptText="Ej: Pérez García" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                          <tooltip>
+                             <Tooltip text="Ingrese los apellidos" />
+                          </tooltip>
+                       </TextField>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Fecha de Nacimiento:" GridPane.rowIndex="2">
+                          <tooltip>
+                             <Tooltip text="Fecha de nacimiento del estudiante" />
+                          </tooltip>
+                       </Label>
+                       <DatePicker fx:id="dpBirthDate" maxWidth="Infinity" promptText="Seleccione fecha" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <tooltip>
+                             <Tooltip text="Seleccione la fecha de nacimiento" />
+                          </tooltip>
+                       </DatePicker>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Lugar de Nacimiento:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                          <tooltip>
+                             <Tooltip text="Ciudad y departamento de nacimiento" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtBirthPlace" promptText="Ej: Tunja, Boyacá" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                          <tooltip>
+                             <Tooltip text="Ingrese ciudad y departamento de nacimiento" />
+                          </tooltip>
+                       </TextField>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Estado Civil:" GridPane.rowIndex="3">
+                          <tooltip>
+                             <Tooltip text="Estado civil actual del estudiante" />
+                          </tooltip>
+                       </Label>
+                       <ComboBox fx:id="cbMaritalStatus" maxWidth="Infinity" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="3">
+                          <tooltip>
+                             <Tooltip text="Opciones: Soltero, Casado, Unión Libre, Divorciado, Viudo" />
+                          </tooltip>
+                       </ComboBox>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Segundo Idioma:" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                          <tooltip>
+                             <Tooltip text="Idioma adicional que habla" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtSecondLanguage" promptText="Ej: Inglés, Francés" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                          <tooltip>
+                             <Tooltip text="Ingrese el segundo idioma" />
+                          </tooltip>
+                       </TextField>
+
+                       <Label style="-fx-font-weight: bold;" text="Email:" GridPane.rowIndex="4">
+                          <tooltip>
+                             <Tooltip text="Correo electrónico institucional o personal" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtEmail" promptText="estudiante@universidad.edu.co" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                          <tooltip>
+                             <Tooltip text="Correo electrónico válido" />
+                          </tooltip>
+                       </TextField>
+
+                       <Label style="-fx-font-weight: bold;" text="Teléfono:" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                          <tooltip>
+                             <Tooltip text="Número de contacto del estudiante" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtPhone" promptText="Ej: 3001234567" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                          <tooltip>
+                             <Tooltip text="Número de teléfono celular o fijo" />
+                          </tooltip>
+                       </TextField>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Dirección Permanente:" GridPane.rowIndex="5">
+                          <tooltip>
+                             <Tooltip text="Dirección de residencia permanente" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtPermanentAddress" promptText="Ej: Calle 10 # 20-30, Ciudad" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
+                          <tooltip>
+                             <Tooltip text="Dirección completa de residencia permanente" />
+                          </tooltip>
+                       </TextField>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Dirección en Tunja:" GridPane.rowIndex="6">
+                          <tooltip>
+                             <Tooltip text="Dirección de residencia en Tunja" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtAddressTunja" promptText="Ej: Carrera 11 # 15-20" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6">
+                          <tooltip>
+                             <Tooltip text="Dirección en Tunja durante el período académico" />
+                          </tooltip>
+                       </TextField>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Roomies:" GridPane.rowIndex="7">
+                          <tooltip>
+                             <Tooltip text="Número de compañeros de habitación" />
+                          </tooltip>
+                       </Label>
+                       <Spinner fx:id="spRoomies" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                          <tooltip>
+                             <Tooltip text="Cantidad de compañeros de habitación (0-10)" />
+                          </tooltip>
+                       </Spinner>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Núcleo Familiar Tunja:" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                          <tooltip>
+                             <Tooltip text="Número de familiares viviendo en Tunja" />
+                          </tooltip>
+                       </Label>
+                       <Spinner fx:id="spFamilyCoreTunja" editable="true" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                          <tooltip>
+                             <Tooltip text="Cantidad de familiares en Tunja (0-20)" />
+                          </tooltip>
+                       </Spinner>
+                       
+                       <Label style="-fx-font-weight: bold;" text="Tipo de Estudiante ID:" GridPane.rowIndex="8">
+                          <tooltip>
+                             <Tooltip text="Identificador del tipo de estudiante" />
+                          </tooltip>
+                       </Label>
+                       <TextField fx:id="txtStudentTypeId" promptText="Ej: REGULAR, ESPECIAL, etc." GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8">
+                          <tooltip>
+                             <Tooltip text="Código del tipo de estudiante" />
+                          </tooltip>
+                       </TextField>
+                    </children>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                  </GridPane>
+                </content>
+              </ScrollPane>
+            </content>
+          </Tab>
+
+          <Tab text="🏥 Datos de Salud">
+             <content>
+                <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
+                   <content>
+                      <GridPane hgap="15.0" style="-fx-padding: 25; -fx-background-color: white;" vgap="15.0">
+                          <columnConstraints>
+                            <ColumnConstraints prefWidth="150.0" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                            <ColumnConstraints prefWidth="150.0" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                          </columnConstraints>
+                          <children>
+                             <Label style="-fx-font-weight: bold;" text="Tipo de Sangre:">
+                                <tooltip>
+                                   <Tooltip text="Grupo sanguíneo y factor RH" />
+                                </tooltip>
+                             </Label>
+                             <ComboBox fx:id="cbBloodType" maxWidth="Infinity" promptText="Seleccione..." GridPane.columnIndex="1">
+                                <tooltip>
+                                   <Tooltip text="Opciones: O+, O-, A+, A-, B+, B-, AB+, AB-" />
+                                </tooltip>
+                             </ComboBox>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Peso (kg):" GridPane.columnIndex="2">
+                                <tooltip>
+                                   <Tooltip text="Peso actual en kilogramos" />
+                                </tooltip>
+                             </Label>
+                             <TextField fx:id="txtWeight" promptText="Ej: 70.5" GridPane.columnIndex="3">
+                                <tooltip>
+                                   <Tooltip text="Ingrese el peso en kilogramos" />
+                                </tooltip>
+                             </TextField>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Talla (cm):" GridPane.rowIndex="1">
+                                <tooltip>
+                                   <Tooltip text="Estatura en centímetros" />
+                                </tooltip>
+                             </Label>
+                             <TextField fx:id="txtSize" promptText="Ej: 175" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <tooltip>
+                                   <Tooltip text="Ingrese la talla/altura en centímetros" />
+                                </tooltip>
+                             </TextField>
+                             
+                             <Label style="-fx-font-weight: bold;" text="IMC:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                <tooltip>
+                                   <Tooltip text="Índice de Masa Corporal (calculado)" />
+                                </tooltip>
+                             </Label>
+                             <TextField fx:id="txtBmi" editable="false" promptText="Se calcula automáticamente" style="-fx-background-color: #F0F0F0;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                <tooltip>
+                                   <Tooltip text="IMC = Peso / (Talla/100)²" />
+                                </tooltip>
+                             </TextField>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Enfermedades:" GridPane.rowIndex="2">
+                                <tooltip>
+                                   <Tooltip text="Enfermedades crónicas o condiciones médicas" />
+                                </tooltip>
+                             </Label>
+                             <TextArea fx:id="txtDiseases" prefRowCount="3" promptText="Describa enfermedades crónicas conocidas" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                                <tooltip>
+                                   <Tooltip text="Liste enfermedades crónicas o escriba 'Ninguna'" />
+                                </tooltip>
+                             </TextArea>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Malestares/Dolencias:" GridPane.rowIndex="3">
+                                <tooltip>
+                                   <Tooltip text="Malestares o dolencias recurrentes" />
+                                </tooltip>
+                             </Label>
+                             <TextArea fx:id="txtIllness" prefRowCount="3" promptText="Describa malestares recurrentes (dolores, migrañas, etc.)" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                                <tooltip>
+                                   <Tooltip text="Síntomas o malestares frecuentes" />
+                                </tooltip>
+                             </TextArea>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Alergias:" GridPane.rowIndex="4">
+                                <tooltip>
+                                   <Tooltip text="Alergias conocidas (medicamentos, alimentos, etc.)" />
+                                </tooltip>
+                             </Label>
+                             <TextArea fx:id="txtAllergies" prefRowCount="3" promptText="Describa alergias a medicamentos, alimentos, u otras sustancias" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                                <tooltip>
+                                   <Tooltip text="Liste todas las alergias conocidas o escriba 'Ninguna'" />
+                                </tooltip>
+                             </TextArea>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Medicamentos:" GridPane.rowIndex="5">
+                                <tooltip>
+                                   <Tooltip text="Medicamentos que toma regularmente" />
+                                </tooltip>
+                             </Label>
+                             <TextArea fx:id="txtMedications" prefRowCount="2" promptText="Liste medicamentos de uso regular" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
+                                <tooltip>
+                                   <Tooltip text="Medicamentos de uso continuo o escriba 'Ninguno'" />
+                                </tooltip>
+                             </TextArea>
+                          </children>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                      </GridPane>
+                   </content>
+                </ScrollPane>
+             </content>
+          </Tab>
+
+          <Tab text="🎓 Datos Académicos">
+             <content>
+                <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
+                   <content>
+                      <GridPane hgap="15.0" style="-fx-padding: 25; -fx-background-color: white;" vgap="15.0">
+                          <columnConstraints>
+                            <ColumnConstraints prefWidth="150.0" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                            <ColumnConstraints prefWidth="150.0" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                          </columnConstraints>
+                          <children>
+                             <Label style="-fx-font-weight: bold;" text="ID Universidad:">
+                                <tooltip>
+                                   <Tooltip text="Código de identificación universitario" />
+                                </tooltip>
+                             </Label>
+                             <TextField fx:id="txtIdUni" promptText="Ej: U20240001" GridPane.columnIndex="1">
+                                <tooltip>
+                                   <Tooltip text="Código asignado por la universidad" />
+                                </tooltip>
+                             </TextField>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Fecha de Ingreso:" GridPane.columnIndex="2">
+                                <tooltip>
+                                   <Tooltip text="Fecha de ingreso a la universidad" />
+                                </tooltip>
+                             </Label>
+                             <DatePicker fx:id="dpEntryDate" maxWidth="Infinity" promptText="Seleccione fecha" GridPane.columnIndex="3">
+                                <tooltip>
+                                   <Tooltip text="Fecha de matrícula inicial" />
+                                </tooltip>
+                             </DatePicker>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Programa:" GridPane.rowIndex="1">
+                                <tooltip>
+                                   <Tooltip text="Programa académico matriculado" />
+                                </tooltip>
+                             </Label>
+                             <TextField fx:id="txtProgram" promptText="Ej: Ingeniería de Sistemas" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                                <tooltip>
+                                   <Tooltip text="Nombre del programa académico" />
+                                </tooltip>
+                             </TextField>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Semestre:" GridPane.rowIndex="2">
+                                <tooltip>
+                                   <Tooltip text="Semestre actual" />
+                                </tooltip>
+                             </Label>
+                             <Spinner fx:id="spSemester" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                <tooltip>
+                                   <Tooltip text="Seleccione el semestre actual (1-10)" />
+                                </tooltip>
+                             </Spinner>
+                             
+                             <Label style="-fx-font-weight: bold;" text="Promedio:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                <tooltip>
+                                   <Tooltip text="Promedio académico acumulado" />
+                                </tooltip>
+                             </Label>
+                             <TextField fx:id="txtAverage" promptText="Ej: 4.2" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                <tooltip>
+                                   <Tooltip text="Promedio acumulado (0.0 - 5.0)" />
+                                </tooltip>
+                             </TextField>
+                          </children>
+                           <rowConstraints>
+                              <RowConstraints />
+                              <RowConstraints />
+                              <RowConstraints />
+                           </rowConstraints>
+                      </GridPane>
+                   </content>
+                </ScrollPane>
+             </content>
+          </Tab>
+          
+          <Tab text="👨‍👩‍👧 Representante Legal">
+             <content>
+                <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
+                   <content>
+                      <VBox spacing="15.0" style="-fx-padding: 25; -fx-background-color: white;">
+                         <children>
+                            <Label style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #3F2B63;" text="Información del Representante Legal">
+                               <tooltip>
+                                  <Tooltip text="Datos del acudiente o representante legal del estudiante" />
+                               </tooltip>
+                            </Label>
+                            
+                            <Separator />
+                            
+                            <GridPane hgap="15.0" vgap="15.0">
+                               <columnConstraints>
+                                 <ColumnConstraints prefWidth="150.0" />
+                                 <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                                 <ColumnConstraints prefWidth="150.0" />
+                                 <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                               </columnConstraints>
+                               <children>
+                                  <Label style="-fx-font-weight: bold;" text="Nombre Completo:">
+                                     <tooltip>
+                                        <Tooltip text="Nombres y apellidos del representante" />
+                                     </tooltip>
+                                  </Label>
+                                  <TextField fx:id="txtLegalRepName" promptText="Ej: María González López" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                                     <tooltip>
+                                        <Tooltip text="Nombre completo del representante legal" />
+                                     </tooltip>
+                                  </TextField>
+                                  
+                                  <Label style="-fx-font-weight: bold;" text="Relación:" GridPane.rowIndex="1">
+                                     <tooltip>
+                                        <Tooltip text="Parentesco o relación con el estudiante" />
+                                     </tooltip>
+                                  </Label>
+                                  <ComboBox fx:id="cbLegalRepRelationship" maxWidth="Infinity" promptText="Seleccione..." GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                     <tooltip>
+                                        <Tooltip text="Opciones: Padre, Madre, Tutor Legal, Hermano/a, Abuelo/a, Tío/a, Otro" />
+                                     </tooltip>
+                                  </ComboBox>
+                                  
+                                  <Label style="-fx-font-weight: bold;" text="Fecha de Nacimiento:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                     <tooltip>
+                                        <Tooltip text="Fecha de nacimiento del representante" />
+                                     </tooltip>
+                                  </Label>
+                                  <DatePicker fx:id="dpLegalRepBirthDate" maxWidth="Infinity" promptText="Seleccione fecha" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                     <tooltip>
+                                        <Tooltip text="Fecha de nacimiento del representante" />
+                                     </tooltip>
+                                  </DatePicker>
+                                  
+                                  <Label style="-fx-font-weight: bold;" text="Teléfono:" GridPane.rowIndex="2">
+                                     <tooltip>
+                                        <Tooltip text="Teléfono de contacto principal" />
+                                     </tooltip>
+                                  </Label>
+                                  <TextField fx:id="txtLegalRepPhone" promptText="Ej: 3109876543" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                     <tooltip>
+                                        <Tooltip text="Número de celular del representante" />
+                                     </tooltip>
+                                  </TextField>
+                                  
+                                  <Label style="-fx-font-weight: bold;" text="Ciudad:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                     <tooltip>
+                                        <Tooltip text="Ciudad de residencia" />
+                                     </tooltip>
+                                  </Label>
+                                  <TextField fx:id="txtLegalRepCity" promptText="Ej: Tunja" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                     <tooltip>
+                                        <Tooltip text="Ciudad donde vive el representante" />
+                                     </tooltip>
+                                  </TextField>
+                                 
+                                  <Label style="-fx-font-weight: bold;" text="Dirección:" GridPane.rowIndex="3">
+                                     <tooltip>
+                                        <Tooltip text="Dirección de residencia del representante" />
+                                     </tooltip>
+                                  </Label>
+                                  <TextField fx:id="txtLegalRepAddress" promptText="Ej: Carrera 15 # 25-40" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                                     <tooltip>
+                                        <Tooltip text="Dirección completa del representante" />
+                                     </tooltip>
+                                  </TextField>
+                               </children>
+                                 <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                 </rowConstraints>
+                            </GridPane>
+                          </children>
+                      </VBox>
+                   </content>
+                </ScrollPane>
+             </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+
+      <HBox alignment="CENTER" spacing="20.0" style="-fx-padding: 10;">
+         <children>
+            <Button fx:id="btnNew" prefWidth="120.0" style="-fx-background-color: #00A896; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="➕ Nuevo">
+               <tooltip>
+                  <Tooltip text="Limpiar formulario para registrar un nuevo estudiante" />
+               </tooltip>
+            </Button>
+            <Button fx:id="btnSave" prefWidth="120.0" style="-fx-background-color: #3F2B63; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="💾 Guardar">
+               <tooltip>
+                  <Tooltip text="Guardar o actualizar la información del estudiante" />
+               </tooltip>
+            </Button>
+            <Button fx:id="btnEdit" prefWidth="120.0" style="-fx-background-color: #3F2B63; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="✏️ Editar">
+               <tooltip>
+                  <Tooltip text="Modificar los datos del estudiante seleccionado" />
+               </tooltip>
+            </Button>
+            <Button fx:id="btnDelete" prefWidth="120.0" style="-fx-background-color: #DC3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="🗑️ Eliminar">
+               <tooltip>
+                  <Tooltip text="Eliminar el registro seleccionado (requiere confirmación)" />
+               </tooltip>
+            </Button>
+            <Button fx:id="btnRefresh" prefWidth="120.0" style="-fx-background-color: #6C757D; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="🔄 Actualizar">
+               <tooltip>
+                  <Tooltip text="Recargar los datos de la tabla" />
+               </tooltip>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+
+      <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-padding: 10;">
+               <children>
+                  <Label style="-fx-font-weight: bold;" text="🔍 Buscar:" />
+                  <TextField fx:id="txtSearch" prefWidth="350.0" promptText="Buscar por nombre, documento o programa...">
+                     <tooltip>
+                        <Tooltip text="Ingrese texto para filtrar la tabla" />
+                     </tooltip>
+                  </TextField>
+                  <Button fx:id="btnSearch" style="-fx-background-color: #28A745; -fx-text-fill: white;" text="Buscar">
+                     <tooltip>
+                        <Tooltip text="Ejecutar búsqueda" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="btnClearSearch" style="-fx-background-color: #6C757D; -fx-text-fill: white;" text="Limpiar">
+                     <tooltip>
+                        <Tooltip text="Limpiar filtros de búsqueda" />
+                     </tooltip>
+                  </Button>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Label fx:id="lblRecordCount" style="-fx-font-weight: bold; -fx-text-fill: #3F2B63;" text="Total: 0 registros" />
+               </children>
+            </HBox>
+            
+            <ScrollPane hbarPolicy="ALWAYS" pannable="true" style="-fx-background-color: white;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+               <content>
+                  <TableView fx:id="tableStudents" style="-fx-background-color: white;" tableMenuButtonVisible="true">
+                    <columns>
+                      <TableColumn sortable="false" text="🆔 Identificación">
+                         <columns>
+                            <TableColumn fx:id="colIdentity" prefWidth="110.0" sortable="true" text="Documento" />
+                            <TableColumn fx:id="colName" prefWidth="150.0" sortable="true" text="Nombre" />
+                            <TableColumn fx:id="colLastName" prefWidth="150.0" sortable="true" text="Apellido" />
+                         </columns>
+                      </TableColumn>
+                      
+                      <TableColumn sortable="false" text="👤 Datos Personales">
+                         <columns>
+                            <TableColumn fx:id="colBirthDate" prefWidth="110.0" sortable="true" text="F. Nacimiento" />
+                            <TableColumn fx:id="colBirthPlace" prefWidth="130.0" sortable="true" text="Lugar Nac." />
+                            <TableColumn fx:id="colMaritalStatus" prefWidth="110.0" sortable="true" text="Estado Civil" />
+                            <TableColumn fx:id="colSecondLanguage" prefWidth="120.0" sortable="true" text="2do Idioma" />
+                         </columns>
+                      </TableColumn>
+                      
+                      <TableColumn sortable="false" text="📞 Contacto y Residencia">
+                         <columns>
+                            <TableColumn fx:id="colEmail" prefWidth="180.0" sortable="true" text="Email" />
+                            <TableColumn fx:id="colPhone" prefWidth="110.0" sortable="false" text="Teléfono" />
+                            <TableColumn fx:id="colPermanentAddress" prefWidth="200.0" sortable="false" text="Dirección Permanente" />
+                            <TableColumn fx:id="colAddressTunja" prefWidth="200.0" sortable="false" text="Dirección Tunja" />
+                            <TableColumn fx:id="colRoomies" prefWidth="80.0" sortable="true" text="Roomies" />
+                            <TableColumn fx:id="colFamilyCoreTunja" prefWidth="120.0" sortable="true" text="Núcleo Fam. Tunja" />
+                            <TableColumn fx:id="colStudentTypeId" prefWidth="120.0" sortable="true" text="Tipo Estudiante" />
+                         </columns>
+                      </TableColumn>
+
+                      <TableColumn sortable="false" text="🏥 Salud">
+                         <columns>
+                            <TableColumn fx:id="colBloodType" prefWidth="80.0" sortable="true" text="Sangre" />
+                            <TableColumn fx:id="colWeight" prefWidth="80.0" sortable="true" text="Peso (kg)" />
+                            <TableColumn fx:id="colSize" prefWidth="80.0" sortable="true" text="Talla (cm)" />
+                            <TableColumn fx:id="colBmi" prefWidth="70.0" sortable="true" text="IMC" />
+                            <TableColumn fx:id="colDiseases" prefWidth="150.0" sortable="false" text="Enfermedades" />
+                            <TableColumn fx:id="colIllness" prefWidth="150.0" sortable="false" text="Malestares" />
+                            <TableColumn fx:id="colAllergies" prefWidth="150.0" sortable="false" text="Alergias" />
+                            <TableColumn fx:id="colMedications" prefWidth="150.0" sortable="false" text="Medicamentos" />
+                         </columns>
+                      </TableColumn>
+
+                      <TableColumn sortable="false" text="🎓 Académico">
+                         <columns>
+                            <TableColumn fx:id="colIdUni" prefWidth="100.0" sortable="true" text="ID Uni" />
+                            <TableColumn fx:id="colProgram" prefWidth="180.0" sortable="true" text="Programa" />
+                            <TableColumn fx:id="colSemester" prefWidth="80.0" sortable="true" text="Semestre" />
+                            <TableColumn fx:id="colAverage" prefWidth="90.0" sortable="true" text="Promedio" />
+                            <TableColumn fx:id="colEntryDate" prefWidth="110.0" sortable="true" text="F. Ingreso" />
+                         </columns>
+                      </TableColumn>
+                      
+                      <TableColumn sortable="false" text="👨‍👩‍👧 Representante Legal">
+                         <columns>
+                            <TableColumn fx:id="colLegalRepName" prefWidth="180.0" sortable="true" text="Nombre" />
+                            <TableColumn fx:id="colLegalRepRelationship" prefWidth="100.0" sortable="true" text="Relación" />
+                            <TableColumn fx:id="colLegalRepBirthDate" prefWidth="110.0" sortable="true" text="F. Nacimiento" />
+                            <TableColumn fx:id="colLegalRepPhone" prefWidth="110.0" sortable="false" text="Teléfono" />
+                            <TableColumn fx:id="colLegalRepCity" prefWidth="100.0" sortable="true" text="Ciudad" />
+                            <TableColumn fx:id="colLegalRepAddress" prefWidth="200.0" sortable="false" text="Dirección" />
+                         </columns>
+                      </TableColumn>
+                    </columns>
+                    
+                    <placeholder>
+                       <VBox alignment="CENTER" spacing="10.0">
+                          <Label style="-fx-font-size: 48;" text="📋" />
+                          <Label style="-fx-font-size: 16; -fx-text-fill: #6C757D;" text="No hay registros para mostrar" />
+                          <Label style="-fx-text-fill: #6C757D;" text="Haga clic en 'Nuevo' para agregar un estudiante" />
+                       </VBox>
+                    </placeholder>
+                  </TableView>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      
+      <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #3F2B63; -fx-padding: 10;">
+         <children>
+            <Label fx:id="lblStatus" style="-fx-font-weight: bold;" text="✅ Sistema listo" textFill="WHITE">
+               <tooltip>
+                  <Tooltip text="Estado actual del sistema" />
+               </tooltip>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
 </VBox>

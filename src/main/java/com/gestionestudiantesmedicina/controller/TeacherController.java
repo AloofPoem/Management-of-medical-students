@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
-import com.gestionestudiantesmedicina.daos.RecordDAO;
 import com.gestionestudiantesmedicina.entities.Teacher;
 import com.gestionestudiantesmedicina.entities.Record;
 import com.gestionestudiantesmedicina.entities.Student;
@@ -32,8 +31,6 @@ public class TeacherController {
     private TextField txtLastNames;
     @FXML
     private TextField txtSpecialty;
-    @FXML
-    private TextField txtRecordId;
 
     @FXML
     private TableView<Teacher> tableTeachers;
@@ -51,7 +48,6 @@ public class TeacherController {
     private TableColumn<Teacher, String> colStudentCount;
 
     private TeacherDAO teacherDAO = new TeacherDAO();
-    private RecordDAO recordDAO = new RecordDAO();
 
     private ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
 
@@ -62,12 +58,11 @@ public class TeacherController {
         colLastNames.setCellValueFactory(new PropertyValueFactory<>("lastNames"));
         colSpecialty.setCellValueFactory(new PropertyValueFactory<>("specialty"));
 
-        // Mostrar el Record asociado
+
         colRecord.setCellValueFactory(cellData -> {
-            Record r = cellData.getValue().getRecord();
-            return new SimpleStringProperty(
-                    r != null ? r.getDate() + " " + r.getTimeIn() : ""
-            );
+            Teacher t = cellData.getValue();
+            int count = (t.getRecords() != null) ? t.getRecords().size() : 0;
+            return new SimpleStringProperty(count + " records");
         });
 
         // Mostrar cantidad de estudiantes asociados
@@ -97,22 +92,17 @@ public class TeacherController {
             txtNames.setText(teacher.getNames());
             txtLastNames.setText(teacher.getLastNames());
             txtSpecialty.setText(teacher.getSpecialty());
-            if (teacher.getRecord() != null) {
-                txtRecordId.setText(String.valueOf(teacher.getRecord().getIdRecord()));
-            }
         }
     }
 
     @FXML
     private void handleCreate(ActionEvent event) {
         try {
-            Record record = recordDAO.findById(Long.parseLong(txtRecordId.getText()));
 
             Teacher t = new Teacher();
             t.setNames(txtNames.getText());
             t.setLastNames(txtLastNames.getText());
             t.setSpecialty(txtSpecialty.getText());
-            t.setRecord(record);
 
             teacherDAO.save(t);
             loadTeacherList();
@@ -134,12 +124,10 @@ public class TeacherController {
                 return;
             }
 
-            Record record = recordDAO.findById(Long.parseLong(txtRecordId.getText()));
 
             teacher.setNames(txtNames.getText());
             teacher.setLastNames(txtLastNames.getText());
             teacher.setSpecialty(txtSpecialty.getText());
-            teacher.setRecord(record);
 
             teacherDAO.update(teacher);
             loadTeacherList();
@@ -176,7 +164,6 @@ public class TeacherController {
         txtNames.clear();
         txtLastNames.clear();
         txtSpecialty.clear();
-        txtRecordId.clear();
         tableTeachers.getSelectionModel().clearSelection();
         loadTeacherList();
     }

@@ -52,25 +52,14 @@
                       <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
                     </columnConstraints>
                     <children>
-                       <Label style="-fx-font-weight: bold;" text="ID Estudiante:">
+                       <Label style="-fx-font-weight: bold;" text="Documento Identidad:">
                           <tooltip>
                              <Tooltip text="Identificador único del estudiante en el sistema" />
                           </tooltip>
                        </Label>
-                       <TextField fx:id="txtId" promptText="Ej: EST-2024-001" GridPane.columnIndex="1">
+                       <TextField fx:id="txtId" promptText="Ej: 1234567890" GridPane.columnIndex="1">
                           <tooltip>
                              <Tooltip text="Ingrese el código único del estudiante" />
-                          </tooltip>
-                       </TextField>
-                       
-                       <Label style="-fx-font-weight: bold;" text="Documento Identidad:" GridPane.columnIndex="2">
-                          <tooltip>
-                             <Tooltip text="Número de documento de identidad" />
-                          </tooltip>
-                       </Label>
-                       <TextField fx:id="txtIdentity" promptText="Ej: 1234567890" GridPane.columnIndex="3">
-                          <tooltip>
-                             <Tooltip text="Cédula de ciudadanía o documento de identidad" />
                           </tooltip>
                        </TextField>
                        
@@ -216,6 +205,16 @@
                              <Tooltip text="Código del tipo de estudiante" />
                           </tooltip>
                        </TextField>
+                              <Label style="-fx-font-weight: bold;" text="Contraseña:" GridPane.columnIndex="2">
+                                 <tooltip>
+                                    <Tooltip text="Identificador único del estudiante en el sistema" />
+                                 </tooltip>
+                              </Label>
+                              <TextField fx:id="txtPass" promptText="Ej: 1234" GridPane.columnIndex="3">
+                                 <tooltip>
+                                    <Tooltip text="Ingrese el código único del estudiante" />
+                                 </tooltip>
+                              </TextField>
                     </children>
                            <rowConstraints>
                               <RowConstraints />
@@ -532,16 +531,6 @@
 
       <HBox alignment="CENTER" spacing="20.0" style="-fx-padding: 10;">
          <children>
-            <Button fx:id="btnNew" prefWidth="120.0" style="-fx-background-color: #00A896; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="➕ Nuevo">
-               <tooltip>
-                  <Tooltip text="Limpiar formulario para registrar un nuevo estudiante" />
-               </tooltip>
-            </Button>
-            <Button fx:id="btnSave" prefWidth="120.0" style="-fx-background-color: #3F2B63; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="💾 Guardar">
-               <tooltip>
-                  <Tooltip text="Guardar o actualizar la información del estudiante" />
-               </tooltip>
-            </Button>
             <Button fx:id="btnEdit" prefWidth="120.0" style="-fx-background-color: #3F2B63; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="✏️ Editar">
                <tooltip>
                   <Tooltip text="Modificar los datos del estudiante seleccionado" />
@@ -552,7 +541,7 @@
                   <Tooltip text="Eliminar el registro seleccionado (requiere confirmación)" />
                </tooltip>
             </Button>
-            <Button fx:id="btnRefresh" prefWidth="120.0" style="-fx-background-color: #6C757D; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="🔄 Actualizar">
+            <Button fx:id="btnRefresh" prefWidth="120.0" style="-fx-background-color: #6C757D; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" text="Limpiar">
                <tooltip>
                   <Tooltip text="Recargar los datos de la tabla" />
                </tooltip>
@@ -578,13 +567,7 @@
                         <Tooltip text="Ejecutar búsqueda" />
                      </tooltip>
                   </Button>
-                  <Button fx:id="btnClearSearch" style="-fx-background-color: #6C757D; -fx-text-fill: white;" text="Limpiar">
-                     <tooltip>
-                        <Tooltip text="Limpiar filtros de búsqueda" />
-                     </tooltip>
-                  </Button>
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label fx:id="lblRecordCount" style="-fx-font-weight: bold; -fx-text-fill: #3F2B63;" text="Total: 0 registros" />
                </children>
             </HBox>
             
@@ -595,8 +578,9 @@
                       <TableColumn sortable="false" text="🆔 Identificación">
                          <columns>
                             <TableColumn fx:id="colIdentity" prefWidth="110.0" sortable="true" text="Documento" />
+                            <TableColumn fx:id="colPass" prefWidth="150.0" sortable="true" text="Contraseña" />
                             <TableColumn fx:id="colName" prefWidth="150.0" sortable="true" text="Nombre" />
-                            <TableColumn fx:id="colLastName" prefWidth="150.0" sortable="true" text="Apellido" />
+                              <TableColumn fx:id="colLastName" prefWidth="110.0" sortable="true" text="Apellido" />
                          </columns>
                       </TableColumn>
                       
@@ -668,17 +652,6 @@
             </ScrollPane>
          </children>
       </VBox>
-      
-      <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #3F2B63; -fx-padding: 10;">
-         <children>
-            <Label fx:id="lblStatus" style="-fx-font-weight: bold;" text="✅ Sistema listo" textFill="WHITE">
-               <tooltip>
-                  <Tooltip text="Estado actual del sistema" />
-               </tooltip>
-            </Label>
-            <Region HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
    </children>
    <padding>
       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

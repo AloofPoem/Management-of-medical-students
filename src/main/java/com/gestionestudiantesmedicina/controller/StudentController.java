@@ -139,7 +139,7 @@ public class StudentController {
     private TableColumn<Student, Double> colBmi;
 
     @FXML
-    private TableColumn<Student, Integer> colRoomies;
+    private TableColumn<Student, Integer> colPracticeies;
 
     @FXML
     private TableColumn<Student, Integer> colFamilyCoreTunja;
@@ -181,7 +181,7 @@ public class StudentController {
     private Spinner<Integer> spSemester;
 
     @FXML
-    private Spinner<Integer> spRoomies;
+    private Spinner<Integer> spPracticeies;
 
     // revisar int
     @FXML
@@ -229,8 +229,8 @@ public class StudentController {
 
     @FXML
     private TextField txtId;
-    
-    //password no tiene col para que no se pueda ver asi como asi
+
+    // password no tiene col para que no se pueda ver asi como asi
     @FXML
     private TextField txtPassword;
 
@@ -285,7 +285,7 @@ public class StudentController {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colSecondLanguage.setCellValueFactory(new PropertyValueFactory<>("secondLanguage"));
-        colRoomies.setCellValueFactory(new PropertyValueFactory<>("roomies"));
+        colPracticeies.setCellValueFactory(new PropertyValueFactory<>("practiceies"));
         colFamilyCoreTunja.setCellValueFactory(new PropertyValueFactory<>("familyCoreTunja"));
         colEntryDate.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
 
@@ -364,7 +364,7 @@ public class StudentController {
 
         // Inicialización de Spinners
         spSemester.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1));
-        spRoomies.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0));
+        spPracticeies.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0));
         spFamilyCoreTunja.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 15, 1));
 
         loadStudentList();
@@ -404,7 +404,7 @@ public class StudentController {
         txtStudentTypeId.setText(s.getStudentType() != null ? String.valueOf(s.getStudentType().getIdStuType()) : "");
         // podria mostrarse el nombre en vez del id ?
 
-        spRoomies.getValueFactory().setValue(s.getRoomies());
+        spPracticeies.getValueFactory().setValue(s.getPracticeies());
         spFamilyCoreTunja.getValueFactory().setValue(s.getFamilyCoreTunja());
 
         // if para los datos anidados
@@ -450,7 +450,7 @@ public class StudentController {
         dpBirthDate.setValue(null);
         dpEntryDate.setValue(null);
         cbMaritalStatus.setValue(null);
-        spRoomies.getValueFactory().setValue(0);
+        spPracticeies.getValueFactory().setValue(0);
         spFamilyCoreTunja.getValueFactory().setValue(0);
         txtStudentTypeId.clear();
 
@@ -503,7 +503,7 @@ public class StudentController {
             String email = txtEmail.getText();
             String secondLanguage = txtSecondLanguage.getText();
             LocalDate entryDate = dpEntryDate.getValue();
-            Integer roomies = spRoomies.getValue();
+            Integer practiceies = spPracticeies.getValue();
             Integer familyCore = spFamilyCoreTunja.getValue();
             Long studentTypeId = Long.parseLong(txtStudentTypeId.getText().trim());
             StudentTypeDAO studentTypeDAO = new StudentTypeDAO();
@@ -541,7 +541,9 @@ public class StudentController {
             LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone,
                     legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
 
-            Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace, addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate, healthData, academicData, null, studentType, null, null, legalRepresentative);
+            Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace,
+                    addressTunja, permanentAddress, phone, email, secondLanguage, practiceies, familyCore, entryDate,
+                    healthData, academicData, null, studentType, null, null, legalRepresentative);
 
             studentDAO.save(student);
 
@@ -590,7 +592,7 @@ public class StudentController {
             student.setSecondLanguage(txtSecondLanguage.getText().trim());
             student.setMaritalStatus(cbMaritalStatus.getValue());
             student.setEntryDate(dpEntryDate.getValue());
-            student.setRoomies(spRoomies.getValue());
+            student.setPracticeies(spPracticeies.getValue());
             student.setFamilyCoreTunja(spFamilyCoreTunja.getValue());
 
             academicData.setAcademicProgram(txtProgram.getText().trim());
@@ -679,7 +681,7 @@ public class StudentController {
             return true;
 
         // revisar <= 0 es necesario
-        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spRoomies.getValue() == null
+        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spPracticeies.getValue() == null
                 || spFamilyCoreTunja.getValue() == null)
             return true;
 

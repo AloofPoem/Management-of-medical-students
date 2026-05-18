@@ -26,7 +26,7 @@ public class LogInController {
     private PersonDAO personDAO = new PersonDAO();
 
     @FXML
-    private void handleLogin(ActionEvent event){
+    private void login(ActionEvent event){
 
         try {
             Long id = Long.parseLong(txtId.getText());

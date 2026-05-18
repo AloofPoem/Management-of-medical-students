@@ -18,17 +18,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class RecordsController {
+public class RecordController {
 
     @FXML
     private TextField txtRecordId;
     @FXML
-    private TextField txtDate;
+    private DatePicker dpDate;
     @FXML
     private TextField txtTimeIn;
     @FXML
@@ -68,16 +69,16 @@ public class RecordsController {
         colTimeIn.setCellValueFactory(new PropertyValueFactory<>("timeIn"));
         colTimeOut.setCellValueFactory(new PropertyValueFactory<>("timeOut"));
 
-        // Mostrar nombre del Teacher
+        // Mostrar nombre del Teacher3
         colTeacher.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue().getTeacher();
             return new javafx.beans.property.SimpleStringProperty(
-                    t != null ? t.getNames() + " " + t.getLastNames() : ""
+                    t != null ? t.getName() + " " + t.getLastName() : ""
             );
         });
 
 
-
+        //schedule no tiene profesor, solo va unido a record
         colStudent.setCellValueFactory(cellData -> {
             Schedule s = cellData.getValue().getSchedule();
             Teacher t = (s != null) ? s.getTeacher() : null;
@@ -109,17 +110,17 @@ public class RecordsController {
 
     private void populateForm(Record r) {
         txtRecordId.setText(String.valueOf(r.getIdRecord()));
-        txtDate.setText(r.getDate().toString());
+        dpDate.setValue(r.getDate());
         txtTimeIn.setText(r.getTimeIn().toString());
         txtTimeOut.setText(r.getTimeOut().toString());
-        if (r.getTeacher() != null) txtTeacherId.setText(String.valueOf(r.getTeacher().getIdTeacher()));
+        if (r.getTeacher() != null) txtTeacherId.setText(String.valueOf(r.getTeacher().getId()));
         if (r.getSchedule() != null) txtScheduleId.setText(String.valueOf(r.getSchedule().getIdSchedule()));
     }
 
     @FXML
     private void handleClear(ActionEvent event) {
         txtRecordId.clear();
-        txtDate.clear();
+        dpDate.setValue(null);;
         txtTimeIn.clear();
         txtTimeOut.clear();
         txtTeacherId.clear();
@@ -135,7 +136,7 @@ public class RecordsController {
             Schedule schedule = scheduleDAO.findById(Long.parseLong(txtScheduleId.getText()));
 
             Record record = new Record();
-            record.setDate(java.sql.Date.valueOf(txtDate.getText()));
+            record.setDate(java.sql.Date.valueOf(dpDate.getValue()));
             record.setTimeIn(java.sql.Time.valueOf(txtTimeIn.getText()));
             record.setTimeOut(java.sql.Time.valueOf(txtTimeOut.getText()));
             record.setTeacher(teacher);
@@ -161,7 +162,7 @@ public class RecordsController {
                 return;
             }
 
-            record.setDate(java.sql.Date.valueOf(txtDate.getText()));
+            record.setDate(java.sql.Date.valueOf(dpDate.getValue()));
             record.setTimeIn(java.sql.Time.valueOf(txtTimeIn.getText()));
             record.setTimeOut(java.sql.Time.valueOf(txtTimeOut.getText()));
 

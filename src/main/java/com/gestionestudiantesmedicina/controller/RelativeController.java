@@ -65,19 +65,6 @@ public class RelativeController {
         colRelLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colRelRelationship.setCellValueFactory(new PropertyValueFactory<>("relationship"));
 
-        /*
-        Si se coloca el id del Student en la tabla
-        colStudentId.setCellValueFactory(cellData -> {
-            Relative relative = cellData.getValue();
-            String studentDisplay = "";
-            if (relative.getStudent() != null) {
-                studentDisplay = String.valueOf(ac.getStudent().getIdentityStudent());
-            }
-
-            return new SimpleStringProperty(studentDisplay);
-        });
-        */
-
         cbRelRelationship.getItems().setAll(RelationShip.values());
 
         loadRlativeList();

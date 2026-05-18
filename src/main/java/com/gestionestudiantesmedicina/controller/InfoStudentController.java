@@ -46,7 +46,7 @@ public class InfoStudentController {
     private Spinner<Integer> spSemester;
 
     @FXML
-    private Spinner<Integer> spRoomies;
+    private Spinner<Integer> spPracticeies;
 
     @FXML
     private Spinner<Integer> spFamilyCoreTunja;
@@ -92,7 +92,7 @@ public class InfoStudentController {
 
     @FXML
     private TextField txtId;
-    
+
     @FXML
     private TextField txtPassword;
 
@@ -132,7 +132,7 @@ public class InfoStudentController {
     private Long id = 123l;
     private StudentDAO studentDAO = new StudentDAO();
 
-    public void setId(Long idS){
+    public void setId(Long idS) {
         this.id = idS;
     }
 
@@ -145,7 +145,7 @@ public class InfoStudentController {
 
         // Inicialización de Spinners
         spSemester.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1));
-        spRoomies.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0));
+        spPracticeies.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0));
         spFamilyCoreTunja.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 15, 1));
 
         Student student = studentDAO.findById(id);
@@ -172,7 +172,7 @@ public class InfoStudentController {
         txtStudentTypeId.setText(s.getStudentType() != null ? String.valueOf(s.getStudentType().getIdStuType()) : "");
         // podria mostrarse el nombre en vez del id ?
 
-        spRoomies.getValueFactory().setValue(s.getRoomies());
+        spPracticeies.getValueFactory().setValue(s.getPracticeies());
         spFamilyCoreTunja.getValueFactory().setValue(s.getFamilyCoreTunja());
 
         // if para los datos anidados
@@ -203,7 +203,6 @@ public class InfoStudentController {
 
     }
 
-
     @FXML
     private void handleUpdate(ActionEvent event) {
         // completo 33
@@ -211,9 +210,8 @@ public class InfoStudentController {
             showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos deben tener datos");
             return;
         }
-        
-        try {
 
+        try {
 
             Long idStudent = Long.parseLong(txtId.getText().trim());
 
@@ -242,7 +240,7 @@ public class InfoStudentController {
             student.setSecondLanguage(txtSecondLanguage.getText().trim());
             student.setMaritalStatus(cbMaritalStatus.getValue());
             student.setEntryDate(dpEntryDate.getValue());
-            student.setRoomies(spRoomies.getValue());
+            student.setPracticeies(spPracticeies.getValue());
             student.setFamilyCoreTunja(spFamilyCoreTunja.getValue());
 
             academicData.setAcademicProgram(txtProgram.getText().trim());
@@ -283,10 +281,13 @@ public class InfoStudentController {
     }
 
     private boolean isInvalid() {
-        if (dpBirthDate.getValue() == null || dpEntryDate.getValue() == null || dpLegalRepBirthDate.getValue() == null) return true;
+        if (dpBirthDate.getValue() == null || dpEntryDate.getValue() == null || dpLegalRepBirthDate.getValue() == null)
+            return true;
 
         // revisar <= 0 es necesario
-        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spRoomies.getValue() == null|| spFamilyCoreTunja.getValue() == null) return true;
+        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spPracticeies.getValue() == null
+                || spFamilyCoreTunja.getValue() == null)
+            return true;
 
         ComboBox<?>[] allCombos = { cbMaritalStatus, cbBloodType, cbLegalRepRelationship };
 
@@ -308,7 +309,7 @@ public class InfoStudentController {
         };
 
         for (TextInputControl field : fields) {
-            if (field == null||field.getText() == null || field.getText().trim().isEmpty()) {
+            if (field == null || field.getText() == null || field.getText().trim().isEmpty()) {
                 return true;
             }
         }

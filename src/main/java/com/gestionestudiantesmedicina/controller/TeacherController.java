@@ -63,6 +63,7 @@ public class TeacherController {
         colSpecialty.setCellValueFactory(new PropertyValueFactory<>("specialty"));
 
         // Mostrar el Record asociado
+        //teacher tiene una lista de records, no se pondria
         colRecord.setCellValueFactory(cellData -> {
             Record r = cellData.getValue().getRecord();
             return new SimpleStringProperty(
@@ -93,10 +94,11 @@ public class TeacherController {
 
     private void populateForm(Teacher teacher) {
         if (teacher != null) {
-            txtTeacherId.setText(String.valueOf(teacher.getIdTeacher()));
-            txtNames.setText(teacher.getNames());
-            txtLastNames.setText(teacher.getLastNames());
+            txtTeacherId.setText(String.valueOf(teacher.getId()));
+            txtNames.setText(teacher.getName());
+            txtLastNames.setText(teacher.getLastName());
             txtSpecialty.setText(teacher.getSpecialty());
+            //teacher no tiene un record si no varios
             if (teacher.getRecord() != null) {
                 txtRecordId.setText(String.valueOf(teacher.getRecord().getIdRecord()));
             }
@@ -109,9 +111,10 @@ public class TeacherController {
             Record record = recordDAO.findById(Long.parseLong(txtRecordId.getText()));
 
             Teacher t = new Teacher();
-            t.setNames(txtNames.getText());
-            t.setLastNames(txtLastNames.getText());
+            t.setName(txtNames.getText());
+            t.setLastName(txtLastNames.getText());
             t.setSpecialty(txtSpecialty.getText());
+            //no tiene solo uno
             t.setRecord(record);
 
             teacherDAO.save(t);
@@ -136,9 +139,10 @@ public class TeacherController {
 
             Record record = recordDAO.findById(Long.parseLong(txtRecordId.getText()));
 
-            teacher.setNames(txtNames.getText());
-            teacher.setLastNames(txtLastNames.getText());
+            teacher.setName(txtNames.getText());
+            teacher.setLastName(txtLastNames.getText());
             teacher.setSpecialty(txtSpecialty.getText());
+            //no tiene un record
             teacher.setRecord(record);
 
             teacherDAO.update(teacher);

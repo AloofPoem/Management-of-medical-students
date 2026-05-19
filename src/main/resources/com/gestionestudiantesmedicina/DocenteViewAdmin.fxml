@@ -138,17 +138,17 @@
                   <Insets top="10.0" />
                </VBox.margin>
                <children>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #5e4a7e; -fx-text-fill: white; -fx-background-radius: 3; -fx-font-weight: bold; -fx-cursor: hand;" text="📝 Editar">
+                  <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #5e4a7e; -fx-text-fill: white; -fx-background-radius: 3; -fx-font-weight: bold; -fx-cursor: hand;" text="📝 Editar">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnEliminar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 3; -fx-font-weight: bold; -fx-cursor: hand;" text="🗑 Eliminar">
+                  <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#handleDelete" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 3; -fx-font-weight: bold; -fx-cursor: hand;" text="🗑 Eliminar">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnActualizar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #7c8a95; -fx-text-fill: white; -fx-background-radius: 3; -fx-font-weight: bold; -fx-cursor: hand;" text="Limpiar">
+                  <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#handleClear" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #7c8a95; -fx-text-fill: white; -fx-background-radius: 3; -fx-font-weight: bold; -fx-cursor: hand;" text="Limpiar">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -171,7 +171,7 @@
                   <Font size="13.0" />
                </font>
             </TextField>
-            <Button fx:id="btnBuscar" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #26a69a; -fx-text-fill: white; -fx-background-radius: 3; -fx-font-weight: bold; -fx-cursor: hand;" text="Buscar">
+            <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#handleSearch" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #26a69a; -fx-text-fill: white; -fx-background-radius: 3; -fx-font-weight: bold; -fx-cursor: hand;" text="Buscar">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

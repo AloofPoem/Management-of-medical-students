@@ -55,11 +55,11 @@ public class Practice {
         this.idPractice = idPractice;
     }
 
-    public Subject getSubjects() {
+    public Subject getSubject() {
         return subject;
     }
 
-    public void setSubjects(Subject subject) {
+    public void setSubject(Subject subject) {
         this.subject = subject;
     }
 

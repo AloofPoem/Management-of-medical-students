@@ -1,13 +1,11 @@
 package com.gestionestudiantesmedicina.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
-import com.gestionestudiantesmedicina.daos.RecordDAO;
 import com.gestionestudiantesmedicina.entities.Teacher;
-import com.gestionestudiantesmedicina.entities.Record;
-import com.gestionestudiantesmedicina.entities.Student;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,22 +14,31 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.beans.property.SimpleStringProperty;
 
-public class TeacherController {
-
+public class TeacherAdminController {
+    
+    @FXML
+    private TextField txtSearch;
+    
     @FXML
     private TextField txtTeacherId;
     @FXML
-    private TextField txtNames;
+    private TextField txtPassword;
     @FXML
-    private TextField txtLastNames;
+    private TextField txtName;
+    @FXML
+    private TextField txtLastName;
     @FXML
     private TextField txtSpecialty;
+    @FXML
+    private DatePicker dpBirthDate;
+    
     @FXML
     private TextField txtRecordId;
 
@@ -40,27 +47,26 @@ public class TeacherController {
     @FXML
     private TableColumn<Teacher, Long> colTeacherId;
     @FXML
-    private TableColumn<Teacher, String> colNames;
+    private TableColumn<Teacher, String> colName;
     @FXML
-    private TableColumn<Teacher, String> colLastNames;
+    private TableColumn<Teacher, String> colLastName;
     @FXML
     private TableColumn<Teacher, String> colSpecialty;
     @FXML
-    private TableColumn<Teacher, String> colRecord;
-    @FXML
-    private TableColumn<Teacher, String> colStudentCount;
-
+    private TableColumn<Teacher, LocalDate> colBirthDate;
+    
+    
     private TeacherDAO teacherDAO = new TeacherDAO();
-    private RecordDAO recordDAO = new RecordDAO();
 
     private ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
         colTeacherId.setCellValueFactory(new PropertyValueFactory<>("idTeacher"));
-        colNames.setCellValueFactory(new PropertyValueFactory<>("names"));
-        colLastNames.setCellValueFactory(new PropertyValueFactory<>("lastNames"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colSpecialty.setCellValueFactory(new PropertyValueFactory<>("specialty"));
+        colBirthDate.setCellValueFactory(new PropertyValueFactory<>("birtDate"));
 
         // Mostrar el Record asociado
         //teacher tiene una lista de records, no se pondria
@@ -71,14 +77,14 @@ public class TeacherController {
                     r != null ? r.getDate() + " " + r.getTimeIn() : ""
             );
         });
-        */
         // Mostrar cantidad de estudiantes asociados
         colStudentCount.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue();
             int count = (t.getStudents() != null) ? t.getStudents().size() : 0;
             return new SimpleStringProperty(count + " estudiantes");
         });
-
+        */
+        
         loadTeacherList();
 
         tableTeachers.getSelectionModel().selectedItemProperty().addListener(
@@ -96,9 +102,11 @@ public class TeacherController {
     private void populateForm(Teacher teacher) {
         if (teacher != null) {
             txtTeacherId.setText(String.valueOf(teacher.getId()));
-            txtNames.setText(teacher.getName());
-            txtLastNames.setText(teacher.getLastName());
+            txtPassword.setText(teacher.getPassword());
+            txtName.setText(teacher.getName());
+            txtLastName.setText(teacher.getLastName());
             txtSpecialty.setText(teacher.getSpecialty());
+            dpBirthDate.setValue(teacher.getBirthDate());
             //teacher no tiene un record si no varios
             //if (teacher.getRecord() != null) {
             //    txtRecordId.setText(String.valueOf(teacher.getRecord().getIdRecord()));
@@ -108,13 +116,19 @@ public class TeacherController {
 
     @FXML
     private void handleCreate(ActionEvent event) {
-        try {
-            Record record = recordDAO.findById(Long.parseLong(txtRecordId.getText()));
+        if (isInvalid()) {
+            showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos deben tener datos");
+            return;
+        }
 
+        try {
             Teacher t = new Teacher();
-            t.setName(txtNames.getText());
-            t.setLastName(txtLastNames.getText());
+            t.setId(Long.parseLong(txtTeacherId.getText().trim()));
+            t.setPassword(txtPassword.getText());
+            t.setName(txtName.getText());
+            t.setLastName(txtLastName.getText());
             t.setSpecialty(txtSpecialty.getText());
+            t.setBirthDate(dpBirthDate.getValue());
             //no tiene solo uno
             //t.setRecord(record);
 
@@ -129,6 +143,12 @@ public class TeacherController {
 
     @FXML
     private void handleUpdate(ActionEvent event) {
+
+        if (isInvalid()) {
+            showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos deben tener datos");
+            return;
+        }
+
         try {
             Long teacherId = Long.parseLong(txtTeacherId.getText().trim());
             Teacher teacher = teacherDAO.findById(teacherId);
@@ -138,13 +158,11 @@ public class TeacherController {
                 return;
             }
 
-            Record record = recordDAO.findById(Long.parseLong(txtRecordId.getText()));
-
-            teacher.setName(txtNames.getText());
-            teacher.setLastName(txtLastNames.getText());
+            teacher.setPassword(txtPassword.getText());
+            teacher.setName(txtName.getText());
+            teacher.setLastName(txtLastName.getText());
             teacher.setSpecialty(txtSpecialty.getText());
-            //no tiene un record
-            //teacher.setRecord(record);
+            teacher.setBirthDate(dpBirthDate.getValue());
 
             teacherDAO.update(teacher);
             loadTeacherList();
@@ -178,12 +196,48 @@ public class TeacherController {
     @FXML
     private void handleClear(ActionEvent event) {
         txtTeacherId.clear();
-        txtNames.clear();
-        txtLastNames.clear();
+        txtPassword.clear();
+        txtName.clear();
+        txtLastName.clear();
         txtSpecialty.clear();
-        txtRecordId.clear();
+        dpBirthDate.setValue(null);
         tableTeachers.getSelectionModel().clearSelection();
         loadTeacherList();
+    }
+
+    @FXML
+    private void handleSearch(ActionEvent event) {
+        try {
+            Long id = Long.parseLong(txtSearch.getText().trim());
+            Teacher teacher = teacherDAO.findById(id);
+
+            if (teacher != null) {
+                populateForm(teacher);
+                tableTeachers.getItems().setAll(teacher);
+                tableTeachers.getSelectionModel().select(teacher);
+            } else {
+                showAlert(AlertType.INFORMATION, "Búsqueda", "Profesor no encontrado con ID: " + id);
+            }
+
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
+        }
+    }
+
+    private boolean isInvalid(){
+        if (dpBirthDate.getValue() == null) {
+            return true;
+        }
+
+        TextInputControl[] fields = {txtTeacherId, txtName, txtLastName,txtPassword};
+
+        for (TextInputControl field : fields) {
+            if (field == null || field.getText() == null || field.getText().trim().isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void showAlert(AlertType alertType, String title, String message) {
@@ -193,4 +247,5 @@ public class TeacherController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

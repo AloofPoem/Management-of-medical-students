@@ -94,6 +94,11 @@ public class StudentTypeController {
     @FXML
     private void handleCreate(ActionEvent event) {
 
+        if (txtStudentTypeName == null || txtStudentTypeName.getText() == null || txtStudentTypeName.getText().trim().isEmpty()) {
+            showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos deben tener datos");
+            return;
+        }
+
         try {
 
             String studentTypeName = txtStudentTypeName.getText();
@@ -124,6 +129,11 @@ public class StudentTypeController {
 
     @FXML
     private void handleUpdate(ActionEvent event) {
+
+        if (txtStudentTypeName == null || txtStudentTypeName.getText() == null || txtStudentTypeName.getText().trim().isEmpty()) {
+            showAlert(AlertType.ERROR, "Error de Validación", "Todos los campos deben tener datos");
+            return;
+        }
 
         try {
 

@@ -8,7 +8,6 @@ import com.gestionestudiantesmedicina.daos.ScheduleDAO;
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
 import com.gestionestudiantesmedicina.entities.Record;
 import com.gestionestudiantesmedicina.entities.Schedule;
-import com.gestionestudiantesmedicina.entities.Student;
 import com.gestionestudiantesmedicina.entities.Teacher;
 
 import javafx.collections.FXCollections;
@@ -38,6 +37,9 @@ public class RecordController {
     private TextField txtTeacherId;
     @FXML
     private TextField txtScheduleId;
+    
+    @FXML
+    private TextField txtSearch;
 
     @FXML
     private TableView<Record> tableRecords;
@@ -53,8 +55,9 @@ public class RecordController {
     private TableColumn<Record, String> colTeacher;
     @FXML
     private TableColumn<Record, String> colSchedule;
-    @FXML
-    private TableColumn<Record, String> colStudent;
+    
+    //@FXML
+    //private TableColumn<Record, String> colStudent;
 
     private RecordDAO recordDAO = new RecordDAO();
     private TeacherDAO teacherDAO = new TeacherDAO();
@@ -205,7 +208,7 @@ public class RecordController {
     @FXML
     private void handleSearch(ActionEvent event) {
         try {
-            Long recId = Long.parseLong(txtRecordId.getText().trim());
+            Long recId = Long.parseLong(txtSearch.getText().trim());
             Record record = recordDAO.findById(recId);
 
             if (record != null) {

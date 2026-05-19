@@ -17,6 +17,12 @@ public class MenuTeacherController {
     @FXML
     private BorderPane bpMenu;
 
+    private Long idTeacher;
+
+    public void setId(Long id){
+        this.idTeacher = id;
+    }
+
     // LOS LOADVIEW ESTAN MAL PORQUE AUN NO ESTAN LAS VISTAS CORRECTAS
     @FXML
     void loadPractice(ActionEvent event) {
@@ -31,7 +37,17 @@ public class MenuTeacherController {
 
     @FXML
     void loadTeacher(ActionEvent event) {
-        loadView("RegisDocente");
+         try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("InfoDocente.fxml"));   
+            Parent view = loader.load();
+            InfoTeacherController infoTeacherController = loader.getController();
+            
+            infoTeacherController.setId(idTeacher);
+            bpMenu.setCenter(view);        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //loadView("RegisDocente");
     }
 
     

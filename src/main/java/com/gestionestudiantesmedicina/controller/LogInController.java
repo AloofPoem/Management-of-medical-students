@@ -50,8 +50,22 @@ public class LogInController {
             }
 
             if (person instanceof Teacher) {
-                App.setRoot("MenuDocen");
-                return;    
+                try {
+                    FXMLLoader loader = new FXMLLoader(App.class.getResource("MenuDocen.fxml"));
+                    Parent root = loader.load();
+                    
+                    MenuTeacherController menuTeacherController = loader.getController();
+                    menuTeacherController.setId(id);
+                    
+                    Stage stage = (Stage) txtId.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                    
+                return;      
             }
             
             if (person instanceof Student) {

@@ -44,8 +44,8 @@ public class Student extends Person {
     @Column(name = "second_language")
     private String secondLanguage;
 
-    @Column(name = "practiceies", nullable = false)
-    private Integer practiceies;
+    @Column(name = "roomies", nullable = false)
+    private Integer roomies;
 
     @Column(name = "family_core_tunja", nullable = false)
     private Integer familyCoreTunja;
@@ -86,7 +86,7 @@ public class Student extends Person {
 
     public Student(Long id, String name, String lastName, LocalDate birthDate, String password,
             MaritalStatus maritalStatus, String birthPlace, String addressTunja, String permanentAddress,
-            String phoneNumber, String email, String secondLanguage, Integer practiceies, Integer familyCoreTunja,
+            String phoneNumber, String email, String secondLanguage, Integer roomies, Integer familyCoreTunja,
             LocalDate entryDate, HealthData healthData, AcademicData academicData, List<Practice> practices,
             StudentType studentType, Teacher teacher, List<Relative> relatives,
             LegalRepresentative legalRepresentative) {
@@ -98,7 +98,7 @@ public class Student extends Person {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.secondLanguage = secondLanguage;
-        this.practiceies = practiceies;
+        this.roomies = roomies;
         this.familyCoreTunja = familyCoreTunja;
         this.entryDate = entryDate;
         this.healthData = healthData;
@@ -166,12 +166,12 @@ public class Student extends Person {
         this.secondLanguage = secondLanguage;
     }
 
-    public Integer getPracticeies() {
-        return practiceies;
+    public Integer getRoomies() {
+        return roomies;
     }
 
-    public void setPracticeies(int practiceies) {
-        this.practiceies = practiceies;
+    public void setRoomies(int roomies) {
+        this.roomies = roomies;
     }
 
     public Integer getFamilyCoreTunja() {

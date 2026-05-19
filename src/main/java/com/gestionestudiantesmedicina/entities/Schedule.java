@@ -35,8 +35,7 @@ public class Schedule {
 
     public Schedule() {}
 
-    public Schedule(Long idSchedule, LocalDate date, LocalTime startTime, LocalTime endTime, List<Record> record) {
-        IdSchedule = idSchedule;
+    public Schedule( LocalDate date, LocalTime startTime, LocalTime endTime, List<Record> record) {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;

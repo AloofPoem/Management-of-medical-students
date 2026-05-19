@@ -22,12 +22,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class RelativeController {
-
-    //no tenemos student
+public class RelativeStudentController {
 
     @FXML
     private ComboBox<RelationShip> cbRelRelationship;
+
+    @FXML
+    private TextField txtSearch;
 
     @FXML
     private TextField txtRelId;
@@ -53,8 +54,7 @@ public class RelativeController {
     @FXML
     private TableColumn<Relative, RelationShip> colRelRelationship;
 
-    //ponerlo de una vez con Student ???
-    private Long studentId;
+    private Long idStudent;
     private RelativeDAO relativeDAO = new RelativeDAO();
     private ObservableList<Relative> relativeList = FXCollections.observableArrayList();
 
@@ -67,7 +67,7 @@ public class RelativeController {
 
         cbRelRelationship.getItems().setAll(RelationShip.values());
 
-        loadRlativeList();
+        //loadRlativeList();
 
         tableRelative.getSelectionModel().selectedItemProperty().addListener(
             (obs, oldSelection, newSelection) -> {
@@ -80,7 +80,7 @@ public class RelativeController {
 
     private void loadRlativeList() {
         relativeList.clear();
-        List<Relative> relatives = relativeDAO.findAll();
+        List<Relative> relatives = relativeDAO.findByAttribute("student.id", idStudent);
         relativeList.addAll(relatives);
         tableRelative.setItems(relativeList);
     }
@@ -110,7 +110,7 @@ public class RelativeController {
             String relLastName = txtRelLastName.getText();
             RelationShip relRelationShip = cbRelRelationship.getValue();
             StudentDAO studentDAO = new StudentDAO();
-            Student student = studentDAO.findById(studentId);
+            Student student = studentDAO.findById(idStudent);
 
             Relative relative = new Relative(relName, relLastName, student, relRelationShip);
 
@@ -177,32 +177,27 @@ public class RelativeController {
     @FXML
     private void handleSearch(ActionEvent event){
         try {
-            Long relId = Long.parseLong(txtRelId.getText().trim());
+            Long relId = Long.parseLong(txtSearch.getText().trim());
             Relative relative = relativeDAO.findById(relId);
 
-            /*
-            Revisar si se puede asi en vez del if else
+            
             if (relative == null) {
                 showAlert(AlertType.INFORMATION, "Búsqueda", "Familiar no encontrado con ID: " + relId);
                 return;
             }
-            */
 
-            if (relative != null) {
-                populateForm(relative);
-                tableRelative.getItems().setAll(relative); 
-                tableRelative.getSelectionModel().select(relative);
-            } else {
-                showAlert(AlertType.INFORMATION, "Búsqueda", "Familiar no encontrado con ID: " + relId);
-            }
+            populateForm(relative);
+            tableRelative.getItems().setAll(relative); 
+            tableRelative.getSelectionModel().select(relative);
 
         } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
         }
     }
 
-    public void setStudentId(Long id){
-        this.studentId = id;
+    public void setId(Long id){
+        this.idStudent = id;
+        loadRlativeList();
     }
 
     private void showAlert(AlertType alertType, String title, String message) {

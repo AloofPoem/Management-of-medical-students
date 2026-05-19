@@ -29,7 +29,7 @@
             <!-- ID Record -->
             <VBox spacing="5" HBox.hgrow="ALWAYS">
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="ID Familiar:" />
-                <TextField fx:id="txtRelId" editable="false" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
+                <TextField fx:id="txtRelId" promptText="Ej: 1001" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
             </VBox>
             
             <!-- Date -->
@@ -57,7 +57,10 @@
             <VBox spacing="5" HBox.hgrow="ALWAYS" />
             
             <!-- Schedule -->
-            <VBox spacing="5" HBox.hgrow="ALWAYS" />
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="ID Estudiante:" />
+                <TextField fx:id="txtIdEstudiante" promptText="Ej: 1051068340" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
+            </VBox>
         </HBox>
 
         <!-- Buttons -->
@@ -114,6 +117,7 @@
                     <TableColumn fx:id="colRelName" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Nombre" />
                     <TableColumn fx:id="colRelLastName" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Apellido" />
                     <TableColumn fx:id="colRelRelationship" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Relación" />
+                    <TableColumn fx:id="colEstudiante" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Estudiante" />
                 </columns>
                 <placeholder>
                     <VBox alignment="CENTER" spacing="10" style="-fx-padding: 40;">

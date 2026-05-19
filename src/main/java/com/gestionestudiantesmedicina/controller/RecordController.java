@@ -79,6 +79,7 @@ public class RecordController {
 
 
         //schedule no tiene profesor, solo va unido a record
+        /* 
         colStudent.setCellValueFactory(cellData -> {
             Schedule s = cellData.getValue().getSchedule();
             Teacher t = (s != null) ? s.getTeacher() : null;
@@ -89,6 +90,7 @@ public class RecordController {
 
             return new javafx.beans.property.SimpleStringProperty(count + " estudiantes");
         });
+        */
 
         loadRecordList();
 
@@ -136,9 +138,9 @@ public class RecordController {
             Schedule schedule = scheduleDAO.findById(Long.parseLong(txtScheduleId.getText()));
 
             Record record = new Record();
-            record.setDate(java.sql.Date.valueOf(dpDate.getValue()));
-            record.setTimeIn(java.sql.Time.valueOf(txtTimeIn.getText()));
-            record.setTimeOut(java.sql.Time.valueOf(txtTimeOut.getText()));
+            //record.setDate(java.sql.Date.valueOf(dpDate.getValue()));
+           // record.setTimeIn(java.sql.Time.valueOf(txtTimeIn.getText()));
+            //record.setTimeOut(java.sql.Time.valueOf(txtTimeOut.getText()));
             record.setTeacher(teacher);
             record.setSchedule(schedule);
 
@@ -162,9 +164,9 @@ public class RecordController {
                 return;
             }
 
-            record.setDate(java.sql.Date.valueOf(dpDate.getValue()));
-            record.setTimeIn(java.sql.Time.valueOf(txtTimeIn.getText()));
-            record.setTimeOut(java.sql.Time.valueOf(txtTimeOut.getText()));
+            //record.setDate(java.sql.Date.valueOf(dpDate.getValue()));
+            //record.setTimeIn(java.sql.Time.valueOf(txtTimeIn.getText()));
+            //record.setTimeOut(java.sql.Time.valueOf(txtTimeOut.getText()));
 
             Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
             Schedule schedule = scheduleDAO.findById(Long.parseLong(txtScheduleId.getText()));

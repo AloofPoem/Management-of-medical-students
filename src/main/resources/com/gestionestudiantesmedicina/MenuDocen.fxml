@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="bpMenu" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.MenuTeacherController">
    
    <!-- PANEL LATERAL IZQUIERDO -->
    <left>
@@ -57,7 +57,7 @@
             <VBox spacing="6.0" style="-fx-padding: 0 12 15 12;">
                <children>
                   <!-- Botón Gestionar Docente -->
-                  <Button fx:id="btnInfoDocente" alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="50.0" style="-fx-background-color: #5A4278; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-size: 14; -fx-font-weight: bold;">
+                  <Button alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#loadTeacher" prefHeight="50.0" style="-fx-background-color: #5A4278; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-size: 14; -fx-font-weight: bold;">
                      <graphic>
                         <HBox alignment="CENTER_LEFT" spacing="12.0">
                            <children>
@@ -72,7 +72,7 @@
                   </Button>
                   
                   <!-- Botón Gestionar Clase -->
-                  <Button fx:id="btnGestionarClase" alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="50.0" style="-fx-background-color: #5A4278; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-size: 14; -fx-font-weight: bold;">
+                  <Button alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#loadPractice" prefHeight="50.0" style="-fx-background-color: #5A4278; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-size: 14; -fx-font-weight: bold;">
                      <graphic>
                         <HBox alignment="CENTER_LEFT" spacing="12.0">
                            <children>
@@ -87,7 +87,7 @@
                   </Button>
                   
                   <!-- Botón Gestionar Horario -->
-                  <Button fx:id="btnGestionarRegistro" alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="50.0" style="-fx-background-color: #5A4278; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-size: 14; -fx-font-weight: bold;">
+                  <Button alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#loadRecords" prefHeight="50.0" style="-fx-background-color: #5A4278; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-size: 14; -fx-font-weight: bold;">
                      <graphic>
                         <HBox alignment="CENTER_LEFT" spacing="12.0">
                            <children>

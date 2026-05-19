@@ -12,16 +12,29 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 
-public class MenuAdmin {
-
+public class MenuTeacherController {
+    
     @FXML
     private BorderPane bpMenu;
 
+    // LOS LOADVIEW ESTAN MAL PORQUE AUN NO ESTAN LAS VISTAS CORRECTAS
     @FXML
-    private void loadStudentInfo(ActionEvent event){
-        loadView("student");
+    void loadPractice(ActionEvent event) {
+        loadView("ClassViewAdmin");
+        //FALTA UN VIEW
     }
 
+    @FXML
+    void loadRecords(ActionEvent event) {
+        loadView("RecordViewAdmin");
+    }
+
+    @FXML
+    void loadTeacher(ActionEvent event) {
+        loadView("RegisDocente");
+    }
+
+    
     private void loadView(String fxmlName) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));

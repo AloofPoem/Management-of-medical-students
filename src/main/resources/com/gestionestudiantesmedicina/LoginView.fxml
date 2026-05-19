@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3F2B63;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3F2B63;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.LogInController">
    <top>
       <Text fill="#fff9f9" strokeType="OUTSIDE" strokeWidth="0.0" text="LOG IN" BorderPane.alignment="CENTER">
          <font>
@@ -26,12 +26,12 @@
          <children>
             <HBox prefHeight="94.0" prefWidth="600.0">
                <children>
-                  <ToggleButton mnemonicParsing="false" onAction="#loadRegistrarDocente" style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 12 30 12 30; -fx-cursor: hand;" text="Registrar Docente">
+                  <ToggleButton mnemonicParsing="false" onAction="#loadRegisterTeacher" style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 12 30 12 30; -fx-cursor: hand;" text="Registrar Docente">
                      <HBox.margin>
                         <Insets left="100.0" top="40.0" />
                      </HBox.margin>
                   </ToggleButton>
-                  <ToggleButton mnemonicParsing="false" onAction="#loadRegistrarEstudiante" style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 12 30 12 30; -fx-cursor: hand;" text="Registrar Estudiante">
+                  <ToggleButton mnemonicParsing="false" onAction="#loadRegisterStudent" style="-fx-background-color: #667eea; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 12 30 12 30; -fx-cursor: hand;" text="Registrar Estudiante">
                      <HBox.margin>
                         <Insets left="95.0" top="40.0" />
                      </HBox.margin>
@@ -53,7 +53,7 @@
                         <Insets bottom="20.0" left="150.0" top="50.0" />
                      </GridPane.margin>
                   </Text>
-                  <TextField fx:id="txtPass" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

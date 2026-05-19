@@ -64,13 +64,14 @@ public class TeacherController {
 
         // Mostrar el Record asociado
         //teacher tiene una lista de records, no se pondria
+        /* 
         colRecord.setCellValueFactory(cellData -> {
             Record r = cellData.getValue().getRecord();
             return new SimpleStringProperty(
                     r != null ? r.getDate() + " " + r.getTimeIn() : ""
             );
         });
-
+        */
         // Mostrar cantidad de estudiantes asociados
         colStudentCount.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue();
@@ -99,9 +100,9 @@ public class TeacherController {
             txtLastNames.setText(teacher.getLastName());
             txtSpecialty.setText(teacher.getSpecialty());
             //teacher no tiene un record si no varios
-            if (teacher.getRecord() != null) {
-                txtRecordId.setText(String.valueOf(teacher.getRecord().getIdRecord()));
-            }
+            //if (teacher.getRecord() != null) {
+            //    txtRecordId.setText(String.valueOf(teacher.getRecord().getIdRecord()));
+            //}
         }
     }
 
@@ -115,7 +116,7 @@ public class TeacherController {
             t.setLastName(txtLastNames.getText());
             t.setSpecialty(txtSpecialty.getText());
             //no tiene solo uno
-            t.setRecord(record);
+            //t.setRecord(record);
 
             teacherDAO.save(t);
             loadTeacherList();
@@ -143,7 +144,7 @@ public class TeacherController {
             teacher.setLastName(txtLastNames.getText());
             teacher.setSpecialty(txtSpecialty.getText());
             //no tiene un record
-            teacher.setRecord(record);
+            //teacher.setRecord(record);
 
             teacherDAO.update(teacher);
             loadTeacherList();

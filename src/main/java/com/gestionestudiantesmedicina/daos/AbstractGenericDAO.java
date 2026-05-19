@@ -66,6 +66,21 @@ public class AbstractGenericDAO<T,K> implements GenericDAO<T,K> {
         em.close();
     }
 
+    @Override
+    public List<T> findByAttribute(String attributeName, Object value) {
+    EntityManager em = emf.createEntityManager();
+    try {
+        // Construye un query dinámico: "FROM Relative WHERE student.id = :value"
+        String hql = "FROM " + entityClass.getSimpleName() + " WHERE " + attributeName + " = :value";
+        
+        return em.createQuery(hql, entityClass)
+                 .setParameter("value", value)
+                 .getResultList();
+    } finally {
+        em.close();
+    }
+}
+
     protected EntityManager getEntityManager(){
         return emf.createEntityManager();
     }

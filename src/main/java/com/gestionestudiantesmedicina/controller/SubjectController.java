@@ -27,6 +27,9 @@ public class SubjectController {
     private TextField txtSubjectName;
 
     @FXML
+    private TextField txtSearch;
+
+    @FXML
     private TableView<Subject> tableSubject;
 
     @FXML
@@ -48,12 +51,11 @@ public class SubjectController {
         loadSubjectList();
 
         tableSubject.getSelectionModel().selectedItemProperty().addListener(
-            (obs, oldSelection, newSelection) -> {
-                if (newSelection != null) {
-                    populateForm(newSelection);
-                }
-            }
-        );
+                (obs, oldSelection, newSelection) -> {
+                    if (newSelection != null) {
+                        populateForm(newSelection);
+                    }
+                });
     }
 
     private void loadSubjectList() {
@@ -193,7 +195,7 @@ public class SubjectController {
 
         try {
 
-            Long subjectId = Long.parseLong(txtSubjectId.getText().trim());
+            Long subjectId = Long.parseLong(txtSearch.getText().trim());
 
             Subject subject = subjectDAO.findById(subjectId);
 

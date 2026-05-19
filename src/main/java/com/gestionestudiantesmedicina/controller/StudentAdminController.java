@@ -24,14 +24,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-//import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -41,7 +38,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class StudentController {
+public class StudentAdminController {
 
     @FXML
     private ComboBox<BloodType> cbBloodType;
@@ -92,7 +89,7 @@ public class StudentController {
     private TableColumn<Student, String> colLastName;
 
     @FXML
-    private TableColumn<Student, Long> colIdentity;
+    private TableColumn<Student, Long> colId;
     // identity seria el mismo id
 
     @FXML
@@ -139,7 +136,7 @@ public class StudentController {
     private TableColumn<Student, Double> colBmi;
 
     @FXML
-    private TableColumn<Student, Integer> colPracticeies;
+    private TableColumn<Student, Integer> colRoomies;
 
     @FXML
     private TableColumn<Student, Integer> colFamilyCoreTunja;
@@ -181,7 +178,7 @@ public class StudentController {
     private Spinner<Integer> spSemester;
 
     @FXML
-    private Spinner<Integer> spPracticeies;
+    private Spinner<Integer> spRoomies;
 
     // revisar int
     @FXML
@@ -266,6 +263,9 @@ public class StudentController {
 
     @FXML
     private TextField txtStudentTypeId;
+    
+    @FXML
+    private TextField txtSearch;
 
     private StudentDAO studentDAO = new StudentDAO();
     private ObservableList<Student> studentList = javafx.collections.FXCollections.observableArrayList();
@@ -274,7 +274,7 @@ public class StudentController {
     private void initialize() {
         // completo 33/33
         // Mapeo de datos directos de la entidad Student
-        colIdentity.setCellValueFactory(new PropertyValueFactory<>("identityStudent"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
@@ -285,7 +285,7 @@ public class StudentController {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         colSecondLanguage.setCellValueFactory(new PropertyValueFactory<>("secondLanguage"));
-        colPracticeies.setCellValueFactory(new PropertyValueFactory<>("practiceies"));
+        colRoomies.setCellValueFactory(new PropertyValueFactory<>("roomies"));
         colFamilyCoreTunja.setCellValueFactory(new PropertyValueFactory<>("familyCoreTunja"));
         colEntryDate.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
 
@@ -364,7 +364,7 @@ public class StudentController {
 
         // Inicialización de Spinners
         spSemester.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, 1));
-        spPracticeies.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0));
+        spRoomies.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0));
         spFamilyCoreTunja.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 15, 1));
 
         loadStudentList();
@@ -404,7 +404,7 @@ public class StudentController {
         txtStudentTypeId.setText(s.getStudentType() != null ? String.valueOf(s.getStudentType().getIdStuType()) : "");
         // podria mostrarse el nombre en vez del id ?
 
-        spPracticeies.getValueFactory().setValue(s.getPracticeies());
+        spRoomies.getValueFactory().setValue(s.getRoomies());
         spFamilyCoreTunja.getValueFactory().setValue(s.getFamilyCoreTunja());
 
         // if para los datos anidados
@@ -439,6 +439,7 @@ public class StudentController {
     private void handleClear(ActionEvent e) {
         // completo 33
         txtId.clear();
+        txtPassword.clear();
         txtName.clear();
         txtLastName.clear();
         txtBirthPlace.clear();
@@ -450,7 +451,7 @@ public class StudentController {
         dpBirthDate.setValue(null);
         dpEntryDate.setValue(null);
         cbMaritalStatus.setValue(null);
-        spPracticeies.getValueFactory().setValue(0);
+        spRoomies.getValueFactory().setValue(0);
         spFamilyCoreTunja.getValueFactory().setValue(0);
         txtStudentTypeId.clear();
 
@@ -503,7 +504,7 @@ public class StudentController {
             String email = txtEmail.getText();
             String secondLanguage = txtSecondLanguage.getText();
             LocalDate entryDate = dpEntryDate.getValue();
-            Integer practiceies = spPracticeies.getValue();
+            Integer roomies = spRoomies.getValue();
             Integer familyCore = spFamilyCoreTunja.getValue();
             Long studentTypeId = Long.parseLong(txtStudentTypeId.getText().trim());
             StudentTypeDAO studentTypeDAO = new StudentTypeDAO();
@@ -542,7 +543,7 @@ public class StudentController {
                     legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
 
             Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace,
-                    addressTunja, permanentAddress, phone, email, secondLanguage, practiceies, familyCore, entryDate,
+                    addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate,
                     healthData, academicData, null, studentType, null, null, legalRepresentative);
 
             studentDAO.save(student);
@@ -592,7 +593,7 @@ public class StudentController {
             student.setSecondLanguage(txtSecondLanguage.getText().trim());
             student.setMaritalStatus(cbMaritalStatus.getValue());
             student.setEntryDate(dpEntryDate.getValue());
-            student.setPracticeies(spPracticeies.getValue());
+            student.setRoomies(spRoomies.getValue());
             student.setFamilyCoreTunja(spFamilyCoreTunja.getValue());
 
             academicData.setAcademicProgram(txtProgram.getText().trim());
@@ -660,7 +661,7 @@ public class StudentController {
     @FXML
     private void handleSearch(ActionEvent event) {
         try {
-            Long id = Long.parseLong(txtId.getText());
+            Long id = Long.parseLong(txtSearch.getText().trim());
             Student student = studentDAO.findById(id);
 
             if (student != null) {
@@ -681,7 +682,7 @@ public class StudentController {
             return true;
 
         // revisar <= 0 es necesario
-        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spPracticeies.getValue() == null
+        if (spSemester.getValue() == null || spSemester.getValue() <= 0 || spRoomies.getValue() == null
                 || spFamilyCoreTunja.getValue() == null)
             return true;
 
@@ -721,35 +722,4 @@ public class StudentController {
         alert.showAndWait();
     }
 
-    @FXML
-    private void handleEnviar(ActionEvent event) {
-        String fxmlName = "viewRelative";
-
-        try {
-            // tambien se podria intentar enviar de una vez el estudiante, pero al final el
-            // id hace lo mismo
-            Long id = Long.parseLong(txtId.getText().trim());
-            if (studentDAO.findById(id) == null) {
-                showAlert(AlertType.ERROR, "Error", "Debe seleccionar un estudiante");
-                return;
-            }
-            FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
-            Parent view = loader.load();
-
-            RelativeController relativeController = new RelativeController();
-            relativeController.setStudentId(id);
-            /*
-             * No se si sea necesario o si se pueda hacer asi
-             * MainController mainController = new MainController();
-             * mainMenuPane.setCenter(view);
-             */
-
-        } catch (NumberFormatException e) {
-            showAlert(AlertType.ERROR, "Error de formato", "El ID debe ser un número.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(AlertType.INFORMATION, "Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
-        }
-
-    }
 }

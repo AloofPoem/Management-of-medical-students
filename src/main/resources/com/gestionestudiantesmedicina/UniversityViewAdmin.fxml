@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.UniversityController">
    <children>
       <!-- Header -->
       <HBox alignment="CENTER" style="-fx-background-color: #5B4B8A;" VBox.vgrow="NEVER">
@@ -44,7 +44,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtIdUniversity" disable="true" prefHeight="35.0" promptText="ID generado automáticamente">
+                        <TextField fx:id="txtUniversityId" disable="true" editable="false" prefHeight="35.0" promptText="ID generado automáticamente">
                            <font>
                               <Font size="12.0" />
                            </font>
@@ -85,17 +85,18 @@
                   <Insets top="15.0" />
                </padding>
                <children>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #5B4B8A; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="✏ Editar">
+                  <Button onAction="#handleCreate" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #16A085; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="Agregar" />
+                  <Button mnemonicParsing="false" onAction="#handleUpdate" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #5B4B8A; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="✏ Editar">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnEliminar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="🗑 Eliminar">
+                  <Button mnemonicParsing="false" onAction="#handleDelete" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="🗑 Eliminar">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnLimpiar" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #7F8C8D; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="Limpiar">
+                  <Button mnemonicParsing="false" onAction="#handleClear" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #7F8C8D; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="Limpiar">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -116,12 +117,12 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtBuscar" prefHeight="35.0" prefWidth="400.0" promptText="Buscar por nombre de universidad">
+            <TextField fx:id="txtSearch" prefHeight="35.0" prefWidth="400.0" promptText="Buscar por nombre de universidad">
                <font>
                   <Font size="12.0" />
                </font>
             </TextField>
-            <Button fx:id="btnBuscar" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #16A085; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="Buscar">
+            <Button mnemonicParsing="false" onAction="#handleSearch" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #16A085; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="Buscar">
                <font>
                   <Font size="12.0" />
                </font>
@@ -137,9 +138,9 @@
          <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                <content>
-                  <TableView fx:id="tableUniversities" prefHeight="400.0">
+                  <TableView fx:id="tableUniversity" prefHeight="400.0">
                      <columns>
-                        <TableColumn fx:id="colIdUniversity" minWidth="120.0" prefWidth="150.0" text="ID Universidad" />
+                        <TableColumn fx:id="colUniversityId" minWidth="120.0" prefWidth="150.0" text="ID Universidad" />
                         <TableColumn fx:id="colUniversityName" minWidth="250.0" prefWidth="400.0" text="Nombre de Universidad" />
                      </columns>
                      <columnResizePolicy>

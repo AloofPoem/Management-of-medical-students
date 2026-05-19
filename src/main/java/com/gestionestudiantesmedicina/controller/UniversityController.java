@@ -25,6 +25,9 @@ public class UniversityController {
 
     @FXML
     private TextField txtUniversityName;
+    
+    @FXML
+    private TextField txtSearch;
 
     @FXML
     private TableView<University> tableUniversity;
@@ -172,7 +175,7 @@ public class UniversityController {
 
         try {
 
-            Long universityId = Long.parseLong(txtUniversityId.getText().trim());
+            Long universityId = Long.parseLong(txtSearch.getText().trim());
 
             University university = universityDAO.findById(universityId);
 

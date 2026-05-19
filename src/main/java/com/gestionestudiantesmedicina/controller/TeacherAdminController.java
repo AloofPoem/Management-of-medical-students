@@ -22,10 +22,10 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TeacherAdminController {
-    
+
     @FXML
     private TextField txtSearch;
-    
+
     @FXML
     private TextField txtTeacherId;
     @FXML
@@ -38,7 +38,7 @@ public class TeacherAdminController {
     private TextField txtSpecialty;
     @FXML
     private DatePicker dpBirthDate;
-    
+
     @FXML
     private TextField txtRecordId;
 
@@ -54,42 +54,40 @@ public class TeacherAdminController {
     private TableColumn<Teacher, String> colSpecialty;
     @FXML
     private TableColumn<Teacher, LocalDate> colBirthDate;
-    
-    
+
     private TeacherDAO teacherDAO = new TeacherDAO();
 
     private ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
-        colTeacherId.setCellValueFactory(new PropertyValueFactory<>("idTeacher"));
+        colTeacherId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colSpecialty.setCellValueFactory(new PropertyValueFactory<>("specialty"));
         colBirthDate.setCellValueFactory(new PropertyValueFactory<>("birtDate"));
 
         // Mostrar el Record asociado
-        //teacher tiene una lista de records, no se pondria
-        /* 
-        colRecord.setCellValueFactory(cellData -> {
-            Record r = cellData.getValue().getRecord();
-            return new SimpleStringProperty(
-                    r != null ? r.getDate() + " " + r.getTimeIn() : ""
-            );
-        });
-        // Mostrar cantidad de estudiantes asociados
-        colStudentCount.setCellValueFactory(cellData -> {
-            Teacher t = cellData.getValue();
-            int count = (t.getStudents() != null) ? t.getStudents().size() : 0;
-            return new SimpleStringProperty(count + " estudiantes");
-        });
-        */
-        
+        // teacher tiene una lista de records, no se pondria
+        /*
+         * colRecord.setCellValueFactory(cellData -> {
+         * Record r = cellData.getValue().getRecord();
+         * return new SimpleStringProperty(
+         * r != null ? r.getDate() + " " + r.getTimeIn() : ""
+         * );
+         * });
+         * // Mostrar cantidad de estudiantes asociados
+         * colStudentCount.setCellValueFactory(cellData -> {
+         * Teacher t = cellData.getValue();
+         * int count = (t.getStudents() != null) ? t.getStudents().size() : 0;
+         * return new SimpleStringProperty(count + " estudiantes");
+         * });
+         */
+
         loadTeacherList();
 
         tableTeachers.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldSelection, newSelection) -> populateForm(newSelection)
-        );
+                (obs, oldSelection, newSelection) -> populateForm(newSelection));
     }
 
     private void loadTeacherList() {
@@ -107,10 +105,10 @@ public class TeacherAdminController {
             txtLastName.setText(teacher.getLastName());
             txtSpecialty.setText(teacher.getSpecialty());
             dpBirthDate.setValue(teacher.getBirthDate());
-            //teacher no tiene un record si no varios
-            //if (teacher.getRecord() != null) {
-            //    txtRecordId.setText(String.valueOf(teacher.getRecord().getIdRecord()));
-            //}
+            // teacher no tiene un record si no varios
+            // if (teacher.getRecord() != null) {
+            // txtRecordId.setText(String.valueOf(teacher.getRecord().getIdRecord()));
+            // }
         }
     }
 
@@ -129,8 +127,8 @@ public class TeacherAdminController {
             t.setLastName(txtLastName.getText());
             t.setSpecialty(txtSpecialty.getText());
             t.setBirthDate(dpBirthDate.getValue());
-            //no tiene solo uno
-            //t.setRecord(record);
+            // no tiene solo uno
+            // t.setRecord(record);
 
             teacherDAO.save(t);
             loadTeacherList();
@@ -224,12 +222,12 @@ public class TeacherAdminController {
         }
     }
 
-    private boolean isInvalid(){
+    private boolean isInvalid() {
         if (dpBirthDate.getValue() == null) {
             return true;
         }
 
-        TextInputControl[] fields = {txtTeacherId, txtName, txtLastName,txtPassword};
+        TextInputControl[] fields = { txtTeacherId, txtName, txtLastName, txtPassword };
 
         for (TextInputControl field : fields) {
             if (field == null || field.getText() == null || field.getText().trim().isEmpty()) {

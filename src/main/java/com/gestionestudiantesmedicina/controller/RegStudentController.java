@@ -3,9 +3,6 @@ package com.gestionestudiantesmedicina.controller;
 import java.time.LocalDate;
 
 import com.gestionestudiantesmedicina.App;
-import com.gestionestudiantesmedicina.daos.AcademicDataDAO;
-import com.gestionestudiantesmedicina.daos.HealhDataDAO;
-import com.gestionestudiantesmedicina.daos.LegalRepresentativeDAO;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
 import com.gestionestudiantesmedicina.daos.StudentTypeDAO;
 import com.gestionestudiantesmedicina.daos.UniversityDAO;

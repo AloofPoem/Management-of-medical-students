@@ -1,11 +1,9 @@
 package com.gestionestudiantesmedicina.controller;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import com.gestionestudiantesmedicina.App;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
 import com.gestionestudiantesmedicina.daos.StudentTypeDAO;
 import com.gestionestudiantesmedicina.daos.UniversityDAO;

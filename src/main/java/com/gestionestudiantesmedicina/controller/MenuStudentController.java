@@ -1,6 +1,5 @@
 package com.gestionestudiantesmedicina.controller;
 
-import java.io.IOException;
 
 import com.gestionestudiantesmedicina.App;
 
@@ -34,10 +33,10 @@ public class MenuStudentController {
             infoStudentController.setId(idStudent);
             bpMenu.setCenter(view);        
         } catch (Exception e) {
+            showAlert("Error al Cargar", "No se pudo cargar la vista: InfoEstu.fxml");
             e.printStackTrace();
         }
-        //loadView("InfoEstu");
-
+        
     }
     
     @FXML
@@ -50,28 +49,10 @@ public class MenuStudentController {
             relativeController.setId(idStudent);
             bpMenu.setCenter(view);        
         } catch (Exception e) {
+            showAlert("Error al Cargar", "No se pudo cargar la vista: GestionFamiliares.fxml");
             e.printStackTrace();
         }
         
-        //loadView("GestionFamiliares");
-    }
-
-    private void loadView(String fxmlName) {
-        try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
-            Parent view = loader.load();
-            bpMenu.setCenter(view);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
-        }
-    }
-
-    private void loadView(Parent view) {
-        if (view == null) {
-            return;
-        }
-        bpMenu.setCenter(view);
     }
 
     private void showAlert(String title, String message) {

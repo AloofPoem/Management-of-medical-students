@@ -59,12 +59,13 @@ public class LogInController {
                     
                     Stage stage = (Stage) txtId.getScene().getWindow();
                     stage.setScene(new Scene(root));
+                    stage.setMaximized(true);
                     stage.show();
-
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                    
+                
                 return;      
             }
             
@@ -78,6 +79,7 @@ public class LogInController {
                     
                     Stage stage = (Stage) txtId.getScene().getWindow();
                     stage.setScene(new Scene(root));
+                    stage.setMaximized(true);
                     stage.show();
 
                 } catch (Exception e) {

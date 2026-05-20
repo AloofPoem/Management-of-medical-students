@@ -1,6 +1,5 @@
 package com.gestionestudiantesmedicina.controller;
 
-import com.gestionestudiantesmedicina.App;
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
 import com.gestionestudiantesmedicina.entities.Teacher;
 

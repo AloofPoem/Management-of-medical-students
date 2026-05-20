@@ -178,7 +178,6 @@ public class StudentAdminController {
     @FXML
     private Spinner<Integer> spRoomies;
 
-    // revisar int
     @FXML
     private Spinner<Integer> spFamilyCoreTunja;
 
@@ -542,7 +541,7 @@ public class StudentAdminController {
 
             Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace,
                     addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate,
-                    healthData, academicData, null, studentType, null, null, legalRepresentative);
+                    healthData, academicData, studentType, legalRepresentative);
 
             studentDAO.save(student);
 

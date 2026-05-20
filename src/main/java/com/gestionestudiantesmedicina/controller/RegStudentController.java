@@ -209,7 +209,7 @@ public class RegStudentController {
             HealthData healthData = new HealthData(healthDataId, diseases, illness, medications, allergies, weight,size, bmi, bloodType);
             LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone,legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
 
-            Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace,addressTunja,permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate,healthData, academicData, null, studentType, null, null, legalRepresentative);
+            Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace,addressTunja,permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate,healthData, academicData,studentType,legalRepresentative);
 
             //AcademicDataDAO academicDataDAO = new AcademicDataDAO();
             //HealhDataDAO healhDataDAO = new HealhDataDAO();

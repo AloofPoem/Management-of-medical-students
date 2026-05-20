@@ -48,6 +48,13 @@ public class PracticeAdminController {
     private SubjectDAO subjectDAO = new SubjectDAO();
 
     private ObservableList<Practice> practiceList = FXCollections.observableArrayList();
+    private Long idStudent;
+
+    public void setId(Long id){
+        this.idStudent = id;
+        
+    }
+
 
     @FXML
     private void initialize() {

@@ -30,23 +30,17 @@ public class Record {
     private LocalTime timeOut;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
-
-    @ManyToOne
-    @JoinColumn(name = "schedule_id")
-    private Schedule schedule;
+    @JoinColumn(name = "person_id")
+    private Person person;
 
     public Record() {}
 
-    public Record(Long idRecord, LocalDate date, LocalTime timeIn, LocalTime timeOut, Teacher teacher,
-            Schedule schedule) {
+    public Record(Long idRecord, LocalDate date, LocalTime timeIn, LocalTime timeOut, Person person) {
         IdRecord = idRecord;
         this.date = date;
         this.timeIn = timeIn;
         this.timeOut = timeOut;
-        this.teacher = teacher;
-        this.schedule = schedule;
+        this.person = person;
     }
 
     public Long getIdRecord() {
@@ -81,19 +75,12 @@ public class Record {
         this.timeOut = timeOut;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
 }

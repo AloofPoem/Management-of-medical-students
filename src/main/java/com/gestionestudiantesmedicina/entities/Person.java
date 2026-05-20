@@ -1,12 +1,16 @@
 package com.gestionestudiantesmedicina.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,6 +33,9 @@ public abstract class Person {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "person", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<Record> records;
+
     public Person() {
 
     }
@@ -40,8 +47,6 @@ public abstract class Person {
         this.birthDate = birthDate;
         this.password = password;
     }
-
-
 
     public String getName() {
         return name;
@@ -81,6 +86,14 @@ public abstract class Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 
 }

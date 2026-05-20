@@ -72,6 +72,7 @@ public class RecordController {
         colTimeIn.setCellValueFactory(new PropertyValueFactory<>("timeIn"));
         colTimeOut.setCellValueFactory(new PropertyValueFactory<>("timeOut"));
 
+        /*
         // Mostrar nombre del Teacher3
         colTeacher.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue().getTeacher();
@@ -79,7 +80,7 @@ public class RecordController {
                     t != null ? t.getName() + " " + t.getLastName() : ""
             );
         });
-
+        */
 
         //schedule no tiene profesor, solo va unido a record
         /* 
@@ -118,8 +119,8 @@ public class RecordController {
         dpDate.setValue(r.getDate());
         txtTimeIn.setText(r.getTimeIn().toString());
         txtTimeOut.setText(r.getTimeOut().toString());
-        if (r.getTeacher() != null) txtTeacherId.setText(String.valueOf(r.getTeacher().getId()));
-        if (r.getSchedule() != null) txtScheduleId.setText(String.valueOf(r.getSchedule().getIdSchedule()));
+        //if (r.getTeacher() != null) txtTeacherId.setText(String.valueOf(r.getTeacher().getId()));
+        //if (r.getSchedule() != null) txtScheduleId.setText(String.valueOf(r.getSchedule().getIdSchedule()));
     }
 
     @FXML
@@ -144,8 +145,8 @@ public class RecordController {
             //record.setDate(java.sql.Date.valueOf(dpDate.getValue()));
            // record.setTimeIn(java.sql.Time.valueOf(txtTimeIn.getText()));
             //record.setTimeOut(java.sql.Time.valueOf(txtTimeOut.getText()));
-            record.setTeacher(teacher);
-            record.setSchedule(schedule);
+            //record.setTeacher(teacher);
+            //record.setSchedule(schedule);
 
             recordDAO.save(record);
             loadRecordList();
@@ -173,8 +174,8 @@ public class RecordController {
 
             Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
             Schedule schedule = scheduleDAO.findById(Long.parseLong(txtScheduleId.getText()));
-            record.setTeacher(teacher);
-            record.setSchedule(schedule);
+            //record.setTeacher(teacher);
+           // record.setSchedule(schedule);
 
             recordDAO.update(record);
             loadRecordList();

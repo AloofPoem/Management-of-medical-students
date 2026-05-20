@@ -58,7 +58,7 @@ public class LogInController {
                     menuTeacherController.setId(id);
                     
                     Stage stage = (Stage) txtId.getScene().getWindow();
-                    stage.setScene(new Scene(root));
+                    stage.getScene().setRoot(root);
                     stage.setMaximized(true);
                     stage.show();
                     
@@ -76,13 +76,14 @@ public class LogInController {
                     
                     MenuStudentController menuStudentController = loader.getController();
                     menuStudentController.setIStudent(id);
-                    
+
                     Stage stage = (Stage) txtId.getScene().getWindow();
-                    stage.setScene(new Scene(root));
+                    stage.getScene().setRoot(root);
                     stage.setMaximized(true);
                     stage.show();
 
                 } catch (Exception e) {
+                    showAlert(AlertType.ERROR,"Error al Cargar", "No se pudo cargar la vista: GestionFamiliares.fxml");
                     e.printStackTrace();
                 }
                     

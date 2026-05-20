@@ -17,20 +17,17 @@ public class Teacher extends Person {
     private String specialty;
 
     @OneToMany(mappedBy = "teacher", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
-    private List<Student> students;
+    private List<Record> records;
 
     @OneToMany(mappedBy = "teacher", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
-    private List<Record> records;
+    private List<Schedule> schedules;
 
     public Teacher() {
     }
 
-    public Teacher(Long id, String name, String lastName, LocalDate birthDate, String password, String specialty,
-            List<Student> students, List<Record> records) {
+    public Teacher(Long id, String name, String lastName, LocalDate birthDate, String password, String specialty) {
         super(id, name, lastName, birthDate, password);
         this.specialty = specialty;
-        this.students = students;
-        this.records = records;
     }
 
     public String getSpecialty() {
@@ -41,20 +38,20 @@ public class Teacher extends Person {
         this.specialty = specialty;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
     public List<Record> getRecords() {
         return records;
     }
 
     public void setRecords(List<Record> records) {
         this.records = records;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
     
 }

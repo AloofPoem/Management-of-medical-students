@@ -38,12 +38,10 @@ public class Practice {
     public Practice() {
     }
 
-    public Practice(Long idPractice, Subject subject, Schedule schedule, List<Student> students,
-            Teacher teacher) {
+    public Practice(Long idPractice, Subject subject, Schedule schedule,Teacher teacher) {
         this.idPractice = idPractice;
         this.subject = subject;
         this.schedule = schedule;
-        this.students = students;
         this.teacher = teacher;
     }
 

@@ -4,13 +4,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,16 +31,20 @@ public class Schedule {
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
 
-    @OneToMany(mappedBy = "schedule", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
-    private List<Record> record;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id", nullable = true)
+    private Teacher teacher;
+
+    @ManyToMany(mappedBy = "schedules")
+    private List<Student> students;
 
     public Schedule() {}
 
-    public Schedule( LocalDate date, LocalTime startTime, LocalTime endTime, List<Record> record) {
+    public Schedule(LocalDate date, LocalTime startTime, LocalTime endTime, Teacher teacher) {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.record = record;
+        this.teacher = teacher;
     }
 
     public Long getIdSchedule() {
@@ -74,11 +79,20 @@ public class Schedule {
         this.endTime = endTime;
     }
 
-    public List<Record> getRecord() {
-        return record;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setRecord(List<Record> record) {
-        this.record = record;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
 }

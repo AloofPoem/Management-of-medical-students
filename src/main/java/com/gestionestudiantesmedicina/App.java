@@ -24,7 +24,6 @@ public class App extends Application {
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
-        scene.setRoot(loadFXML(fxml));
         Stage stage = (Stage) scene.getWindow();
         
         if (fxml.equals("MenuAdmin")) { 

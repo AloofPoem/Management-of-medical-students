@@ -29,10 +29,9 @@ public class StudentType {
     public StudentType() {
     }
 
-    public StudentType(Long idStuType, String nameStuType, List<Student> students) {
+    public StudentType(Long idStuType, String nameStuType) {
         this.idStuType = idStuType;
         this.nameStuType = nameStuType;
-        this.students = students;
     }
 
     public Long getIdStuType() {

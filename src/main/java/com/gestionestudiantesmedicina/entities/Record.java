@@ -81,11 +81,11 @@ public class Record {
         this.timeOut = timeOut;
     }
 
-    public Teacher getteacher() {
+    public Teacher getTeacher() {
         return teacher;
     }
 
-    public void setteacher(Teacher teacher) {
+    public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
 

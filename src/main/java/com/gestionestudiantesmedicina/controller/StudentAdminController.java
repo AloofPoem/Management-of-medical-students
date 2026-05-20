@@ -1,11 +1,9 @@
 package com.gestionestudiantesmedicina.controller;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import com.gestionestudiantesmedicina.App;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
 import com.gestionestudiantesmedicina.daos.StudentTypeDAO;
 import com.gestionestudiantesmedicina.daos.UniversityDAO;
@@ -24,14 +22,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-//import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -41,7 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class StudentController {
+public class StudentAdminController {
 
     @FXML
     private ComboBox<BloodType> cbBloodType;
@@ -92,7 +87,7 @@ public class StudentController {
     private TableColumn<Student, String> colLastName;
 
     @FXML
-    private TableColumn<Student, Long> colIdentity;
+    private TableColumn<Student, Long> colId;
     // identity seria el mismo id
 
     @FXML
@@ -229,8 +224,8 @@ public class StudentController {
 
     @FXML
     private TextField txtId;
-    
-    //password no tiene col para que no se pueda ver asi como asi
+
+    // password no tiene col para que no se pueda ver asi como asi
     @FXML
     private TextField txtPassword;
 
@@ -266,6 +261,9 @@ public class StudentController {
 
     @FXML
     private TextField txtStudentTypeId;
+    
+    @FXML
+    private TextField txtSearch;
 
     private StudentDAO studentDAO = new StudentDAO();
     private ObservableList<Student> studentList = javafx.collections.FXCollections.observableArrayList();
@@ -274,7 +272,7 @@ public class StudentController {
     private void initialize() {
         // completo 33/33
         // Mapeo de datos directos de la entidad Student
-        colIdentity.setCellValueFactory(new PropertyValueFactory<>("identityStudent"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
@@ -439,6 +437,7 @@ public class StudentController {
     private void handleClear(ActionEvent e) {
         // completo 33
         txtId.clear();
+        txtPassword.clear();
         txtName.clear();
         txtLastName.clear();
         txtBirthPlace.clear();
@@ -541,7 +540,9 @@ public class StudentController {
             LegalRepresentative legalRepresentative = new LegalRepresentative(legalRepName, legalRepPhone,
                     legalRepAddress, legalRepBirthDate, legalRepCity, legalRepRel);
 
-            Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace, addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate, healthData, academicData, null, studentType, null, null, legalRepresentative);
+            Student student = new Student(identity, name, lastName, birthDate, password, maritalStatus, birthPlace,
+                    addressTunja, permanentAddress, phone, email, secondLanguage, roomies, familyCore, entryDate,
+                    healthData, academicData, null, studentType, null, null, legalRepresentative);
 
             studentDAO.save(student);
 
@@ -658,7 +659,7 @@ public class StudentController {
     @FXML
     private void handleSearch(ActionEvent event) {
         try {
-            Long id = Long.parseLong(txtId.getText());
+            Long id = Long.parseLong(txtSearch.getText().trim());
             Student student = studentDAO.findById(id);
 
             if (student != null) {
@@ -719,35 +720,4 @@ public class StudentController {
         alert.showAndWait();
     }
 
-    @FXML
-    private void handleEnviar(ActionEvent event) {
-        String fxmlName = "viewRelative";
-
-        try {
-            // tambien se podria intentar enviar de una vez el estudiante, pero al final el
-            // id hace lo mismo
-            Long id = Long.parseLong(txtId.getText().trim());
-            if (studentDAO.findById(id) == null) {
-                showAlert(AlertType.ERROR, "Error", "Debe seleccionar un estudiante");
-                return;
-            }
-            FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
-            Parent view = loader.load();
-
-            RelativeController relativeController = new RelativeController();
-            relativeController.setStudentId(id);
-            /*
-             * No se si sea necesario o si se pueda hacer asi
-             * MainController mainController = new MainController();
-             * mainMenuPane.setCenter(view);
-             */
-
-        } catch (NumberFormatException e) {
-            showAlert(AlertType.ERROR, "Error de formato", "El ID debe ser un número.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(AlertType.INFORMATION, "Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
-        }
-
-    }
 }

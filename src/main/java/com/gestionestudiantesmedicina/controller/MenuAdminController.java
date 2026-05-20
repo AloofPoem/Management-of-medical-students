@@ -12,14 +12,39 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 
-public class MenuStudent {
+public class MenuAdminController {
 
-     @FXML
+    @FXML
     private BorderPane bpMenu;
 
     @FXML
-    private void loadStudent(ActionEvent event){
-        loadView("     ");
+    void loadPractice(ActionEvent event) {
+        loadView("ClassViewAdmin");
+    }
+
+    @FXML
+    void loadSchedule(ActionEvent event) {
+        loadView("ScheduleViewAdmin");
+    }
+
+    @FXML
+    void loadStudent(ActionEvent event) {
+        loadView("EstuViewAdmin");
+    }
+
+    @FXML
+    void loadSubject(ActionEvent event) {
+        loadView("SubjectViewAdmin");
+    }
+    
+    @FXML
+    void loadTeacher(ActionEvent event) {
+        loadView("DocenteViewAdmin");
+    }
+    
+    @FXML
+    void loadUniversity(ActionEvent event) {
+        loadView("UniversityViewAdmin");
     }
 
     private void loadView(String fxmlName) {

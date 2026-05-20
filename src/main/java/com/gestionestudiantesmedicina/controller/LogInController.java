@@ -11,9 +11,13 @@ import com.gestionestudiantesmedicina.entities.Teacher;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LogInController {
 
@@ -26,7 +30,7 @@ public class LogInController {
     private PersonDAO personDAO = new PersonDAO();
 
     @FXML
-    private void handleLogin(ActionEvent event){
+    private void logIn(ActionEvent event){
 
         try {
             Long id = Long.parseLong(txtId.getText());
@@ -46,17 +50,47 @@ public class LogInController {
             }
 
             if (person instanceof Teacher) {
-                //ir a la vista de profesor
-                return;    
+                try {
+                    FXMLLoader loader = new FXMLLoader(App.class.getResource("MenuDocen.fxml"));
+                    Parent root = loader.load();
+                    
+                    MenuTeacherController menuTeacherController = loader.getController();
+                    menuTeacherController.setId(id);
+                    
+                    Stage stage = (Stage) txtId.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.setMaximized(true);
+                    stage.show();
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+                return;      
             }
-
+            
             if (person instanceof Student) {
-                //ir a la vista de estudiante
+                try {
+                    FXMLLoader loader = new FXMLLoader(App.class.getResource("MenuEstu.fxml"));
+                    Parent root = loader.load();
+                    
+                    MenuStudentController menuStudentController = loader.getController();
+                    menuStudentController.setIStudent(id);
+                    
+                    Stage stage = (Stage) txtId.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.setMaximized(true);
+                    stage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                    
                 return;    
             }
-
+            
             if (person instanceof Admin) {
-                //ir a la vista de Admin
+                App.setRoot("MenuAdmin");
                 return;    
             }
 
@@ -64,6 +98,7 @@ public class LogInController {
             showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Error", "Hubo un error al hacer el Login");
+            System.out.println(e);
         }
             
     }
@@ -72,12 +107,12 @@ public class LogInController {
     //ponerle nombres de .fxml
     @FXML
     private void loadRegisterStudent(ActionEvent event) throws IOException{
-        App.setRoot("student");   
+        App.setRoot("RegisEstu");   
     }
     
     @FXML
     private void loadRegisterTeacher(ActionEvent event) throws IOException{
-        App.setRoot("teacher");   
+        App.setRoot("RegisDocente");   
     }
 
     private void showAlert(AlertType alertType, String title, String message) {

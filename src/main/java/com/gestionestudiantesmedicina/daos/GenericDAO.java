@@ -13,4 +13,6 @@ public interface GenericDAO<T,K> {
     T update(T entity);
 
     void delete(K id);
+
+    List<T> findByAttribute(String attributeName, Object value);
 }

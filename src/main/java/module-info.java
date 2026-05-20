@@ -4,6 +4,7 @@ module com.gestionestudiantesmedicina {
     requires java.persistence;
     requires java.sql;
     requires org.hibernate.orm.core;
+    requires javafx.base;
 
     opens com.gestionestudiantesmedicina to javafx.fxml;
     opens com.gestionestudiantesmedicina.controller to javafx.fxml;

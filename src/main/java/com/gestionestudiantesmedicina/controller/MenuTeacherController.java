@@ -50,6 +50,16 @@ public class MenuTeacherController {
         //loadView("RegisDocente");
     }
 
+    @FXML
+    void logout(ActionEvent event){
+        try {
+            App.setRoot("LoginView");
+        } catch (IOException e) {
+            showAlert(AlertType.ERROR, "Error al cerrar sesion", "No se pudo cerrar sesion");
+            e.printStackTrace();
+        }
+    }
+
     
     private void loadView(String fxmlName) {
         try {
@@ -58,12 +68,12 @@ public class MenuTeacherController {
             bpMenu.setCenter(view);
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
+            showAlert(AlertType.ERROR,"Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+    private void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

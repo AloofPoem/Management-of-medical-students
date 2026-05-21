@@ -18,8 +18,18 @@ public class MenuAdminController {
     private BorderPane bpMenu;
 
     @FXML
+    void loadEstudentType(ActionEvent event) {
+        loadView("EstudentTypeViewAdmin");
+    }
+
+    @FXML
     void loadPractice(ActionEvent event) {
         loadView("ClassViewAdmin");
+    }
+
+    @FXML
+    void loadRelative(ActionEvent event) {
+        loadView("GestionFamiliaresAdmin");
     }
 
     @FXML
@@ -47,6 +57,16 @@ public class MenuAdminController {
         loadView("UniversityViewAdmin");
     }
 
+    @FXML
+    void logout(ActionEvent event){
+        try {
+            App.setRoot("LoginView");
+        } catch (IOException e) {
+            showAlert(AlertType.ERROR,"Error al cerrar sesion", "No se pudo cerrar sesion");
+            e.printStackTrace();
+        }
+    }
+
     private void loadView(String fxmlName) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
@@ -54,12 +74,12 @@ public class MenuAdminController {
             bpMenu.setCenter(view);
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
+            showAlert(AlertType.ERROR,"Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
         }
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+    private void showAlert(AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);

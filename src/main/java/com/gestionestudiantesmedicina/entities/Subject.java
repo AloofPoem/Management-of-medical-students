@@ -29,10 +29,9 @@ public class Subject {
     public Subject() {
     }
 
-    public Subject(Long idSubject, String nameSubject, List<Practice> practices) {
+    public Subject(Long idSubject, String nameSubject) {
         IdSubject = idSubject;
         this.nameSubject = nameSubject;
-        this.practices = practices;
     }
 
     public Long getIdSubject() {

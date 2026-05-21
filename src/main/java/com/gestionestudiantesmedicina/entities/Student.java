@@ -69,10 +69,6 @@ public class Student extends Person {
     @JoinColumn(name = "student_type_id")
     private StudentType studentType;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
-
     @OneToMany(mappedBy = "student", cascade = { CascadeType.MERGE, CascadeType.REFRESH,
             CascadeType.REMOVE }, orphanRemoval = true)
     private List<Relative> relatives;
@@ -81,14 +77,17 @@ public class Student extends Person {
     @JoinColumn(name = "legal_representative")
     private LegalRepresentative legalRepresentative;
 
+    @ManyToMany
+    @JoinTable(name = "student_schedule", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "schedule_id"))
+    private List<Schedule> schedules;
+
     public Student() {
     }
 
     public Student(Long id, String name, String lastName, LocalDate birthDate, String password,
             MaritalStatus maritalStatus, String birthPlace, String addressTunja, String permanentAddress,
             String phoneNumber, String email, String secondLanguage, Integer roomies, Integer familyCoreTunja,
-            LocalDate entryDate, HealthData healthData, AcademicData academicData, List<Practice> practices,
-            StudentType studentType, Teacher teacher, List<Relative> relatives,
+            LocalDate entryDate, HealthData healthData, AcademicData academicData, StudentType studentType,
             LegalRepresentative legalRepresentative) {
         super(id, name, lastName, birthDate, password);
         this.maritalStatus = maritalStatus;
@@ -103,10 +102,7 @@ public class Student extends Person {
         this.entryDate = entryDate;
         this.healthData = healthData;
         this.academicData = academicData;
-        this.practices = practices;
         this.studentType = studentType;
-        this.teacher = teacher;
-        this.relatives = relatives;
         this.legalRepresentative = legalRepresentative;
     }
 
@@ -170,7 +166,7 @@ public class Student extends Person {
         return roomies;
     }
 
-    public void setRoomies(int roomies) {
+    public void setRoomies(Integer roomies) {
         this.roomies = roomies;
     }
 
@@ -178,7 +174,7 @@ public class Student extends Person {
         return familyCoreTunja;
     }
 
-    public void setFamilyCoreTunja(int familyCoreTunja) {
+    public void setFamilyCoreTunja(Integer familyCoreTunja) {
         this.familyCoreTunja = familyCoreTunja;
     }
 
@@ -222,14 +218,6 @@ public class Student extends Person {
         this.studentType = studentType;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
     public List<Relative> getRelatives() {
         return relatives;
     }
@@ -246,8 +234,12 @@ public class Student extends Person {
         this.legalRepresentative = legalRepresentative;
     }
 
-    public void uploadDoc(String documentName) {
-        System.out.println("Subiendo documento: " + documentName);
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
 }

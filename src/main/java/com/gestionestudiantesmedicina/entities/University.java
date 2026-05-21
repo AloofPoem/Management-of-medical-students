@@ -28,10 +28,9 @@ public class University {
     public University() {
     }
 
-    public University(Long idUniversity, String universityName, List<AcademicData> academicData) {
+    public University(Long idUniversity, String universityName) {
         this.idUniversity = idUniversity;
         this.universityName = universityName;
-        this.academicData = academicData;
     }
 
     public Long getIdUniversity() {

@@ -4,9 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
+import com.gestionestudiantesmedicina.daos.RecordDAO;
+import com.gestionestudiantesmedicina.daos.ScheduleDAO;
+import com.gestionestudiantesmedicina.daos.PracticeDAO;
+
 import com.gestionestudiantesmedicina.entities.Teacher;
 import com.gestionestudiantesmedicina.entities.Record;
-import com.gestionestudiantesmedicina.entities.Student;
+import com.gestionestudiantesmedicina.entities.Schedule;
+import com.gestionestudiantesmedicina.entities.Practice;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,22 +40,30 @@ public class TeacherController {
     @FXML
     private TableView<Teacher> tableTeachers;
     @FXML
-    private TableColumn<Teacher, Long> colTeacherId;
+    private TableColumn<Teacher, Integer> colTeacherId;
     @FXML
     private TableColumn<Teacher, String> colNames;
     @FXML
     private TableColumn<Teacher, String> colLastNames;
     @FXML
     private TableColumn<Teacher, String> colSpecialty;
+
+    // Relaciones
     @FXML
-    private TableColumn<Teacher, String> colRecord;
+    private TableColumn<Teacher, String> colRecords;
     @FXML
-    private TableColumn<Teacher, String> colStudentCount;
+    private TableColumn<Teacher, String> colSchedules;
+    @FXML
+    private TableColumn<Teacher, String> colPractices;
+    @FXML
+    private TableColumn<Teacher, String> colStudentsFromPractice;
+
+
 
     private TeacherDAO teacherDAO = new TeacherDAO();
-
     private ObservableList<Teacher> teacherList = FXCollections.observableArrayList();
 
+    @FXML
     @FXML
     private void initialize() {
         colTeacherId.setCellValueFactory(new PropertyValueFactory<>("idTeacher"));
@@ -58,17 +71,38 @@ public class TeacherController {
         colLastNames.setCellValueFactory(new PropertyValueFactory<>("lastNames"));
         colSpecialty.setCellValueFactory(new PropertyValueFactory<>("specialty"));
 
-
-        colRecord.setCellValueFactory(cellData -> {
+        // Records
+        colRecords.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue();
             int count = (t.getRecords() != null) ? t.getRecords().size() : 0;
             return new SimpleStringProperty(count + " records");
         });
 
-        // Mostrar cantidad de estudiantes asociados
-        colStudentCount.setCellValueFactory(cellData -> {
+        // Schedules
+        colSchedules.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue();
-            int count = (t.getStudents() != null) ? t.getStudents().size() : 0;
+            int count = (t.getSchedules() != null) ? t.getSchedules().size() : 0;
+            return new SimpleStringProperty(count + " schedules");
+        });
+
+        // Practices
+        colPractices.setCellValueFactory(cellData -> {
+            Teacher t = cellData.getValue();
+            int count = (t.getPractices() != null) ? t.getPractices().size() : 0;
+            return new SimpleStringProperty(count + " practices");
+        });
+
+        // Estudiantes a través de Practices
+        colStudentsFromPractice.setCellValueFactory(cellData -> {
+            Teacher t = cellData.getValue();
+            int count = 0;
+            if (t.getPractices() != null) {
+                count = (int) t.getPractices().stream()
+                        .flatMap(p -> p.getStudents().stream()) // cada práctica tiene estudiantes
+                        .filter(s -> s != null)
+                        .distinct()
+                        .count();
+            }
             return new SimpleStringProperty(count + " estudiantes");
         });
 
@@ -98,7 +132,6 @@ public class TeacherController {
     @FXML
     private void handleCreate(ActionEvent event) {
         try {
-
             Teacher t = new Teacher();
             t.setNames(txtNames.getText());
             t.setLastNames(txtLastNames.getText());
@@ -116,14 +149,13 @@ public class TeacherController {
     @FXML
     private void handleUpdate(ActionEvent event) {
         try {
-            Long teacherId = Long.parseLong(txtTeacherId.getText().trim());
+            Integer teacherId = Integer.parseInt(txtTeacherId.getText().trim());
             Teacher teacher = teacherDAO.findById(teacherId);
 
             if (teacher == null) {
                 showAlert(AlertType.ERROR, "Validación", "Profesor no encontrado con ID: " + teacherId);
                 return;
             }
-
 
             teacher.setNames(txtNames.getText());
             teacher.setLastNames(txtLastNames.getText());
@@ -141,7 +173,7 @@ public class TeacherController {
     @FXML
     private void handleDelete(ActionEvent event) {
         try {
-            Long teacherId = Long.parseLong(txtTeacherId.getText().trim());
+            Integer teacherId = Integer.parseInt(txtTeacherId.getText().trim());
 
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Eliminación");

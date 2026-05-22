@@ -7,12 +7,14 @@ import java.util.Optional;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
 import com.gestionestudiantesmedicina.daos.StudentTypeDAO;
 import com.gestionestudiantesmedicina.daos.UniversityDAO;
-import com.gestionestudiantesmedicina.entities.AcademicData;
-import com.gestionestudiantesmedicina.entities.HealthData;
-import com.gestionestudiantesmedicina.entities.LegalRepresentative;
+
 import com.gestionestudiantesmedicina.entities.Student;
 import com.gestionestudiantesmedicina.entities.StudentType;
+import com.gestionestudiantesmedicina.entities.HealthData;
+import com.gestionestudiantesmedicina.entities.LegalRepresentative;
+import com.gestionestudiantesmedicina.entities.AcademicData;
 import com.gestionestudiantesmedicina.entities.University;
+
 import com.gestionestudiantesmedicina.enumeration.BloodType;
 import com.gestionestudiantesmedicina.enumeration.MaritalStatus;
 import com.gestionestudiantesmedicina.enumeration.RelationShip;
@@ -116,6 +118,7 @@ public class StudentAdminController {
 
     @FXML
     private TableColumn<Student, String> colPhone;
+    // en el ERD es int, pero se muestra como String
 
     @FXML
     private TableColumn<Student, String> colProgram;
@@ -159,16 +162,16 @@ public class StudentAdminController {
 
     /*
      * Revisar para que sirven
-     * 
+     *
      * @FXML
      * private Label lblDateTime;
-     * 
+     *
      * @FXML
      * private Label lblRecordCount;
-     * 
+     *
      * @FXML
      * private Label lblStatus;
-     * 
+     *
      * @FXML
      * private Label lblUser;
      */
@@ -260,7 +263,8 @@ public class StudentAdminController {
 
     @FXML
     private TextField txtStudentTypeId;
-    
+    // corregido: nombre del tipo de estudiante
+
     @FXML
     private TextField txtSearch;
 

@@ -216,6 +216,59 @@ public class RecordController {
         }
     }
 
+    @FXML
+    private void handleCheckInOut(Schedule schedule, Long personId) {
+        try {
+            // Validar si es estudiante o profesor en el horario
+            boolean isStudent = schedule.getStudents().stream()
+                    .anyMatch(s -> s.getIdStudent().equals(personId));
+            boolean isTeacher = schedule.getTeacher() != null &&
+                    schedule.getTeacher().getIdTeacher().equals(personId);
+
+            if (!isStudent && !isTeacher) {
+                showAlert(AlertType.ERROR, "Validación",
+                        "El ID " + personId + " no está asociado al horario " + schedule.getIdSchedule());
+                return;
+            }
+
+            // Buscar último registro de esa persona en ese horario
+            Record lastRecord = recordDAO.findLastByScheduleAndPerson(schedule.getIdSchedule(), personId);
+
+            LocalTime now = LocalTime.now();
+
+            if (lastRecord == null || lastRecord.getTimeOut() != null) {
+                // Caso entrada
+                Record newRecord = new Record();
+                newRecord.setDate(schedule.getDate());
+                newRecord.setTimeIn(now);
+
+                if (isStudent) {
+                    Student student = studentDAO.findById(personId);
+                    newRecord.setStudent(student);
+                } else {
+                    Teacher teacher = teacherDAO.findById(personId);
+                    newRecord.setTeacher(teacher);
+                }
+
+                recordDAO.save(newRecord);
+                showAlert(AlertType.INFORMATION, "Entrada registrada",
+                        "Se registró la entrada para ID " + personId);
+
+            } else {
+                // Caso salida
+                lastRecord.setTimeOut(now);
+                recordDAO.update(lastRecord);
+                showAlert(AlertType.INFORMATION, "Salida registrada",
+                        "Se registró la salida para ID " + personId);
+            }
+
+            loadRecordList();
+
+        } catch (Exception e) {
+            showAlert(AlertType.ERROR, "Error", "No se pudo registrar entrada/salida: " + e.getMessage());
+        }
+    }
+
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

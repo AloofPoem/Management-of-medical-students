@@ -289,7 +289,7 @@ public class RecordController {
         List<Schedule> schedules;
         if (p instanceof Student) {
             StudentDAO studentDAO = new StudentDAO();
-            Student student = studentDAO.findByIdWithSchedules(personId);
+            Student student = studentDAO.findByIdWithList(personId, "schedules");
             schedules = student.getSchedules();
             //schedules = scheduleDAO.findByStudentId(personId);
         } else {

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.PracticeAdminController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.PracticeController">
    <children>
       <!-- Header -->
       <AnchorPane prefHeight="100.0" style="-fx-background-color: #5b4e77;">
@@ -139,21 +139,6 @@
                </font>
             </TextField>
             <Button mnemonicParsing="false" onAction="#handleSearch" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #16a085; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;" text="Buscar">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <Label text="Añadir Persona" textFill="#5b4e77">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtStudentId" prefHeight="30.0" prefWidth="284.0" promptText="ID person" style="-fx-background-radius: 5; -fx-border-color: #d1d1d1; -fx-border-radius: 5;">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </TextField>
-            <Button mnemonicParsing="false" onAction="#addPerson" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #16a085; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;" text="Añadir">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

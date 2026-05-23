@@ -12,5 +12,6 @@ module com.gestionestudiantesmedicina {
     //se supone que es para hibernate
     opens com.gestionestudiantesmedicina.entities to org.hibernate.orm.core, javafx.base;
 
+    exports com.gestionestudiantesmedicina.controller;
     exports com.gestionestudiantesmedicina;
 }

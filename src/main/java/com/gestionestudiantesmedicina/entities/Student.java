@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -63,7 +62,7 @@ public class Student extends Person {
     @JoinColumn(name = "academic_data_id")
     private AcademicData academicData;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "student_practice", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "practice_id"))
     private List<Practice> practices;
 
@@ -250,6 +249,11 @@ public class Student extends Person {
     public void addSchedule(Schedule schedule) {
         this.schedules.add(schedule);
         schedule.getStudents().add(this); 
+    }
+    
+    public void addPractice(Practice practice) {
+        this.practices.add(practice);
+        practice.getStudents().add(this); 
     }
 
 }

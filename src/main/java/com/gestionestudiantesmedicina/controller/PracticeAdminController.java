@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.PracticeDAO;
+import com.gestionestudiantesmedicina.daos.StudentDAO;
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
 import com.gestionestudiantesmedicina.daos.SubjectDAO;
 import com.gestionestudiantesmedicina.entities.Practice;
+import com.gestionestudiantesmedicina.entities.Student;
 import com.gestionestudiantesmedicina.entities.Teacher;
 import com.gestionestudiantesmedicina.entities.Subject;
 
@@ -33,6 +35,8 @@ public class PracticeAdminController {
     private TextField txtSubjectId;
     @FXML
     private TextField txtSearch;
+    @FXML
+    private TextField txtStudentId;
 
     @FXML
     private TableView<Practice> tablePractices;
@@ -48,13 +52,6 @@ public class PracticeAdminController {
     private SubjectDAO subjectDAO = new SubjectDAO();
 
     private ObservableList<Practice> practiceList = FXCollections.observableArrayList();
-    private Long idStudent;
-
-    public void setId(Long id){
-        this.idStudent = id;
-        
-    }
-
 
     @FXML
     private void initialize() {
@@ -75,8 +72,7 @@ public class PracticeAdminController {
         loadPracticeList();
 
         tablePractices.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldSelection, newSelection) -> populateForm(newSelection)
-        );
+                (obs, oldSelection, newSelection) -> populateForm(newSelection));
     }
 
     private void loadPracticeList() {
@@ -190,6 +186,49 @@ public class PracticeAdminController {
         tablePractices.getSelectionModel().clearSelection();
         loadPracticeList();
     }
+
+    @FXML
+    private void addPerson(ActionEvent event) {
+
+        try {
+
+            if (txtStudentId.getText() == null || txtStudentId.getText().trim().isEmpty()|| txtPracticeId.getText() == null|| txtPracticeId.getText().trim().isEmpty()) {
+                showAlert(AlertType.WARNING, "Campos Vacíos", "Por favor, complete ambos IDs.");
+                return;
+            }
+
+            Practice practice = practiceDAO.findById(Long.parseLong(txtPracticeId.getText()));
+
+            if (practice == null) {
+                showAlert(AlertType.ERROR, "Validación", "Clase no encontrada.");
+                return;
+            }
+
+            StudentDAO studentDAO = new StudentDAO();
+            Student student = studentDAO.findByIdWithList(Long.parseLong(txtStudentId.getText()), "practices");
+
+            if (student == null) {
+                showAlert(AlertType.ERROR, "Validación", "Estudiante no valido.");
+                return;
+            }
+
+            if (student.getPractices().contains(practice)) {
+                showAlert(AlertType.WARNING, "Validación","El estudiante ya está inscrito en esta clase.");
+                return;
+            }
+
+            student.getPractices().add(practice);
+            studentDAO.update(student);
+            
+            showAlert(AlertType.INFORMATION, "Éxito","Estudiante agregado al horario correctamente.");
+
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser numérico.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(AlertType.ERROR, "Error", "Ocurrió un error inesperado al guardar los datos.");
+        }
+    }       
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

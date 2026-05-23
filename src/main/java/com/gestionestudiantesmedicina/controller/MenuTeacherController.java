@@ -26,8 +26,17 @@ public class MenuTeacherController {
     // LOS LOADVIEW ESTAN MAL PORQUE AUN NO ESTAN LAS VISTAS CORRECTAS
     @FXML
     void loadPractice(ActionEvent event) {
-        loadView("ClassViewAdmin");
-        //FALTA UN VIEW
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("ClassView.fxml"));   
+            Parent view = loader.load();
+            PracticeController practiceController = loader.getController();
+            
+            practiceController.setId(idTeacher);
+            bpMenu.setCenter(view);        
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(AlertType.ERROR,"Error al Cargar", "No se pudo cargar la vista: ClassView.fxml");
+        }   
     }
 
     @FXML

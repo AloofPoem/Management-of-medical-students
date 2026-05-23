@@ -2,7 +2,6 @@ package com.gestionestudiantesmedicina.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -192,8 +191,7 @@ public class ScheduleController {
 
                 } catch (Exception e) {
 
-                        showAlert(AlertType.ERROR, "Error de Actualización",
-                                        "No se pudo actualizar: " + e.getMessage());
+                        showAlert(AlertType.ERROR, "Error de Actualización","No se pudo actualizar: " + e.getMessage());
                 }
         }
 
@@ -303,28 +301,24 @@ public class ScheduleController {
                                 Teacher teacher = (Teacher) person;
                                 schedule.setTeacher(teacher);
                                 scheduleDAO.update(schedule);
-                                showAlert(AlertType.INFORMATION, "Éxito",
-                                                "Profesor asignado al horario correctamente.");
+                                showAlert(AlertType.INFORMATION, "Éxito","Profesor asignado al horario correctamente.");
                                 return;
                         }
 
                         if (person instanceof Student) {
                                 StudentDAO studentDAO = new StudentDAO();
-                                Student student = studentDAO
-                                                .findByIdWithSchedules(Long.parseLong(txtPersonId.getText()));
+                                Student student = studentDAO.findByIdWithList(Long.parseLong(txtPersonId.getText()), "schedules");
                                 if (student.getSchedules().contains(schedule)) {
-                                        showAlert(AlertType.WARNING, "Validación",
-                                                        "El estudiante ya está inscrito en este horario.");
+                                        showAlert(AlertType.WARNING, "Validación","El estudiante ya está inscrito en este horario.");
                                         return;
                                 }
-                                schedule.getStudents().add(student);
-                                scheduleDAO.update(schedule);
+                                //schedule.getStudents().add(student);
+                                //scheduleDAO.update(schedule);
 
                                 student.getSchedules().add(schedule);
                                 studentDAO.update(student);
 
-                                showAlert(AlertType.INFORMATION, "Éxito",
-                                                "Estudiante agregado al horario correctamente.");
+                                showAlert(AlertType.INFORMATION, "Éxito","Estudiante agregado al horario correctamente.");
                                 return;
                         }
 

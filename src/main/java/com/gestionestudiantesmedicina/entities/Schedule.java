@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +36,8 @@ public class Schedule {
     @JoinColumn(name = "teacher_id", nullable = true)
     private Teacher teacher;
 
-    @ManyToMany(mappedBy = "schedules", fetch = FetchType.EAGER)
+    //@ManyToMany(mappedBy = "schedules", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "schedules")
     private List<Student> students;
 
     public Schedule() {
@@ -56,7 +56,7 @@ public class Schedule {
     }
 
     public void setidSchedule(Long idSchedule) {
-        idSchedule = idSchedule;
+        this.idSchedule = idSchedule;
     }
 
     public LocalDate getDate() {

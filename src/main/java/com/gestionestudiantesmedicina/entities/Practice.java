@@ -39,7 +39,7 @@ public class Practice {
     public Practice() {
     }
 
-    public Practice(Long idPractice, Subject subject, Schedule schedule,Teacher teacher) {
+    public Practice(Long idPractice, Subject subject, Schedule schedule, Teacher teacher) {
         this.idPractice = idPractice;
         this.subject = subject;
         this.schedule = schedule;
@@ -85,5 +85,18 @@ public class Practice {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Practice))return false;
+        Practice other = (Practice) o;
+        return idPractice != null && idPractice.equals(other.idPractice);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

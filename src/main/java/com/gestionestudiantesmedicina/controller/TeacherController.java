@@ -4,14 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
-import com.gestionestudiantesmedicina.daos.RecordDAO;
-import com.gestionestudiantesmedicina.daos.ScheduleDAO;
-import com.gestionestudiantesmedicina.daos.PracticeDAO;
 
 import com.gestionestudiantesmedicina.entities.Teacher;
-import com.gestionestudiantesmedicina.entities.Record;
-import com.gestionestudiantesmedicina.entities.Schedule;
-import com.gestionestudiantesmedicina.entities.Practice;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

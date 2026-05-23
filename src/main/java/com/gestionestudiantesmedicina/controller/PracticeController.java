@@ -3,13 +3,14 @@ package com.gestionestudiantesmedicina.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.gestionestudiantesmedicina.daos.PersonDAO;
 import com.gestionestudiantesmedicina.daos.PracticeDAO;
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
 import com.gestionestudiantesmedicina.daos.SubjectDAO;
+import com.gestionestudiantesmedicina.entities.Person;
 import com.gestionestudiantesmedicina.entities.Practice;
 import com.gestionestudiantesmedicina.entities.Teacher;
 import com.gestionestudiantesmedicina.entities.Subject;
-import com.gestionestudiantesmedicina.entities.Student;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +33,8 @@ public class PracticeController {
     private TextField txtTeacherId;
     @FXML
     private TextField txtSubjectId;
+    @FXML
+    private TextField txtSearch;
 
     @FXML
     private TableView<Practice> tablePractices;
@@ -41,14 +44,22 @@ public class PracticeController {
     private TableColumn<Practice, String> colTeacher;
     @FXML
     private TableColumn<Practice, String> colSubject;
-    @FXML
-    private TableColumn<Practice, String> colStudents;
 
     private PracticeDAO practiceDAO = new PracticeDAO();
     private TeacherDAO teacherDAO = new TeacherDAO();
     private SubjectDAO subjectDAO = new SubjectDAO();
-
+    
     private ObservableList<Practice> practiceList = FXCollections.observableArrayList();
+    
+    private Long id;
+    private Person person;
+
+    public void setId(Long idP){
+        this.id = idP;
+        PersonDAO personDAO = new PersonDAO();
+        person = personDAO.findById(idP);
+        loadPracticeList();
+    }
 
     @FXML
     private void initialize() {
@@ -66,14 +77,7 @@ public class PracticeController {
             return new SimpleStringProperty(s != null ? s.getNameSubject() : "");
         });
 
-        // Mostrar cantidad de estudiantes asociados a la práctica
-        colStudents.setCellValueFactory(cellData -> {
-            Practice p = cellData.getValue();
-            int count = (p.getStudents() != null) ? p.getStudents().size() : 0;
-            return new SimpleStringProperty(count + " estudiantes");
-        });
-
-        loadPracticeList();
+        //loadPracticeList();
 
         tablePractices.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldSelection, newSelection) -> populateForm(newSelection)
@@ -82,7 +86,12 @@ public class PracticeController {
 
     private void loadPracticeList() {
         practiceList.clear();
-        List<Practice> practices = practiceDAO.findAll();
+        List<Practice> practices;
+        if (person instanceof Teacher) {
+            practices = practiceDAO.findByAttribute("teacher.id", id);
+        } else {
+            practices = practiceDAO.findByStudentId(id);
+        }
         practiceList.addAll(practices);
         tablePractices.setItems(practiceList);
     }
@@ -172,6 +181,26 @@ public class PracticeController {
         tablePractices.getSelectionModel().clearSelection();
         loadPracticeList();
     }
+
+    @FXML
+    private void handleSearch(ActionEvent event) {
+        try {
+            Long id = Long.parseLong(txtSearch.getText().trim());
+            Practice practice = practiceDAO.findById(id);
+
+            if (practice != null) {
+                populateForm(practice);
+                tablePractices.getItems().setAll(practice);
+                tablePractices.getSelectionModel().select(practice);
+            } else {
+                showAlert(AlertType.INFORMATION, "Búsqueda", "Clase no encontrado con ID: " + id);
+            }
+
+        } catch (NumberFormatException e) {
+            showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
+        }
+    }
+
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

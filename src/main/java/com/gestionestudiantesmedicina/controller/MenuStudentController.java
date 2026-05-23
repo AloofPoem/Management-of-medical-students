@@ -60,15 +60,15 @@ public class MenuStudentController {
     @FXML
     void loadPractice(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("ClassViewAdmin.fxml"));   
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("ClassView.fxml"));   
             Parent view = loader.load();
-            RelativeStudentController relativeController = loader.getController();
+            PracticeController practiceController = loader.getController();
             
-            relativeController.setId(idStudent);
+            practiceController.setId(idStudent);
             bpMenu.setCenter(view);        
         } catch (Exception e) {
-            showAlert(AlertType.ERROR,"Error al Cargar", "No se pudo cargar la vista: GestionFamiliares.fxml");
             e.printStackTrace();
+            showAlert(AlertType.ERROR,"Error al Cargar", "No se pudo cargar la vista: ClassView.fxml");
         }
     }
 

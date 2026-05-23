@@ -6,14 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class AbstractGenericDAO<T,K> implements GenericDAO<T,K> {
+public class AbstractGenericDAO<T, K> implements GenericDAO<T, K> {
 
     protected Class<T> entityClass;
 
-    //cambiar base de datos
+    // cambiar base de datos
     protected static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("estudiantes_medicina");;
 
-    protected AbstractGenericDAO(Class<T> entityClass){
+    protected AbstractGenericDAO(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
@@ -34,7 +34,7 @@ public class AbstractGenericDAO<T,K> implements GenericDAO<T,K> {
         em.close();
         return entity;
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public List<T> findAll() {
@@ -43,7 +43,7 @@ public class AbstractGenericDAO<T,K> implements GenericDAO<T,K> {
         em.close();
         return list;
     }
-    
+
     @Override
     public T update(T entity) {
         EntityManager em = emf.createEntityManager();
@@ -53,7 +53,7 @@ public class AbstractGenericDAO<T,K> implements GenericDAO<T,K> {
         em.close();
         return merged;
     }
-    
+
     @Override
     public void delete(K id) {
         EntityManager em = emf.createEntityManager();
@@ -68,20 +68,20 @@ public class AbstractGenericDAO<T,K> implements GenericDAO<T,K> {
 
     @Override
     public List<T> findByAttribute(String attributeName, Object value) {
-    EntityManager em = emf.createEntityManager();
-    try {
-        // Construye un query dinámico: "FROM Relative WHERE student.id = :value"
-        String hql = "FROM " + entityClass.getSimpleName() + " WHERE " + attributeName + " = :value";
-        
-        return em.createQuery(hql, entityClass)
-                 .setParameter("value", value)
-                 .getResultList();
-    } finally {
-        em.close();
-    }
-}
+        EntityManager em = emf.createEntityManager();
+        try {
+            // Construye un query dinámico: "FROM Relative WHERE student.id = :value"
+            String hql = "FROM " + entityClass.getSimpleName() + " WHERE " + attributeName + " = :value";
 
-    protected EntityManager getEntityManager(){
+            return em.createQuery(hql, entityClass)
+                    .setParameter("value", value)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    protected EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 

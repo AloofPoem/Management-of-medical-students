@@ -24,58 +24,69 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class RelativeAdminController {
 
-    //no tenemos student
+    // no tenemos student
 
     @FXML
     private ComboBox<RelationShip> cbRelRelationship;
 
     @FXML
     private TextField txtRelId;
-    
+
     @FXML
     private TextField txtRelName;
-    
+
     @FXML
     private TextField txtRelLastName;
 
-    @FXML    
+    @FXML
+    private TextField txtIdStudent;
+
+    @FXML
     private TableView<Relative> tableRelative;
 
     @FXML
     private TableColumn<Relative, Long> colRelId;
-    
+
     @FXML
     private TableColumn<Relative, String> colRelName;
-    
+
     @FXML
     private TableColumn<Relative, String> colRelLastName;
-    
+
+    @FXML
+    private TableColumn<Relative, String> colStudent;
+
     @FXML
     private TableColumn<Relative, RelationShip> colRelRelationship;
 
-    //ponerlo de una vez con Student ???
+    // ponerlo de una vez con Student ???
     private Long studentId;
     private RelativeDAO relativeDAO = new RelativeDAO();
     private ObservableList<Relative> relativeList = FXCollections.observableArrayList();
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         colRelId.setCellValueFactory(new PropertyValueFactory<>("idRelative"));
         colRelName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colRelLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colRelRelationship.setCellValueFactory(new PropertyValueFactory<>("relationship"));
+
+        colStudent.setCellValueFactory(cellData -> {
+            Student s = cellData.getValue().getStudent();
+            return new javafx.beans.property.SimpleStringProperty(
+                    s != null ? s.getName() + " " + s.getLastName() : "");
+        });
 
         cbRelRelationship.getItems().setAll(RelationShip.values());
 
         loadRlativeList();
 
         tableRelative.getSelectionModel().selectedItemProperty().addListener(
-            (obs, oldSelection, newSelection) -> {
+                (obs, oldSelection, newSelection) -> {
                     if (newSelection != null) {
                         populateForm(newSelection);
                     }
-                }
-        );
+                });
     }
 
     private void loadRlativeList() {
@@ -86,14 +97,14 @@ public class RelativeAdminController {
     }
 
     private void populateForm(Relative r) {
-        txtRelId.setText(String.valueOf(r.getIdRelative()));   
+        txtRelId.setText(String.valueOf(r.getIdRelative()));
         txtRelName.setText(r.getName());
         txtRelLastName.setText(r.getLastName());
         cbRelRelationship.setValue(r.getRelationship());
     }
 
     @FXML
-    private void handleClear(ActionEvent event){
+    private void handleClear(ActionEvent event) {
         txtRelId.clear();
         txtRelName.clear();
         txtRelLastName.clear();
@@ -102,10 +113,10 @@ public class RelativeAdminController {
         loadRlativeList();
     }
 
-    @FXML   
-    private void handleCreate(ActionEvent event){
+    @FXML
+    private void handleCreate(ActionEvent event) {
         try {
-            
+
             String relName = txtRelName.getText();
             String relLastName = txtRelLastName.getText();
             RelationShip relRelationShip = cbRelRelationship.getValue();
@@ -126,7 +137,7 @@ public class RelativeAdminController {
     }
 
     @FXML
-    private void handleUpdate(ActionEvent event){
+    private void handleUpdate(ActionEvent event) {
         try {
             Long relId = Long.parseLong(txtRelId.getText().trim());
             Relative relative = relativeDAO.findById(relId);
@@ -144,7 +155,7 @@ public class RelativeAdminController {
 
             loadRlativeList();
             handleClear(null);
-           
+
         } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de Formato", "Algunos campos deben ser numeros");
         } catch (Exception e) {
@@ -153,10 +164,10 @@ public class RelativeAdminController {
     }
 
     @FXML
-    private void handleDelete(ActionEvent event){
+    private void handleDelete(ActionEvent event) {
         try {
             Long relId = Long.parseLong(txtRelId.getText().trim());
-            
+
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Eliminación");
             alert.setHeaderText("¿Está seguro de que desea eliminar al familiar con ID " + relId + "?");
@@ -175,22 +186,23 @@ public class RelativeAdminController {
     }
 
     @FXML
-    private void handleSearch(ActionEvent event){
+    private void handleSearch(ActionEvent event) {
         try {
             Long relId = Long.parseLong(txtRelId.getText().trim());
             Relative relative = relativeDAO.findById(relId);
 
             /*
-            Revisar si se puede asi en vez del if else
-            if (relative == null) {
-                showAlert(AlertType.INFORMATION, "Búsqueda", "Familiar no encontrado con ID: " + relId);
-                return;
-            }
-            */
+             * Revisar si se puede asi en vez del if else
+             * if (relative == null) {
+             * showAlert(AlertType.INFORMATION, "Búsqueda",
+             * "Familiar no encontrado con ID: " + relId);
+             * return;
+             * }
+             */
 
             if (relative != null) {
                 populateForm(relative);
-                tableRelative.getItems().setAll(relative); 
+                tableRelative.getItems().setAll(relative);
                 tableRelative.getSelectionModel().select(relative);
             } else {
                 showAlert(AlertType.INFORMATION, "Búsqueda", "Familiar no encontrado con ID: " + relId);
@@ -201,7 +213,7 @@ public class RelativeAdminController {
         }
     }
 
-    public void setStudentId(Long id){
+    public void setStudentId(Long id) {
         this.studentId = id;
     }
 

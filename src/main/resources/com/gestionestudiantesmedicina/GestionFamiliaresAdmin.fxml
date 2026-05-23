@@ -117,7 +117,7 @@
                     <TableColumn fx:id="colRelName" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Nombre" />
                     <TableColumn fx:id="colRelLastName" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Apellido" />
                     <TableColumn fx:id="colRelRelationship" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Relación" />
-                    <TableColumn fx:id="colEstudiante" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Estudiante" />
+                    <TableColumn fx:id="colStudent" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Estudiante" />
                 </columns>
                 <placeholder>
                     <VBox alignment="CENTER" spacing="10" style="-fx-padding: 40;">

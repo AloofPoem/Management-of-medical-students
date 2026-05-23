@@ -217,7 +217,7 @@ public class PracticeAdminController {
                 return;
             }
 
-            student.getPractices().add(practice);
+            student.addPractice(practice);
             studentDAO.update(student);
             
             showAlert(AlertType.INFORMATION, "Éxito","Estudiante agregado al horario correctamente.");

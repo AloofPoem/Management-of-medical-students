@@ -44,6 +44,8 @@ public class RelativeAdminController {
     @FXML
     private TableView<Relative> tableRelative;
 
+
+
     @FXML
     private TableColumn<Relative, Long> colRelId;
 

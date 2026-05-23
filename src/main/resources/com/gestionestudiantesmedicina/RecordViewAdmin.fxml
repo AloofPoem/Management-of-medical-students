@@ -69,19 +69,7 @@
                 <Insets top="15" />
             </padding>
             
-            <Button onAction="#handleCheckInOut" style="-fx-background-color: #5B3A87; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="✏ Editar">
-                <padding>
-                    <Insets bottom="12" left="30" right="30" top="12" />
-                </padding>
-            </Button>
-            
-            <Button style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="🗑 Eliminar">
-                <padding>
-                    <Insets bottom="12" left="30" right="30" top="12" />
-                </padding>
-            </Button>
-            
-            <Button onAction="#handleClear" style="-fx-background-color: #95A5A6; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="Limpiar">
+            <Button onAction="#handleCheckInOut" style="-fx-background-color: #5B3A87; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="Registrar">
                 <padding>
                     <Insets bottom="12" left="30" right="30" top="12" />
                 </padding>

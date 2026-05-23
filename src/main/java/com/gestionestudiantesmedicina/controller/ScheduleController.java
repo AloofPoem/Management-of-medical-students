@@ -315,7 +315,7 @@ public class ScheduleController {
                                 //schedule.getStudents().add(student);
                                 //scheduleDAO.update(schedule);
 
-                                student.getSchedules().add(schedule);
+                                student.addSchedule(schedule);
                                 studentDAO.update(student);
 
                                 showAlert(AlertType.INFORMATION, "Éxito","Estudiante agregado al horario correctamente.");

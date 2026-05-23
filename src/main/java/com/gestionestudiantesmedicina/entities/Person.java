@@ -1,5 +1,6 @@
 package com.gestionestudiantesmedicina.entities;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,9 @@ public abstract class Person {
 
     @OneToMany(mappedBy = "person", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Record> records;
+
+    @Column(name = "total_hours")
+    private int totalHours;
 
     public Person() {
 
@@ -95,6 +99,13 @@ public abstract class Person {
 
     public void setRecords(List<Record> records) {
         this.records = records;
+    }
+
+    public void actualizarHoras(Record r) {
+        if (r.getTimeIn() != null && r.getTimeOut() != null) {
+            long hours = Duration.between(r.getTimeIn(), r.getTimeOut()).toHours();
+            totalHours += hours;
+        }
     }
 
 }

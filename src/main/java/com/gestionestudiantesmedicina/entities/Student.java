@@ -248,12 +248,12 @@ public class Student extends Person {
 
     public void addSchedule(Schedule schedule) {
         this.schedules.add(schedule);
-        schedule.getStudents().add(this); 
+        schedule.getStudents().add(this);
     }
-    
+
     public void addPractice(Practice practice) {
         this.practices.add(practice);
-        practice.getStudents().add(this); 
+        practice.getStudents().add(this);
     }
 
 }

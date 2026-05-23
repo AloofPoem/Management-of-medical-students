@@ -77,16 +77,6 @@ public class RecordController {
             return new SimpleStringProperty(t != null ? t.getName() + " " + t.getLastName() : "");
         });
 
-        /*
-         * // Mostrar nombre del Student
-         * colStudent.setCellValueFactory(cellData -> {
-         * Student s = cellData.getValue().getStudent();
-         * return new javafx.beans.property.SimpleStringProperty(
-         * s != null ? s.getName() + " " + s.getLastName() : ""
-         * );
-         * });
-         */
-
         loadRecordList();
 
         tableRecords.getSelectionModel().selectedItemProperty().addListener(
@@ -126,76 +116,6 @@ public class RecordController {
         loadRecordList();
     }
 
-    // @FXML
-    private void handleCreate(ActionEvent event) {
-        try {
-            Person person = personDAO.findById(Long.parseLong(txtPersonId.getText()));
-
-            Record record = new Record();
-            record.setDate(dpDate.getValue());
-            record.setTimeIn(LocalTime.parse(txtTimeIn.getText().trim()));
-            record.setTimeOut(LocalTime.parse(txtTimeOut.getText().trim()));
-            record.setPerson(person);
-
-            recordDAO.save(record);
-            loadRecordList();
-            handleClear(null);
-
-            showAlert(AlertType.INFORMATION, "Creación Exitosa", "Registro creado correctamente.");
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error de Creación", "No se pudo crear el registro: " + e.getMessage());
-        }
-    }
-
-    // @FXML
-    private void handleUpdate(ActionEvent event) {
-        try {
-            Long recId = Long.parseLong(txtRecordId.getText().trim());
-            Record record = recordDAO.findById(recId);
-
-            if (record == null) {
-                showAlert(AlertType.ERROR, "Validación", "Registro no encontrado con ID: " + recId);
-                return;
-            }
-
-            record.setDate(dpDate.getValue());
-            record.setTimeIn(LocalTime.parse(txtTimeIn.getText().trim()));
-            record.setTimeOut(LocalTime.parse(txtTimeOut.getText().trim()));
-
-            Person person = personDAO.findById(Long.parseLong(txtPersonId.getText()));
-            record.setPerson(person);
-
-            recordDAO.update(record);
-            loadRecordList();
-            handleClear(null);
-
-            showAlert(AlertType.INFORMATION, "Actualización Exitosa", "Registro actualizado correctamente.");
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error de Actualización", "No se pudo actualizar: " + e.getMessage());
-        }
-    }
-
-    // @FXML
-    private void handleDelete(ActionEvent event) {
-        try {
-            Long recId = Long.parseLong(txtRecordId.getText().trim());
-
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Confirmar Eliminación");
-            alert.setHeaderText("¿Está seguro de que desea eliminar el registro con ID " + recId + "?");
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                recordDAO.delete(recId);
-                loadRecordList();
-                handleClear(null);
-                showAlert(AlertType.INFORMATION, "Eliminación Exitosa", "Registro eliminado correctamente.");
-            }
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error de Eliminación", "No se pudo eliminar: " + e.getMessage());
-        }
-    }
-
     @FXML
     private void handleSearch(ActionEvent event) {
         try {
@@ -221,14 +141,6 @@ public class RecordController {
             Long personId = Long.parseLong(txtPersonId.getText());
             Person p = personDAO.findById(personId);
 
-            /*
-             * boolean isStudent = p instanceof Student;
-             * boolean isTeacher = p instanceof Teacher;
-             * boolean isStudent = schedule.getStudents().stream()
-             * .anyMatch(s -> s.getId().equals(personId));
-             * boolean isTeacher = schedule.getTeacher() != null &&
-             * schedule.getTeacher().getId().equals(personId);
-             */
             if (p == null || p instanceof Admin) {
                 showAlert(AlertType.ERROR, "Validación", "El ID " + personId + " no está asociado ");
                 return;
@@ -251,16 +163,6 @@ public class RecordController {
 
                 newRecord.setPerson(p);
 
-                /*
-                 * if (isStudent) {
-                 * Student student = studentDAO.findById(personId);
-                 * newRecord.setPerson(student);
-                 * } else {
-                 * Teacher teacher = teacherDAO.findById(personId);
-                 * newRecord.setPerson(teacher);
-                 * }
-                 */
-
                 recordDAO.save(newRecord);
                 showAlert(AlertType.INFORMATION, "Entrada registrada", "Se registró la entrada para ID " + personId);
 
@@ -268,6 +170,9 @@ public class RecordController {
                 // Caso salida
                 lastRecord.setTimeOut(LocalTime.now());
                 recordDAO.update(lastRecord);
+                personDAO.update(p);
+                p.actualizarHoras(lastRecord);
+                
                 showAlert(AlertType.INFORMATION, "Salida registrada", "Se registró la salida para ID " + personId);
             }
 

@@ -36,7 +36,7 @@ public class PracticeController {
     @FXML
     private TableView<Practice> tablePractices;
     @FXML
-    private TableColumn<Practice, Integer> colPracticeId;
+    private TableColumn<Practice, Long> colPracticeId;
     @FXML
     private TableColumn<Practice, String> colTeacher;
     @FXML
@@ -57,7 +57,7 @@ public class PracticeController {
         // Mostrar nombre del Teacher asociado
         colTeacher.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue().getTeacher();
-            return new SimpleStringProperty(t != null ? t.getNames() + " " + t.getLastNames() : "");
+            return new SimpleStringProperty(t != null ? t.getName() + " " + t.getLastName() : "");
         });
 
         // Mostrar nombre del Subject asociado
@@ -91,7 +91,7 @@ public class PracticeController {
         if (practice != null) {
             txtPracticeId.setText(String.valueOf(practice.getIdPractice()));
             if (practice.getTeacher() != null) {
-                txtTeacherId.setText(String.valueOf(practice.getTeacher().getIdTeacher()));
+                txtTeacherId.setText(String.valueOf(practice.getTeacher().getId()));
             }
             if (practice.getSubject() != null) {
                 txtSubjectId.setText(String.valueOf(practice.getSubject().getIdSubject()));
@@ -102,8 +102,8 @@ public class PracticeController {
     @FXML
     private void handleCreate(ActionEvent event) {
         try {
-            Teacher teacher = teacherDAO.findById(Integer.parseInt(txtTeacherId.getText()));
-            Subject subject = subjectDAO.findById(Integer.parseInt(txtSubjectId.getText()));
+            Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
+            Subject subject = subjectDAO.findById(Long.parseLong(txtSubjectId.getText()));
 
             Practice p = new Practice();
             p.setTeacher(teacher);
@@ -121,7 +121,7 @@ public class PracticeController {
     @FXML
     private void handleUpdate(ActionEvent event) {
         try {
-            Integer practiceId = Integer.parseInt(txtPracticeId.getText().trim());
+            Long practiceId = Long.parseLong(txtPracticeId.getText().trim());
             Practice practice = practiceDAO.findById(practiceId);
 
             if (practice == null) {
@@ -129,8 +129,8 @@ public class PracticeController {
                 return;
             }
 
-            Teacher teacher = teacherDAO.findById(Integer.parseInt(txtTeacherId.getText()));
-            Subject subject = subjectDAO.findById(Integer.parseInt(txtSubjectId.getText()));
+            Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
+            Subject subject = subjectDAO.findById(Long.parseLong(txtSubjectId.getText()));
 
             practice.setTeacher(teacher);
             practice.setSubject(subject);
@@ -147,7 +147,7 @@ public class PracticeController {
     @FXML
     private void handleDelete(ActionEvent event) {
         try {
-            Integer practiceId = Integer.parseInt(txtPracticeId.getText().trim());
+            Long practiceId = Long.parseLong(txtPracticeId.getText().trim());
 
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Confirmar Eliminación");

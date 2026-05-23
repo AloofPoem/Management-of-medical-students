@@ -1,5 +1,6 @@
 package com.gestionestudiantesmedicina.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -43,6 +44,7 @@ public class Practice {
         this.subject = subject;
         this.schedule = schedule;
         this.teacher = teacher;
+        this.students = new ArrayList<>();
     }
 
     public Long getIdPractice() {

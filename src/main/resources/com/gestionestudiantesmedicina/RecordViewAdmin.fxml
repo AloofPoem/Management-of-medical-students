@@ -29,19 +29,19 @@
             <!-- ID Record -->
             <VBox spacing="5" HBox.hgrow="ALWAYS">
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="ID Record:" />
-                <TextField fx:id="txtRecordId" promptText="ID automatico" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
+                <TextField fx:id="txtRecordId" editable="false" promptText="ID automatico" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
             </VBox>
             
             <!-- Date -->
             <VBox spacing="5" HBox.hgrow="ALWAYS">
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="Fecha:" />
-                <DatePicker fx:id="dpDate" maxWidth="Infinity" promptText="Seleccione fecha" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
+                <DatePicker fx:id="dpDate" editable="false" maxWidth="Infinity" promptText="Seleccione fecha" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
             </VBox>
             
             <!-- Time In -->
             <VBox spacing="5" HBox.hgrow="ALWAYS">
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="Hora Entrada:" />
-                <TextField fx:id="txtTimeIn" promptText="HH:mm" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
+                <TextField fx:id="txtTimeIn" editable="false" promptText="HH:mm" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
             </VBox>
         </HBox>
 
@@ -50,20 +50,16 @@
             <!-- Time Out -->
             <VBox spacing="5" HBox.hgrow="ALWAYS">
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="Hora Salida:" />
-                <TextField fx:id="txtTimeOut" promptText="HH:mm" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
+                <TextField fx:id="txtTimeOut" editable="false" promptText="HH:mm" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
             </VBox>
             
             <!-- Empty space -->
-            <VBox spacing="5" HBox.hgrow="ALWAYS">
-            <children>
-               <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="ID Horario:" />
-               <TextField fx:id="txtScheduleId" promptText="Ej: 1001" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
-            </children></VBox>
+            <VBox spacing="5" HBox.hgrow="ALWAYS" />
             
             <!-- Schedule -->
             <VBox spacing="5" HBox.hgrow="ALWAYS">
-                <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="ID Docente:" />
-                <TextField fx:id="txtTeacherId" promptText="Ej: 1001" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
+                <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="ID Persona" />
+                <TextField fx:id="txtPersonId" promptText="Ej: 1001" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
             </VBox>
         </HBox>
 
@@ -73,13 +69,13 @@
                 <Insets top="15" />
             </padding>
             
-            <Button onAction="#handleUpdate" style="-fx-background-color: #5B3A87; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="✏ Editar">
+            <Button onAction="#handleCheckInOut" style="-fx-background-color: #5B3A87; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="✏ Editar">
                 <padding>
                     <Insets bottom="12" left="30" right="30" top="12" />
                 </padding>
             </Button>
             
-            <Button onAction="#handleDelete" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="🗑 Eliminar">
+            <Button style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="🗑 Eliminar">
                 <padding>
                     <Insets bottom="12" left="30" right="30" top="12" />
                 </padding>
@@ -116,8 +112,7 @@
                     <TableColumn fx:id="colDate" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Fecha" />
                     <TableColumn fx:id="colTimeIn" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Hora Entrada" />
                     <TableColumn fx:id="colTimeOut" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Hora Salida" />
-                    <TableColumn fx:id="colSchedule" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Horario" />
-               <TableColumn fx:id="colTeacher" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Docente" />
+               <TableColumn fx:id="colPerson" maxWidth="180" minWidth="120" prefWidth="1.0" style="-fx-alignment: CENTER;" text="Persona" />
                 </columns>
                 <placeholder>
                     <VBox alignment="CENTER" spacing="10" style="-fx-padding: 40;">

@@ -2,15 +2,18 @@ package com.gestionestudiantesmedicina.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import com.gestionestudiantesmedicina.daos.PersonDAO;
 import com.gestionestudiantesmedicina.daos.ScheduleDAO;
-import com.gestionestudiantesmedicina.entities.Schedule;
-import com.gestionestudiantesmedicina.entities.Teacher;
-import com.gestionestudiantesmedicina.entities.Student;
-import com.gestionestudiantesmedicina.daos.TeacherDAO;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
+import com.gestionestudiantesmedicina.entities.Admin;
+import com.gestionestudiantesmedicina.entities.Person;
+import com.gestionestudiantesmedicina.entities.Schedule;
+import com.gestionestudiantesmedicina.entities.Student;
+import com.gestionestudiantesmedicina.entities.Teacher;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +27,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.beans.property.SimpleStringProperty;
 
 public class ScheduleController {
 
@@ -44,6 +46,9 @@ public class ScheduleController {
         private TextField txtSearch;
 
         @FXML
+        private TextField txtPersonId;
+
+        @FXML
         private TableView<Schedule> tableSchedule;
 
         @FXML
@@ -58,58 +63,47 @@ public class ScheduleController {
         @FXML
         private TableColumn<Schedule, LocalTime> colEndTime;
 
-        @FXML
-        private TableColumn<Schedule, String> colTeacher;
-
-        @FXML
-        private TableColumn<Schedule, String> colStudent;
-
-        @FXML
-        private TextField txtTeacherId;
-
-        @FXML
-        private TextField txtStudentId;
-
         private ScheduleDAO scheduleDAO = new ScheduleDAO();
 
         private ObservableList<Schedule> scheduleList = FXCollections.observableArrayList();
 
         @FXML
         private void initialize() {
+
                 colScheduleId.setCellValueFactory(new PropertyValueFactory<>("idSchedule"));
+
                 colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+
                 colStartTime.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+
                 colEndTime.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-
-                // Relación con Teacher
-                colTeacher.setCellValueFactory(cellData -> {
-                        Schedule s = cellData.getValue();
-                        return new SimpleStringProperty(
-                                s.getTeacher() != null ? s.getTeacher().getNames() + " " + s.getTeacher().getLastNames() : ""
-                        );
-                });
-
-                // Relación con Student
-                colStudent.setCellValueFactory(cellData -> {
-                        Schedule s = cellData.getValue();
-                        return new SimpleStringProperty(
-                                s.getStudent() != null ? s.getStudent().getNames() + " " + s.getStudent().getLastNames() : ""
-                        );
-                });
 
                 loadScheduleList();
 
                 tableSchedule.getSelectionModel().selectedItemProperty().addListener(
-                        (obs, oldSelection, newSelection) -> {
-                                if (newSelection != null) {
-                                        populateForm(newSelection);
-                                }
-                        });
+                                (obs, oldSelection, newSelection) -> {
+
+                                        if (newSelection != null) {
+
+                                                populateForm(newSelection);
+                                        }
+                                });
+        }
+
+        private void loadScheduleList() {
+
+                scheduleList.clear();
+
+                List<Schedule> schedules = scheduleDAO.findAll();
+
+                scheduleList.addAll(schedules);
+
+                tableSchedule.setItems(scheduleList);
         }
 
         private void populateForm(Schedule schedule) {
 
-                txtScheduleId.setText(String.valueOf(schedule.getIdSchedule()));
+                txtScheduleId.setText(String.valueOf(schedule.getidSchedule()));
 
                 dpDate.setValue(schedule.getDate());
 
@@ -136,71 +130,70 @@ public class ScheduleController {
 
         @FXML
         private void handleCreate(ActionEvent event) {
+
                 try {
+
                         LocalDate date = dpDate.getValue();
+
                         LocalTime startTime = LocalTime.parse(txtStartTime.getText().trim());
+
                         LocalTime endTime = LocalTime.parse(txtEndTime.getText().trim());
 
-                        // Relación con Teacher y Student
-                        Long teacherId = Long.parseLong(txtTeacherId.getText().trim());
-                        Long studentId = Long.parseLong(txtStudentId.getText().trim());
-
-                        Teacher teacher = teacherDAO.findById(teacherId);
-                        Student student = studentDAO.findById(studentId);
-
-                        Schedule schedule = new Schedule();
-                        schedule.setDate(date);
-                        schedule.setStartTime(startTime);
-                        schedule.setEndTime(endTime);
-                        schedule.setTeacher(teacher);
-                        schedule.setStudent(student);
+                        Schedule schedule = new Schedule(date, startTime, endTime, null);
 
                         scheduleDAO.save(schedule);
 
                         loadScheduleList();
+
                         handleClear(null);
 
                         showAlert(AlertType.INFORMATION, "Creación Exitosa", "Horario creado correctamente.");
+
                 } catch (Exception e) {
-                        showAlert(AlertType.ERROR, "Error de Creación", "No se pudo crear el horario: " + e.getMessage());
+                        showAlert(AlertType.ERROR, "Error de Creación",
+                                        "No se pudo crear el horario: " + e.getMessage());
+                        e.printStackTrace();
                 }
         }
 
         @FXML
         private void handleUpdate(ActionEvent event) {
+
                 try {
+
                         Long scheduleId = Long.parseLong(txtScheduleId.getText().trim());
+
                         Schedule schedule = scheduleDAO.findById(scheduleId);
 
                         if (schedule == null) {
+
                                 showAlert(AlertType.ERROR, "Validación", "Horario no encontrado.");
+
                                 return;
                         }
 
                         schedule.setDate(dpDate.getValue());
-                        schedule.setStartTime(LocalTime.parse(txtStartTime.getText().trim()));
-                        schedule.setEndTime(LocalTime.parse(txtEndTime.getText().trim()));
 
-                        // Relación con Teacher y Student
-                        Long teacherId = Long.parseLong(txtTeacherId.getText().trim());
-                        Long studentId = Long.parseLong(txtStudentId.getText().trim());
+                        schedule.setStartTime(LocalTime.parse(txtStartTime.getText()));
 
-                        Teacher teacher = teacherDAO.findById(teacherId);
-                        Student student = studentDAO.findById(studentId);
-
-                        schedule.setTeacher(teacher);
-                        schedule.setStudent(student);
+                        schedule.setEndTime(LocalTime.parse(txtEndTime.getText()));
 
                         scheduleDAO.update(schedule);
 
                         loadScheduleList();
+
                         handleClear(null);
 
                         showAlert(AlertType.INFORMATION, "Actualización Exitosa", "Horario actualizado correctamente.");
+
                 } catch (NumberFormatException e) {
+
                         showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser numérico.");
+
                 } catch (Exception e) {
-                        showAlert(AlertType.ERROR, "Error de Actualización", "No se pudo actualizar: " + e.getMessage());
+
+                        showAlert(AlertType.ERROR, "Error de Actualización",
+                                        "No se pudo actualizar: " + e.getMessage());
                 }
         }
 
@@ -227,14 +220,15 @@ public class ScheduleController {
 
                                 handleClear(null);
 
-                                showAlert(AlertType.INFORMATION,"Eliminación Exitosa","Horario eliminado correctamente.");
+                                showAlert(AlertType.INFORMATION, "Eliminación Exitosa",
+                                                "Horario eliminado correctamente.");
                         }
 
                 } catch (NumberFormatException e) {
-                        showAlert(AlertType.ERROR,"Error de Formato","El ID debe ser numérico.");
+                        showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser numérico.");
 
                 } catch (Exception e) {
-                        showAlert(AlertType.ERROR,"Error de Eliminación","No se pudo eliminar: " + e.getMessage());
+                        showAlert(AlertType.ERROR, "Error de Eliminación", "No se pudo eliminar: " + e.getMessage());
                 }
         }
 
@@ -257,16 +251,16 @@ public class ScheduleController {
 
                         } else {
 
-                                showAlert(AlertType.INFORMATION,"Búsqueda","Horario no encontrado.");
+                                showAlert(AlertType.INFORMATION, "Búsqueda", "Horario no encontrado.");
                         }
 
                 } catch (NumberFormatException e) {
 
-                        showAlert(AlertType.ERROR,"Error de Formato","El ID debe ser numérico.");
+                        showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser numérico.");
                 }
         }
 
-        private void showAlert(AlertType alertType,String title,String message) {
+        private void showAlert(AlertType alertType, String title, String message) {
 
                 Alert alert = new Alert(alertType);
 
@@ -277,5 +271,68 @@ public class ScheduleController {
                 alert.setContentText(message);
 
                 alert.showAndWait();
+        }
+
+        @FXML
+        private void addPerson(ActionEvent event) {
+
+                try {
+
+                        if (txtPersonId.getText() == null || txtPersonId.getText().trim().isEmpty()
+                                        || txtScheduleId.getText() == null
+                                        || txtScheduleId.getText().trim().isEmpty()) {
+                                showAlert(AlertType.WARNING, "Campos Vacíos", "Por favor, complete ambos IDs.");
+                                return;
+                        }
+
+                        Schedule schedule = scheduleDAO.findById(Long.parseLong(txtScheduleId.getText()));
+
+                        if (schedule == null) {
+                                showAlert(AlertType.ERROR, "Validación", "Horario no encontrado.");
+                                return;
+                        }
+
+                        PersonDAO personDAO = new PersonDAO();
+                        Person person = personDAO.findById(Long.parseLong(txtPersonId.getText()));
+
+                        if (person == null || person instanceof Admin) {
+                                showAlert(AlertType.ERROR, "Validación", "Persona no valida.");
+                                return;
+                        }
+                        if (person instanceof Teacher) {
+                                Teacher teacher = (Teacher) person;
+                                schedule.setTeacher(teacher);
+                                scheduleDAO.update(schedule);
+                                showAlert(AlertType.INFORMATION, "Éxito",
+                                                "Profesor asignado al horario correctamente.");
+                                return;
+                        }
+
+                        if (person instanceof Student) {
+                                StudentDAO studentDAO = new StudentDAO();
+                                Student student = studentDAO
+                                                .findByIdWithSchedules(Long.parseLong(txtPersonId.getText()));
+                                if (student.getSchedules().contains(schedule)) {
+                                        showAlert(AlertType.WARNING, "Validación",
+                                                        "El estudiante ya está inscrito en este horario.");
+                                        return;
+                                }
+                                schedule.getStudents().add(student);
+                                scheduleDAO.update(schedule);
+
+                                student.getSchedules().add(schedule);
+                                studentDAO.update(student);
+
+                                showAlert(AlertType.INFORMATION, "Éxito",
+                                                "Estudiante agregado al horario correctamente.");
+                                return;
+                        }
+
+                } catch (NumberFormatException e) {
+                        showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser numérico.");
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        showAlert(AlertType.ERROR, "Error", "Ocurrió un error inesperado al guardar los datos.");
+                }
         }
 }

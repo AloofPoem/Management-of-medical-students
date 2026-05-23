@@ -1,6 +1,7 @@
 package com.gestionestudiantesmedicina.entities;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,6 +33,7 @@ public class StudentType {
     public StudentType(Long idStuType, String nameStuType) {
         this.idStuType = idStuType;
         this.nameStuType = nameStuType;
+        this.students = new ArrayList<>();
     }
 
     public Long getIdStuType() {

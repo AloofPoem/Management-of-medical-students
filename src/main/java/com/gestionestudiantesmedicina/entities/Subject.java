@@ -1,5 +1,6 @@
 package com.gestionestudiantesmedicina.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,6 +33,7 @@ public class Subject {
     public Subject(Long idSubject, String nameSubject) {
         IdSubject = idSubject;
         this.nameSubject = nameSubject;
+        this.practices = new ArrayList<>();
     }
 
     public Long getIdSubject() {

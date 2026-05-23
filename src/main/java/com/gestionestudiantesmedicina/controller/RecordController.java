@@ -1,16 +1,23 @@
 package com.gestionestudiantesmedicina.controller;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.gestionestudiantesmedicina.daos.PersonDAO;
 import com.gestionestudiantesmedicina.daos.RecordDAO;
+import com.gestionestudiantesmedicina.daos.ScheduleDAO;
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
+import com.gestionestudiantesmedicina.entities.Admin;
+import com.gestionestudiantesmedicina.entities.Person;
 import com.gestionestudiantesmedicina.entities.Record;
+import com.gestionestudiantesmedicina.entities.Schedule;
 import com.gestionestudiantesmedicina.entities.Teacher;
 import com.gestionestudiantesmedicina.entities.Student;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,9 +42,7 @@ public class RecordController {
     @FXML
     private TextField txtTimeOut;
     @FXML
-    private TextField txtTeacherId;
-    @FXML
-    private TextField txtStudentId;
+    private TextField txtPersonId;
     @FXML
     private TextField txtSearch;
 
@@ -52,13 +57,10 @@ public class RecordController {
     @FXML
     private TableColumn<Record, String> colTimeOut;
     @FXML
-    private TableColumn<Record, String> colTeacher;
-    @FXML
-    private TableColumn<Record, String> colStudent;
+    private TableColumn<Record, String> colPerson;
 
     private RecordDAO recordDAO = new RecordDAO();
-    private TeacherDAO teacherDAO = new TeacherDAO();
-    private StudentDAO studentDAO = new StudentDAO();
+    private PersonDAO personDAO = new PersonDAO();
 
     private ObservableList<Record> recordList = FXCollections.observableArrayList();
 
@@ -70,20 +72,20 @@ public class RecordController {
         colTimeOut.setCellValueFactory(new PropertyValueFactory<>("timeOut"));
 
         // Mostrar nombre del Teacher
-        colTeacher.setCellValueFactory(cellData -> {
-            Teacher t = cellData.getValue().getTeacher();
-            return new javafx.beans.property.SimpleStringProperty(
-                    t != null ? t.getNames() + " " + t.getLastNames() : ""
-            );
+        colPerson.setCellValueFactory(cellData -> {
+            Person t = cellData.getValue().getPerson();
+            return new SimpleStringProperty(t != null ? t.getName() + " " + t.getLastName() : "");
         });
 
-        // Mostrar nombre del Student
-        colStudent.setCellValueFactory(cellData -> {
-            Student s = cellData.getValue().getStudent();
-            return new javafx.beans.property.SimpleStringProperty(
-                    s != null ? s.getNames() + " " + s.getLastNames() : ""
-            );
-        });
+        /*
+         * // Mostrar nombre del Student
+         * colStudent.setCellValueFactory(cellData -> {
+         * Student s = cellData.getValue().getStudent();
+         * return new javafx.beans.property.SimpleStringProperty(
+         * s != null ? s.getName() + " " + s.getLastName() : ""
+         * );
+         * });
+         */
 
         loadRecordList();
 
@@ -92,8 +94,7 @@ public class RecordController {
                     if (newSelection != null) {
                         populateForm(newSelection);
                     }
-                }
-        );
+                });
     }
 
     private void loadRecordList() {
@@ -106,10 +107,12 @@ public class RecordController {
     private void populateForm(Record r) {
         txtRecordId.setText(String.valueOf(r.getIdRecord()));
         dpDate.setValue(r.getDate());
-        if (r.getTimeIn() != null) txtTimeIn.setText(r.getTimeIn().toString());
-        if (r.getTimeOut() != null) txtTimeOut.setText(r.getTimeOut().toString());
-        if (r.getTeacher() != null) txtTeacherId.setText(String.valueOf(r.getTeacher().getIdTeacher()));
-        if (r.getStudent() != null) txtStudentId.setText(String.valueOf(r.getStudent().getIdStudent()));
+        if (r.getTimeIn() != null)
+            txtTimeIn.setText(r.getTimeIn().toString());
+        if (r.getTimeOut() != null)
+            txtTimeOut.setText(r.getTimeOut().toString());
+        if (r.getPerson() != null)
+            txtPersonId.setText(String.valueOf(r.getPerson().getId()));
     }
 
     @FXML
@@ -118,24 +121,21 @@ public class RecordController {
         dpDate.setValue(null);
         txtTimeIn.clear();
         txtTimeOut.clear();
-        txtTeacherId.clear();
-        txtStudentId.clear();
+        txtPersonId.clear();
         tableRecords.getSelectionModel().clearSelection();
         loadRecordList();
     }
 
-    @FXML
+    // @FXML
     private void handleCreate(ActionEvent event) {
         try {
-            Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
-            Student student = studentDAO.findById(Long.parseLong(txtStudentId.getText()));
+            Person person = personDAO.findById(Long.parseLong(txtPersonId.getText()));
 
             Record record = new Record();
             record.setDate(dpDate.getValue());
             record.setTimeIn(LocalTime.parse(txtTimeIn.getText().trim()));
             record.setTimeOut(LocalTime.parse(txtTimeOut.getText().trim()));
-            record.setTeacher(teacher);
-            record.setStudent(student);
+            record.setPerson(person);
 
             recordDAO.save(record);
             loadRecordList();
@@ -147,7 +147,7 @@ public class RecordController {
         }
     }
 
-    @FXML
+    // @FXML
     private void handleUpdate(ActionEvent event) {
         try {
             Long recId = Long.parseLong(txtRecordId.getText().trim());
@@ -162,10 +162,8 @@ public class RecordController {
             record.setTimeIn(LocalTime.parse(txtTimeIn.getText().trim()));
             record.setTimeOut(LocalTime.parse(txtTimeOut.getText().trim()));
 
-            Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
-            Student student = studentDAO.findById(Long.parseLong(txtStudentId.getText()));
-            record.setTeacher(teacher);
-            record.setStudent(student);
+            Person person = personDAO.findById(Long.parseLong(txtPersonId.getText()));
+            record.setPerson(person);
 
             recordDAO.update(record);
             loadRecordList();
@@ -177,7 +175,7 @@ public class RecordController {
         }
     }
 
-    @FXML
+    // @FXML
     private void handleDelete(ActionEvent event) {
         try {
             Long recId = Long.parseLong(txtRecordId.getText().trim());
@@ -217,56 +215,102 @@ public class RecordController {
     }
 
     @FXML
-    private void handleCheckInOut(Schedule schedule, Long personId) {
+    private void handleCheckInOut(ActionEvent event) {
         try {
-            // Validar si es estudiante o profesor en el horario
-            boolean isStudent = schedule.getStudents().stream()
-                    .anyMatch(s -> s.getIdStudent().equals(personId));
-            boolean isTeacher = schedule.getTeacher() != null &&
-                    schedule.getTeacher().getIdTeacher().equals(personId);
 
-            if (!isStudent && !isTeacher) {
-                showAlert(AlertType.ERROR, "Validación",
-                        "El ID " + personId + " no está asociado al horario " + schedule.getIdSchedule());
+            Long personId = Long.parseLong(txtPersonId.getText());
+            Person p = personDAO.findById(personId);
+
+            /*
+             * boolean isStudent = p instanceof Student;
+             * boolean isTeacher = p instanceof Teacher;
+             * boolean isStudent = schedule.getStudents().stream()
+             * .anyMatch(s -> s.getId().equals(personId));
+             * boolean isTeacher = schedule.getTeacher() != null &&
+             * schedule.getTeacher().getId().equals(personId);
+             */
+            if (p == null || p instanceof Admin) {
+                showAlert(AlertType.ERROR, "Validación", "El ID " + personId + " no está asociado ");
                 return;
             }
 
-            // Buscar último registro de esa persona en ese horario
-            Record lastRecord = recordDAO.findLastByScheduleAndPerson(schedule.getIdSchedule(), personId);
-
-            LocalTime now = LocalTime.now();
+            Record lastRecord = recordDAO.findLastByPersonId(personId);
 
             if (lastRecord == null || lastRecord.getTimeOut() != null) {
-                // Caso entrada
-                Record newRecord = new Record();
-                newRecord.setDate(schedule.getDate());
-                newRecord.setTimeIn(now);
 
-                if (isStudent) {
-                    Student student = studentDAO.findById(personId);
-                    newRecord.setStudent(student);
-                } else {
-                    Teacher teacher = teacherDAO.findById(personId);
-                    newRecord.setTeacher(teacher);
+                Schedule schedule = veryfySchedule(p, personId);
+
+                if (schedule == null) {
+                    showAlert(AlertType.INFORMATION, "Acceso Denegado", "No puede acceder fuera de su horario");
+                    return;
                 }
 
+                Record newRecord = new Record();
+                newRecord.setDate(LocalDate.now());
+                newRecord.setTimeIn(LocalTime.now());
+
+                newRecord.setPerson(p);
+
+                /*
+                 * if (isStudent) {
+                 * Student student = studentDAO.findById(personId);
+                 * newRecord.setPerson(student);
+                 * } else {
+                 * Teacher teacher = teacherDAO.findById(personId);
+                 * newRecord.setPerson(teacher);
+                 * }
+                 */
+
                 recordDAO.save(newRecord);
-                showAlert(AlertType.INFORMATION, "Entrada registrada",
-                        "Se registró la entrada para ID " + personId);
+                showAlert(AlertType.INFORMATION, "Entrada registrada", "Se registró la entrada para ID " + personId);
 
             } else {
                 // Caso salida
-                lastRecord.setTimeOut(now);
+                lastRecord.setTimeOut(LocalTime.now());
                 recordDAO.update(lastRecord);
-                showAlert(AlertType.INFORMATION, "Salida registrada",
-                        "Se registró la salida para ID " + personId);
+                showAlert(AlertType.INFORMATION, "Salida registrada", "Se registró la salida para ID " + personId);
             }
 
             loadRecordList();
 
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser numérico.");
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Error", "No se pudo registrar entrada/salida: " + e.getMessage());
+            e.printStackTrace();
         }
+    }
+
+    private Schedule veryfySchedule(Person p, Long personId) {
+
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+
+        List<Schedule> schedules;
+        if (p instanceof Student) {
+            StudentDAO studentDAO = new StudentDAO();
+            Student student = studentDAO.findByIdWithSchedules(personId);
+            schedules = student.getSchedules();
+            //schedules = scheduleDAO.findByStudentId(personId);
+        } else {
+            schedules = scheduleDAO.findByAttribute("teacher.id", personId);
+        }
+
+        if (schedules == null || schedules.isEmpty()) {
+            return null;
+        }
+
+        LocalTime nowTime = LocalTime.now();
+        LocalDate nowDate = LocalDate.now();
+        for (Schedule schedule : schedules) {
+            if (schedule.getDate().equals(nowDate)) {
+                if (schedule.getStartTime().isBefore(nowTime) || schedule.getStartTime().equals(nowTime) && schedule.getEndTime().isAfter(nowTime)) {
+                    return schedule;
+                }
+            }
+        }
+
+        return null;
     }
 
     private void showAlert(AlertType alertType, String title, String message) {

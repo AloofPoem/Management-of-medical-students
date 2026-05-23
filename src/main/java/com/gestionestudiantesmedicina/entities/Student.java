@@ -1,6 +1,7 @@
 package com.gestionestudiantesmedicina.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -61,7 +63,7 @@ public class Student extends Person {
     @JoinColumn(name = "academic_data_id")
     private AcademicData academicData;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "student_practice", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "practice_id"))
     private List<Practice> practices;
 
@@ -104,6 +106,9 @@ public class Student extends Person {
         this.academicData = academicData;
         this.studentType = studentType;
         this.legalRepresentative = legalRepresentative;
+        this.relatives = new ArrayList<>();
+        this.practices = new ArrayList<>();
+        this.schedules = new ArrayList<>();
     }
 
     public MaritalStatus getMaritalStatus() {
@@ -240,6 +245,11 @@ public class Student extends Person {
 
     public void setSchedules(List<Schedule> schedules) {
         this.schedules = schedules;
+    }
+
+    public void addSchedule(Schedule schedule) {
+        this.schedules.add(schedule);
+        schedule.getStudents().add(this); 
     }
 
 }

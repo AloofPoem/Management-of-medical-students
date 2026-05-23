@@ -1,6 +1,7 @@
 package com.gestionestudiantesmedicina.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +22,9 @@ public class Teacher extends Person {
 
     @OneToMany(mappedBy = "teacher", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Schedule> schedules;
+    
+    @OneToMany(mappedBy = "teacher", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<Practice> practices;
 
     public Teacher() {
     }
@@ -28,6 +32,9 @@ public class Teacher extends Person {
     public Teacher(Long id, String name, String lastName, LocalDate birthDate, String password, String specialty) {
         super(id, name, lastName, birthDate, password);
         this.specialty = specialty;
+        this.records = new ArrayList<>();
+        this.schedules = new ArrayList<>();
+        this.practices = new ArrayList<>();
     }
 
     public String getSpecialty() {
@@ -53,5 +60,14 @@ public class Teacher extends Person {
     public void setSchedules(List<Schedule> schedules) {
         this.schedules = schedules;
     }
+
+    public List<Practice> getPractices() {
+        return practices;
+    }
+
+    public void setPractices(List<Practice> practices) {
+        this.practices = practices;
+    }
+    
     
 }

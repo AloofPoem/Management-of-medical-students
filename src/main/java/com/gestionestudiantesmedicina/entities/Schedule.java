@@ -2,10 +2,12 @@ package com.gestionestudiantesmedicina.entities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +22,7 @@ public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long IdSchedule;
+    private Long idSchedule;
 
     @Column(name = "date", nullable = false)
     private LocalDate date;
@@ -35,24 +37,26 @@ public class Schedule {
     @JoinColumn(name = "teacher_id", nullable = true)
     private Teacher teacher;
 
-    @ManyToMany(mappedBy = "schedules")
+    @ManyToMany(mappedBy = "schedules", fetch = FetchType.EAGER)
     private List<Student> students;
 
-    public Schedule() {}
+    public Schedule() {
+    }
 
     public Schedule(LocalDate date, LocalTime startTime, LocalTime endTime, Teacher teacher) {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.teacher = teacher;
+        this.students = new ArrayList<>();
     }
 
-    public Long getIdSchedule() {
-        return IdSchedule;
+    public Long getidSchedule() {
+        return idSchedule;
     }
 
-    public void setIdSchedule(Long idSchedule) {
-        IdSchedule = idSchedule;
+    public void setidSchedule(Long idSchedule) {
+        idSchedule = idSchedule;
     }
 
     public LocalDate getDate() {
@@ -93,6 +97,21 @@ public class Schedule {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Schedule))
+            return false;
+        Schedule other = (Schedule) o;
+        return idSchedule != null && idSchedule.equals(other.getidSchedule());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
 }

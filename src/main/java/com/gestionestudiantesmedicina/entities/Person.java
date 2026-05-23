@@ -46,6 +46,7 @@ public abstract class Person {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.password = password;
+        this.records = new ArrayList<>();
     }
 
     public String getName() {

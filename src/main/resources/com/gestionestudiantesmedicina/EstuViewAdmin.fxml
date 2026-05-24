@@ -581,6 +581,7 @@
                             <TableColumn fx:id="colPass" prefWidth="150.0" sortable="true" text="Contraseña" />
                             <TableColumn fx:id="colName" prefWidth="150.0" sortable="true" text="Nombre" />
                               <TableColumn fx:id="colLastName" prefWidth="110.0" sortable="true" text="Apellido" />
+                              <TableColumn fx:id="colhoratotal" prefWidth="110.0" sortable="true" text="Horas Totales" />
                          </columns>
                       </TableColumn>
                       

@@ -197,7 +197,7 @@
                              <Tooltip text="Identificador del tipo de estudiante" />
                           </tooltip>
                        </Label>
-                       <TextField fx:id="txtStudentTypeId" promptText="Ej: REGULAR, ESPECIAL, etc." GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8">
+                       <TextField fx:id="txtStudentTypeId" promptText="Ej: 1, 2, 3, 4" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8">
                           <tooltip>
                              <Tooltip text="Código del tipo de estudiante" />
                           </tooltip>

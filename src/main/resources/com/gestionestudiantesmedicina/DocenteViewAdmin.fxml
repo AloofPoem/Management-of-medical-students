@@ -187,11 +187,12 @@
          <content>
             <TableView fx:id="tableTeachers" prefHeight="225.0" prefWidth="1125.0" style="-fx-background-color: white;">
                <columns>
-                  <TableColumn fx:id="colTeacherId" prefWidth="150.0" text="Documento De Identidad" />
-                  <TableColumn fx:id="colName" prefWidth="200.0" text="Nombre" />
+                  <TableColumn fx:id="colTeacherId" prefWidth="160.0000022649765" text="Documento De Identidad" />
+                  <TableColumn fx:id="colName" prefWidth="164.00001525878906" text="Nombre" />
                   <TableColumn fx:id="colLastName" prefWidth="200.0" text="Apellido" />
                   <TableColumn fx:id="colBirthDate" prefWidth="180.0" text="F. Nacimiento" />
-                  <TableColumn fx:id="colSpecialty" prefWidth="250.0" text="Especialidad" />
+                  <TableColumn fx:id="colSpecialty" prefWidth="304.0" text="Especialidad" />
+                  <TableColumn fx:id="colHoraTotal" prefWidth="170.39996337890625" text="Horas Totales" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

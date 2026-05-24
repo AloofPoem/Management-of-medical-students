@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.TeacherDAO;
+import com.gestionestudiantesmedicina.entities.Student;
 import com.gestionestudiantesmedicina.entities.Teacher;
 
 import javafx.collections.FXCollections;
@@ -41,6 +42,8 @@ public class TeacherAdminController {
     
     @FXML
     private TextField txtRecordId;
+    @FXML
+    private TextField txtTotalHours;
 
     @FXML
     private TableView<Teacher> tableTeachers;
@@ -54,6 +57,8 @@ public class TeacherAdminController {
     private TableColumn<Teacher, String> colSpecialty;
     @FXML
     private TableColumn<Teacher, LocalDate> colBirthDate;
+    @FXML
+    private TableColumn<Student, String> colTotalHours;
     
     
     private TeacherDAO teacherDAO = new TeacherDAO();
@@ -62,11 +67,13 @@ public class TeacherAdminController {
 
     @FXML
     private void initialize() {
-        colTeacherId.setCellValueFactory(new PropertyValueFactory<>("idTeacher"));
+        colTeacherId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         colSpecialty.setCellValueFactory(new PropertyValueFactory<>("specialty"));
         colBirthDate.setCellValueFactory(new PropertyValueFactory<>("birtDate"));
+        colTotalHours.setCellValueFactory(new PropertyValueFactory<>("totalHours"));
+
 
         loadTeacherList();
 
@@ -90,6 +97,7 @@ public class TeacherAdminController {
             txtLastName.setText(teacher.getLastName());
             txtSpecialty.setText(teacher.getSpecialty());
             dpBirthDate.setValue(teacher.getBirthDate());
+            txtTotalHours.setText(String.valueOf(teacher.getTotalHours()));
             //teacher no tiene un record si no varios
             //if (teacher.getRecord() != null) {
             //    txtRecordId.setText(String.valueOf(teacher.getRecord().getIdRecord()));
@@ -157,6 +165,7 @@ public class TeacherAdminController {
         txtLastName.clear();
         txtSpecialty.clear();
         dpBirthDate.setValue(null);
+        txtTotalHours.clear();
         tableTeachers.getSelectionModel().clearSelection();
         loadTeacherList();
     }

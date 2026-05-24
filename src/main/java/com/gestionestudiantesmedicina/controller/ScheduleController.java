@@ -102,7 +102,7 @@ public class ScheduleController {
 
         private void populateForm(Schedule schedule) {
 
-                txtScheduleId.setText(String.valueOf(schedule.getidSchedule()));
+                txtScheduleId.setText(String.valueOf(schedule.getIdSchedule()));
 
                 dpDate.setValue(schedule.getDate());
 

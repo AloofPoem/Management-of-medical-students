@@ -3,18 +3,15 @@ package com.gestionestudiantesmedicina.controller;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.PersonDAO;
 import com.gestionestudiantesmedicina.daos.RecordDAO;
 import com.gestionestudiantesmedicina.daos.ScheduleDAO;
-import com.gestionestudiantesmedicina.daos.TeacherDAO;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
 import com.gestionestudiantesmedicina.entities.Admin;
 import com.gestionestudiantesmedicina.entities.Person;
 import com.gestionestudiantesmedicina.entities.Record;
 import com.gestionestudiantesmedicina.entities.Schedule;
-import com.gestionestudiantesmedicina.entities.Teacher;
 import com.gestionestudiantesmedicina.entities.Student;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -24,7 +21,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -170,9 +166,9 @@ public class RecordController {
                 // Caso salida
                 lastRecord.setTimeOut(LocalTime.now());
                 recordDAO.update(lastRecord);
+                p.updateTotalHours(lastRecord);
                 personDAO.update(p);
-                p.actualizarHoras(lastRecord);
-                
+
                 showAlert(AlertType.INFORMATION, "Salida registrada", "Se registró la salida para ID " + personId);
             }
 
@@ -196,7 +192,7 @@ public class RecordController {
             StudentDAO studentDAO = new StudentDAO();
             Student student = studentDAO.findByIdWithList(personId, "schedules");
             schedules = student.getSchedules();
-            //schedules = scheduleDAO.findByStudentId(personId);
+            // schedules = scheduleDAO.findByStudentId(personId);
         } else {
             schedules = scheduleDAO.findByAttribute("teacher.id", personId);
         }
@@ -209,7 +205,8 @@ public class RecordController {
         LocalDate nowDate = LocalDate.now();
         for (Schedule schedule : schedules) {
             if (schedule.getDate().equals(nowDate)) {
-                if (schedule.getStartTime().isBefore(nowTime) || schedule.getStartTime().equals(nowTime) && schedule.getEndTime().isAfter(nowTime)) {
+                if (schedule.getStartTime().isBefore(nowTime)
+                        || schedule.getStartTime().equals(nowTime) && schedule.getEndTime().isAfter(nowTime)) {
                     return schedule;
                 }
             }

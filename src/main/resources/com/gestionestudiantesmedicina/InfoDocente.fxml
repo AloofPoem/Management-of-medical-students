@@ -98,6 +98,19 @@
                               <Font size="13.0" />
                            </font>
                         </TextField>
+                        <Label text="Horas Totales:" textFill="#4a3470">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="txtTotalHours" editable="false" prefHeight="35.0" style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 3; -fx-background-radius: 3;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </VBox>
                   

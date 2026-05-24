@@ -30,15 +30,16 @@ public abstract class Person {
 
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
-    
+
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "person", cascade = {CascadeType.MERGE,CascadeType.REFRESH, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "person", cascade = { CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.REMOVE }, orphanRemoval = true)
     private List<Record> records;
 
     @Column(name = "total_hours")
-    private int totalHours;
+    private double totalHours;
 
     public Person() {
 
@@ -101,11 +102,19 @@ public abstract class Person {
         this.records = records;
     }
 
-    public void actualizarHoras(Record r) {
-        if (r.getTimeIn() != null && r.getTimeOut() != null) {
-            long hours = Duration.between(r.getTimeIn(), r.getTimeOut()).toHours();
-            totalHours += hours;
-        }
+    public double getTotalHours() {
+        return totalHours;
     }
 
+    public void setTotalHours(double totalHours) {
+        this.totalHours = totalHours;
+    }
+
+    public void updateTotalHours(Record r) {
+        if (r.getTimeIn() != null && r.getTimeOut() != null) {
+            long temp = Duration.between(r.getTimeIn(), r.getTimeOut()).toMinutes();
+            double minutes = temp / 60.0;
+            totalHours += minutes;
+        }
+    }
 }

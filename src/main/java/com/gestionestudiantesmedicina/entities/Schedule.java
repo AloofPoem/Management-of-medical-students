@@ -51,11 +51,11 @@ public class Schedule {
         this.students = new ArrayList<>();
     }
 
-    public Long getidSchedule() {
+    public Long getIdSchedule() {
         return idSchedule;
     }
 
-    public void setidSchedule(Long idSchedule) {
+    public void setIdSchedule(Long idSchedule) {
         this.idSchedule = idSchedule;
     }
 
@@ -106,7 +106,7 @@ public class Schedule {
         if (!(o instanceof Schedule))
             return false;
         Schedule other = (Schedule) o;
-        return idSchedule != null && idSchedule.equals(other.getidSchedule());
+        return idSchedule != null && idSchedule.equals(other.getIdSchedule());
     }
 
     @Override

@@ -57,6 +57,7 @@ public class PracticeAdminController {
     private void initialize() {
         colPracticeId.setCellValueFactory(new PropertyValueFactory<>("idPractice"));
 
+
         // Mostrar nombre del Teacher asociado
         colTeacher.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue().getTeacher();
@@ -192,7 +193,8 @@ public class PracticeAdminController {
 
         try {
 
-            if (txtStudentId.getText() == null || txtStudentId.getText().trim().isEmpty()|| txtPracticeId.getText() == null|| txtPracticeId.getText().trim().isEmpty()) {
+            if (txtStudentId.getText() == null || txtStudentId.getText().trim().isEmpty()
+                    || txtPracticeId.getText() == null || txtPracticeId.getText().trim().isEmpty()) {
                 showAlert(AlertType.WARNING, "Campos Vacíos", "Por favor, complete ambos IDs.");
                 return;
             }
@@ -213,14 +215,14 @@ public class PracticeAdminController {
             }
 
             if (student.getPractices().contains(practice)) {
-                showAlert(AlertType.WARNING, "Validación","El estudiante ya está inscrito en esta clase.");
+                showAlert(AlertType.WARNING, "Validación", "El estudiante ya está inscrito en esta clase.");
                 return;
             }
 
             student.addPractice(practice);
             studentDAO.update(student);
-            
-            showAlert(AlertType.INFORMATION, "Éxito","Estudiante agregado al horario correctamente.");
+
+            showAlert(AlertType.INFORMATION, "Éxito", "Estudiante agregado al horario correctamente.");
 
         } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser numérico.");
@@ -228,7 +230,7 @@ public class PracticeAdminController {
             e.printStackTrace();
             showAlert(AlertType.ERROR, "Error", "Ocurrió un error inesperado al guardar los datos.");
         }
-    }       
+    }
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

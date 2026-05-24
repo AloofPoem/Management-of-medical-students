@@ -24,6 +24,8 @@ public class InfoTeacherController {
     private TextField txtSpecialty;
     @FXML
     private DatePicker dpBirthDate;
+    @FXML
+    private TextField txtTotalHours;
     
     private TeacherDAO teacherDAO = new TeacherDAO();
     private Long idTeacher;
@@ -72,6 +74,7 @@ public class InfoTeacherController {
             txtLastName.setText(teacher.getLastName());
             txtSpecialty.setText(teacher.getSpecialty());
             dpBirthDate.setValue(teacher.getBirthDate());
+            txtTotalHours.setText(String.valueOf(teacher.getTotalHours()));
         }
     }
 

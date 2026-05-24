@@ -156,11 +156,6 @@
                              <Tooltip text="Dirección de residencia permanente" />
                           </tooltip>
                        </Label>
-                       <TextField fx:id="txtPermanentAddress" promptText="Ej: Calle 10 # 20-30, Ciudad" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5">
-                          <tooltip>
-                             <Tooltip text="Dirección completa de residencia permanente" />
-                          </tooltip>
-                       </TextField>
                        
                        <Label style="-fx-font-weight: bold;" text="Dirección en Tunja:" GridPane.rowIndex="6">
                           <tooltip>
@@ -213,6 +208,21 @@
                               <TextField fx:id="txtPassword" promptText="Ej: 1234" GridPane.columnIndex="3">
                                  <tooltip>
                                     <Tooltip text="Ingrese el código único del estudiante" />
+                                 </tooltip>
+                              </TextField>
+                              <Label style="-fx-font-weight: bold;" text="Horas Totales: " GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                 <tooltip>
+                                    <Tooltip text="Dirección de residencia permanente" />
+                                 </tooltip>
+                              </Label>
+                              <TextField fx:id="txtTotalHours" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                 <tooltip>
+                                    <Tooltip text="Número de teléfono celular o fijo" />
+                                 </tooltip>
+                              </TextField>
+                              <TextField fx:id="txtPermanentAddress" promptText="Ej: Calle 10 # 20-30, Ciudad" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <tooltip>
+                                    <Tooltip text="Correo electrónico válido" />
                                  </tooltip>
                               </TextField>
                     </children>
@@ -578,10 +588,9 @@
                       <TableColumn sortable="false" text="🆔 Identificación">
                          <columns>
                             <TableColumn fx:id="colId" prefWidth="110.0" sortable="true" text="Documento" />
-                            <TableColumn fx:id="colPass" prefWidth="150.0" sortable="true" text="Contraseña" />
                             <TableColumn fx:id="colName" prefWidth="150.0" sortable="true" text="Nombre" />
                               <TableColumn fx:id="colLastName" prefWidth="110.0" sortable="true" text="Apellido" />
-                              <TableColumn fx:id="colhoratotal" prefWidth="110.0" sortable="true" text="Horas Totales" />
+                              <TableColumn fx:id="colTotalHours" prefWidth="110.0" sortable="true" text="Horas Totales" />
                          </columns>
                       </TableColumn>
                       

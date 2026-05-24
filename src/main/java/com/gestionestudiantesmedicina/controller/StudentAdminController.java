@@ -153,6 +153,9 @@ public class StudentAdminController {
 
     @FXML
     private TableColumn<Student, String> colMedications;
+    
+    @FXML
+    private TableColumn<Student, String> colTotalHours;
 
     @FXML
     private DatePicker dpBirthDate;
@@ -226,6 +229,9 @@ public class StudentAdminController {
 
     @FXML
     private TextField txtId;
+    
+    @FXML
+    private TextField txtTotalHours;
 
     // password no tiene col para que no se pueda ver asi como asi
     @FXML
@@ -289,6 +295,7 @@ public class StudentAdminController {
         colRoomies.setCellValueFactory(new PropertyValueFactory<>("roomies"));
         colFamilyCoreTunja.setCellValueFactory(new PropertyValueFactory<>("familyCoreTunja"));
         colEntryDate.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
+        colTotalHours.setCellValueFactory(new PropertyValueFactory<>("totalHours"));
 
         // Mapeo de datos anidados (HealthData)
         colBloodType.setCellValueFactory(
@@ -404,6 +411,7 @@ public class StudentAdminController {
         dpEntryDate.setValue(s.getEntryDate());
         txtStudentTypeId.setText(s.getStudentType() != null ? String.valueOf(s.getStudentType().getIdStuType()) : "");
         // podria mostrarse el nombre en vez del id ?
+        txtTotalHours.setText(String.valueOf(s.getTotalHours()));
 
         spRoomies.getValueFactory().setValue(s.getRoomies());
         spFamilyCoreTunja.getValueFactory().setValue(s.getFamilyCoreTunja());
@@ -455,6 +463,7 @@ public class StudentAdminController {
         spRoomies.getValueFactory().setValue(0);
         spFamilyCoreTunja.getValueFactory().setValue(0);
         txtStudentTypeId.clear();
+        txtTotalHours.clear();
 
         txtIdUni.clear();
         txtProgram.clear();

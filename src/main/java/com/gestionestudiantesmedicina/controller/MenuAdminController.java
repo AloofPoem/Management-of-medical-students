@@ -66,6 +66,11 @@ public class MenuAdminController {
             e.printStackTrace();
         }
     }
+    
+    @FXML
+    private void loadRecord(ActionEvent event){
+       loadView("RecordViewAdmin");
+    }
 
     private void loadView(String fxmlName) {
         try {
@@ -77,6 +82,7 @@ public class MenuAdminController {
             showAlert(AlertType.ERROR,"Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
         }
     }
+
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

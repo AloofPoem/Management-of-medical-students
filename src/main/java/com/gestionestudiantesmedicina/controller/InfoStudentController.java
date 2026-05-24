@@ -129,6 +129,9 @@ public class InfoStudentController {
     @FXML
     private TextField txtStudentTypeId;
 
+    @FXML
+    private TextField txtTotalHours;
+
     private Long idStudent;
     private StudentDAO studentDAO = new StudentDAO();
 
@@ -169,6 +172,7 @@ public class InfoStudentController {
         txtSecondLanguage.setText(s.getSecondLanguage());
         dpEntryDate.setValue(s.getEntryDate());
         txtStudentTypeId.setText(s.getStudentType() != null ? String.valueOf(s.getStudentType().getIdStuType()) : "");
+        txtTotalHours.setText(String.valueOf(s.getTotalHours()));
 
         spRoomies.getValueFactory().setValue(s.getRoomies());
         spFamilyCoreTunja.getValueFactory().setValue(s.getFamilyCoreTunja());

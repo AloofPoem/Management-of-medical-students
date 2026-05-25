@@ -207,7 +207,7 @@
                                     <Tooltip text="Ingrese el código único del estudiante" />
                                  </tooltip>
                               </TextField>
-                              <TextField fx:id="txtPermanentAddress1" promptText="Ej: Calle 10 # 20-30, Ciudad" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <TextField fx:id="txtPermanentAddress" promptText="Ej: Calle 10 # 20-30, Ciudad" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <tooltip>
                                     <Tooltip text="Correo electrónico válido" />
                                  </tooltip>

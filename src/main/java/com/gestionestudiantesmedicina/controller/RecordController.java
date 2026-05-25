@@ -14,6 +14,8 @@ import com.gestionestudiantesmedicina.entities.Record;
 import com.gestionestudiantesmedicina.entities.Schedule;
 import com.gestionestudiantesmedicina.entities.Student;
 import com.gestionestudiantesmedicina.entities.Teacher;
+import com.gestionestudiantesmedicina.entities.EmailService;
+import com.gestionestudiantesmedicina.entities.PlantillasEmail;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -68,7 +70,6 @@ public class RecordController {
         colTimeIn.setCellValueFactory(new PropertyValueFactory<>("timeIn"));
         colTimeOut.setCellValueFactory(new PropertyValueFactory<>("timeOut"));
 
-        // Mostrar nombre del Teacher
         colPerson.setCellValueFactory(cellData -> {
             Person t = cellData.getValue().getPerson();
             return new SimpleStringProperty(t != null ? t.getName() + " " + t.getLastName() : "");
@@ -134,12 +135,11 @@ public class RecordController {
     @FXML
     private void handleCheckInOut(ActionEvent event) {
         try {
-
             Long personId = Long.parseLong(txtPersonId.getText());
             Person p = personDAO.findById(personId);
 
             if (p == null || p instanceof Admin) {
-                showAlert(AlertType.ERROR, "Validación", "El ID " + personId + " no está asociado ");
+                showAlert(AlertType.ERROR, "Validación", "El ID " + personId + " no está asociado a un estudiante o docente.");
                 return;
             }
 
@@ -149,31 +149,46 @@ public class RecordController {
 
                 Schedule schedule = veryfySchedule(p, personId);
 
+                // 🚨 ALERTA 2: Intento de ingreso fuera de su franja horaria
                 if (schedule == null) {
                     showAlert(AlertType.INFORMATION, "Acceso Denegado", "No puede acceder fuera de su horario");
+                    
+                    String nombreCompleto = p.getName() + " " + p.getLastName();
+                    String cuerpoEmail = PlantillasEmail.alertaFueraDeHorario(nombreCompleto, LocalTime.now().toString());
+                    
+                    // Notificación simplificada al administrador centralizado
+                    EmailService.enviarNotificacion("⏰ Alerta RF-08: Acceso fuera de horario", cuerpoEmail);
                     return;
                 }
                 
                 if (p instanceof Student) {
                     Teacher t = schedule.getTeacher();
-                    Record lastRecordT = recordDAO.findLastByPersonId(t.getId());
-                    if (lastRecordT == null ||lastRecordT.getTimeOut() != null) {
+                    Record lastRecordT = (t != null) ? recordDAO.findLastByPersonId(t.getId()) : null;
+                    
+                    // 🚨 ALERTA 1: Intento de ingreso sin docente registrado o presente
+                    if (t == null || lastRecordT == null || lastRecordT.getTimeOut() != null) {
                         showAlert(AlertType.INFORMATION, "Acceso Denegado", "No puede acceder si su profesor no se encuentra");
+                        
+                        String nombreEstudiante = p.getName() + " " + p.getLastName();
+                        String cuerpoEmail = PlantillasEmail.alertaIngresoSinDocente(nombreEstudiante, "Prácticas Hospitalarias");
+                        
+                        // Notificación simplificada al administrador centralizado
+                        EmailService.enviarNotificacion("⚠️ Alerta RF-08: Intento de ingreso sin Docente", cuerpoEmail);
                         return;
                     }
                 }
 
+                // Registro regular de entrada
                 Record newRecord = new Record();
                 newRecord.setDate(LocalDate.now());
                 newRecord.setTimeIn(LocalTime.now());
-
                 newRecord.setPerson(p);
 
                 recordDAO.save(newRecord);
                 showAlert(AlertType.INFORMATION, "Entrada registrada", "Se registró la entrada para ID " + personId);
 
             } else {
-                // Caso salida
+                // Registro regular de salida
                 lastRecord.setTimeOut(LocalTime.now());
                 recordDAO.update(lastRecord);
                 p.updateTotalHours(lastRecord);
@@ -194,15 +209,13 @@ public class RecordController {
     }
 
     private Schedule veryfySchedule(Person p, Long personId) {
-
         ScheduleDAO scheduleDAO = new ScheduleDAO();
-
         List<Schedule> schedules;
+        
         if (p instanceof Student) {
             StudentDAO studentDAO = new StudentDAO();
             Student student = studentDAO.findByIdWithList(personId, "schedules");
             schedules = student.getSchedules();
-            // schedules = scheduleDAO.findByStudentId(personId);
         } else {
             schedules = scheduleDAO.findByAttribute("teacher.id", personId);
         }
@@ -213,6 +226,7 @@ public class RecordController {
 
         LocalTime nowTime = LocalTime.now();
         LocalDate nowDate = LocalDate.now();
+        
         for (Schedule schedule : schedules) {
             if (schedule.getDate().equals(nowDate)) {
                 if (schedule.getStartTime().isBefore(nowTime)

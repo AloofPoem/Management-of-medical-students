@@ -137,8 +137,8 @@ public class InfoStudentController {
 
     public void setId(Long idS) {
         this.idStudent = idS;
+        
         Student student = studentDAO.findById(idStudent);
-
         populateForm(student);
     }
 

@@ -5,6 +5,7 @@ module com.gestionestudiantesmedicina {
     requires java.sql;
     requires org.hibernate.orm.core;
     requires javafx.base;
+    requires jakarta.mail;
 
     opens com.gestionestudiantesmedicina to javafx.fxml;
     opens com.gestionestudiantesmedicina.controller to javafx.fxml;

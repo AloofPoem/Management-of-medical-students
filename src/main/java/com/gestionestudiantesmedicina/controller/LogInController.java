@@ -6,6 +6,7 @@ import com.gestionestudiantesmedicina.App;
 import com.gestionestudiantesmedicina.daos.PersonDAO;
 import com.gestionestudiantesmedicina.entities.Admin;
 import com.gestionestudiantesmedicina.entities.Person;
+import com.gestionestudiantesmedicina.entities.Portero;
 import com.gestionestudiantesmedicina.entities.Student;
 import com.gestionestudiantesmedicina.entities.Teacher;
 
@@ -92,6 +93,11 @@ public class LogInController {
             if (person instanceof Admin) {
                 App.setRoot("MenuAdmin");
                 return;    
+            }
+
+            if (person instanceof Portero) {
+                App.setRoot("MenuPortero");
+                return;
             }
 
         } catch (NumberFormatException e) {

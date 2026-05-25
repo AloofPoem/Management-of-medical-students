@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="bpMenu" prefHeight="850.0" prefWidth="1100.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.MenuAdminController">
+<BorderPane fx:id="bpMenu" prefHeight="850.0" prefWidth="1100.0" style="-fx-background-color: #F4F4F4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.MenuPorteroController">
    
    <!-- PANEL LATERAL IZQUIERDO -->
    <left>

@@ -30,6 +30,7 @@ public class MenuPorteroController {
             e.printStackTrace();
         }
     }
+
     private void loadView(String fxmlName) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));
@@ -40,7 +41,6 @@ public class MenuPorteroController {
             showAlert(AlertType.ERROR,"Error al Cargar", "No se pudo cargar la vista: " + fxmlName + ".fxml");
         }
     }
-
 
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);

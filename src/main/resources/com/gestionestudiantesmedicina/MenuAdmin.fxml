@@ -190,6 +190,19 @@
                               <Tooltip text="Administrar registros del sistema" />
                            </tooltip>
                         </Button>
+                        <Button alignment="CENTER_LEFT" layoutX="22.0" layoutY="424.0" maxWidth="Infinity" onAction="#loadHospitalPresence" prefHeight="45.0" style="-fx-background-color: #5A4278; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand; -fx-font-size: 14; -fx-font-weight: bold;">
+                           <graphic>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Label style="-fx-font-size: 20; -fx-min-width: 28;" text="📅" />
+                                    <Label style="-fx-font-weight: bold; -fx-font-size: 11;" text="INDIVIDUOS PRESENTES" textFill="WHITE" />
+                                 </children>
+                              </HBox>
+                           </graphic>
+                           <tooltip>
+                              <Tooltip text="Administrar registros del sistema" />
+                           </tooltip>
+                        </Button>
                         
                         <!-- Separador antes de Cerrar Sesión -->
                         <Region prefHeight="8.0" />

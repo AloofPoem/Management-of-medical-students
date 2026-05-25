@@ -98,17 +98,6 @@
                   <Insets top="10.0" />
                </VBox.margin>
                <children>
-                  <Button onAction="#handleCreate" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #16A085; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="Agregar" />
-                  <Button mnemonicParsing="false" onAction="#handleUpdate" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #5b4e77; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;" text="✎ Editar">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#handleDelete" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;" text="🗑 Eliminar">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
                   <Button mnemonicParsing="false" onAction="#handleClear" prefHeight="45.0" prefWidth="140.0" style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-weight: bold;" text="Limpiar">
                      <font>
                         <Font name="System Bold" size="14.0" />

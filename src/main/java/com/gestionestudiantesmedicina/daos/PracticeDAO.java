@@ -16,7 +16,7 @@ public class PracticeDAO extends AbstractGenericDAO<Practice, Long> {
     public List<Practice> findByStudentId(Long studentId) {
         EntityManager em = emf.createEntityManager();
         try {
-            String jpql = "SELECT p FROM Practice p JOIN p.students st WHERE st.id = :studentId";
+            String jpql = "SELECT DISTINCT p FROM Practice p JOIN p.students st WHERE st.id = :studentId";
 
             return em.createQuery(jpql, Practice.class).setParameter("studentId", studentId).getResultList();
         } catch (Exception e) {
@@ -26,5 +26,4 @@ public class PracticeDAO extends AbstractGenericDAO<Practice, Long> {
             em.close();
         }
     }
-
 }

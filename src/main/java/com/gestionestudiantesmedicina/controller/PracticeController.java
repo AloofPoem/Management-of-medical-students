@@ -46,8 +46,6 @@ public class PracticeController {
     private TableColumn<Practice, String> colSubject;
 
     private PracticeDAO practiceDAO = new PracticeDAO();
-    private TeacherDAO teacherDAO = new TeacherDAO();
-    private SubjectDAO subjectDAO = new SubjectDAO();
     
     private ObservableList<Practice> practiceList = FXCollections.observableArrayList();
     
@@ -105,71 +103,6 @@ public class PracticeController {
             if (practice.getSubject() != null) {
                 txtSubjectId.setText(String.valueOf(practice.getSubject().getIdSubject()));
             }
-        }
-    }
-
-    @FXML
-    private void handleCreate(ActionEvent event) {
-        try {
-            Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
-            Subject subject = subjectDAO.findById(Long.parseLong(txtSubjectId.getText()));
-
-            Practice p = new Practice();
-            p.setTeacher(teacher);
-            p.setSubject(subject);
-
-            practiceDAO.save(p);
-            loadPracticeList();
-            handleClear(null);
-
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error de Creación", "No se pudo crear la práctica: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void handleUpdate(ActionEvent event) {
-        try {
-            Long practiceId = Long.parseLong(txtPracticeId.getText().trim());
-            Practice practice = practiceDAO.findById(practiceId);
-
-            if (practice == null) {
-                showAlert(AlertType.ERROR, "Validación", "Práctica no encontrada con ID: " + practiceId);
-                return;
-            }
-
-            Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
-            Subject subject = subjectDAO.findById(Long.parseLong(txtSubjectId.getText()));
-
-            practice.setTeacher(teacher);
-            practice.setSubject(subject);
-
-            practiceDAO.update(practice);
-            loadPracticeList();
-            handleClear(null);
-
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error de Actualización", "No se pudo actualizar: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    private void handleDelete(ActionEvent event) {
-        try {
-            Long practiceId = Long.parseLong(txtPracticeId.getText().trim());
-
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Confirmar Eliminación");
-            alert.setHeaderText("¿Está seguro de que desea eliminar la práctica con ID " + practiceId + "?");
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                practiceDAO.delete(practiceId);
-                loadPracticeList();
-                handleClear(null);
-            }
-        } catch (Exception e) {
-            showAlert(AlertType.ERROR, "Error de Eliminación", "No se pudo eliminar: " + e.getMessage());
         }
     }
 

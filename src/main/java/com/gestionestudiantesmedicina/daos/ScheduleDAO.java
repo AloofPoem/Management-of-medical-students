@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.gestionestudiantesmedicina.entities.Schedule;
+import com.gestionestudiantesmedicina.entities.Student;
 
 public class ScheduleDAO extends AbstractGenericDAO<Schedule, Long> {
 

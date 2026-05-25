@@ -3,6 +3,7 @@ package com.gestionestudiantesmedicina.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,14 +37,18 @@ public class Practice {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
+    @Column(name = "lounge", nullable = false)
+    private String lounge;
+
     public Practice() {
     }
 
-    public Practice(Long idPractice, Subject subject, Schedule schedule, Teacher teacher) {
+    public Practice(Long idPractice, Subject subject, Schedule schedule, Teacher teacher, String lounge) {
         this.idPractice = idPractice;
         this.subject = subject;
         this.schedule = schedule;
         this.teacher = teacher;
+        this.lounge = lounge;
         this.students = new ArrayList<>();
     }
 
@@ -98,5 +103,13 @@ public class Practice {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public String getLounge() {
+        return lounge;
+    }
+
+    public void setLounge(String lounge) {
+        this.lounge = lounge;
     }
 }

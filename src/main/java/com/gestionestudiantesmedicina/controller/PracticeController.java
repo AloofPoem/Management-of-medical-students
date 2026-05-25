@@ -35,6 +35,8 @@ public class PracticeController {
     private TextField txtSubjectId;
     @FXML
     private TextField txtSearch;
+    @FXML
+    private TextField txtLounge;
 
     @FXML
     private TableView<Practice> tablePractices;
@@ -44,6 +46,8 @@ public class PracticeController {
     private TableColumn<Practice, String> colTeacher;
     @FXML
     private TableColumn<Practice, String> colSubject;
+    @FXML
+    private TableColumn<Practice, String> colLounge;
 
     private PracticeDAO practiceDAO = new PracticeDAO();
     private TeacherDAO teacherDAO = new TeacherDAO();
@@ -64,7 +68,8 @@ public class PracticeController {
     @FXML
     private void initialize() {
         colPracticeId.setCellValueFactory(new PropertyValueFactory<>("idPractice"));
-
+        colLounge.setCellValueFactory(new PropertyValueFactory<>("lounge"));
+        
         // Mostrar nombre del Teacher asociado
         colTeacher.setCellValueFactory(cellData -> {
             Teacher t = cellData.getValue().getTeacher();
@@ -105,6 +110,9 @@ public class PracticeController {
             if (practice.getSubject() != null) {
                 txtSubjectId.setText(String.valueOf(practice.getSubject().getIdSubject()));
             }
+            if (practice.getLounge() != null) {
+                txtLounge.setText(practice.getLounge());
+            }
         }
     }
 
@@ -113,10 +121,12 @@ public class PracticeController {
         try {
             Teacher teacher = teacherDAO.findById(Long.parseLong(txtTeacherId.getText()));
             Subject subject = subjectDAO.findById(Long.parseLong(txtSubjectId.getText()));
+            String lounge = txtLounge.getText();
 
             Practice p = new Practice();
             p.setTeacher(teacher);
             p.setSubject(subject);
+            p.setLounge(lounge);
 
             practiceDAO.save(p);
             loadPracticeList();
@@ -132,6 +142,8 @@ public class PracticeController {
         try {
             Long practiceId = Long.parseLong(txtPracticeId.getText().trim());
             Practice practice = practiceDAO.findById(practiceId);
+            String lounge = txtLounge.getText();
+
 
             if (practice == null) {
                 showAlert(AlertType.ERROR, "Validación", "Práctica no encontrada con ID: " + practiceId);
@@ -143,6 +155,7 @@ public class PracticeController {
 
             practice.setTeacher(teacher);
             practice.setSubject(subject);
+            practice.setLounge(lounge);
 
             practiceDAO.update(practice);
             loadPracticeList();
@@ -178,6 +191,7 @@ public class PracticeController {
         txtPracticeId.clear();
         txtTeacherId.clear();
         txtSubjectId.clear();
+        txtLounge.clear();
         tablePractices.getSelectionModel().clearSelection();
         loadPracticeList();
     }

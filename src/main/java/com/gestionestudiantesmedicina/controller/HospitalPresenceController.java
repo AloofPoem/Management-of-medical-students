@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.gestionestudiantesmedicina.daos.RecordDAO;
+import com.gestionestudiantesmedicina.entities.Person;
 import com.gestionestudiantesmedicina.entities.Record;
 import com.gestionestudiantesmedicina.entities.Student;
 import com.gestionestudiantesmedicina.entities.Teacher;
@@ -52,10 +53,10 @@ public class HospitalPresenceController {
             Person p = cellData.getValue().getPerson();
             if (p instanceof Student) {
                 Student s = (Student) p;
-                return new SimpleStringProperty(s.getNames() + " " + s.getLastNames());
+                return new SimpleStringProperty(s.getName() + " " + s.getLastName());
             } else if (p instanceof Teacher) {
                 Teacher t = (Teacher) p;
-                return new SimpleStringProperty(t.getNames() + " " + t.getLastNames());
+                return new SimpleStringProperty(t.getName() + " " + t.getLastName());
             }
             return new SimpleStringProperty("");
         });
@@ -63,9 +64,9 @@ public class HospitalPresenceController {
         colPersonId.setCellValueFactory(cellData -> {
             Person p = cellData.getValue().getPerson();
             if (p instanceof Student) {
-                return new SimpleStringProperty(String.valueOf(((Student) p).getIdStudent()));
+                return new SimpleStringProperty(String.valueOf(((Student) p).getId()));
             } else if (p instanceof Teacher) {
-                return new SimpleStringProperty(String.valueOf(((Teacher) p).getIdTeacher()));
+                return new SimpleStringProperty(String.valueOf(((Teacher) p).getId()));
             }
             return new SimpleStringProperty("");
         });

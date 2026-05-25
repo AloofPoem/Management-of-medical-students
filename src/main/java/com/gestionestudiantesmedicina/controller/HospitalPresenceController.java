@@ -49,28 +49,31 @@ public class HospitalPresenceController {
     @FXML
     private void initialize() {
         colPersonName.setCellValueFactory(cellData -> {
-            if (cellData.getValue().getStudent() != null) {
-                Student s = cellData.getValue().getStudent();
+            Person p = cellData.getValue().getPerson();
+            if (p instanceof Student) {
+                Student s = (Student) p;
                 return new SimpleStringProperty(s.getNames() + " " + s.getLastNames());
-            } else if (cellData.getValue().getTeacher() != null) {
-                Teacher t = cellData.getValue().getTeacher();
+            } else if (p instanceof Teacher) {
+                Teacher t = (Teacher) p;
                 return new SimpleStringProperty(t.getNames() + " " + t.getLastNames());
             }
             return new SimpleStringProperty("");
         });
 
         colPersonId.setCellValueFactory(cellData -> {
-            if (cellData.getValue().getStudent() != null) {
-                return new SimpleStringProperty(String.valueOf(cellData.getValue().getStudent().getIdStudent()));
-            } else if (cellData.getValue().getTeacher() != null) {
-                return new SimpleStringProperty(String.valueOf(cellData.getValue().getTeacher().getIdTeacher()));
+            Person p = cellData.getValue().getPerson();
+            if (p instanceof Student) {
+                return new SimpleStringProperty(String.valueOf(((Student) p).getIdStudent()));
+            } else if (p instanceof Teacher) {
+                return new SimpleStringProperty(String.valueOf(((Teacher) p).getIdTeacher()));
             }
             return new SimpleStringProperty("");
         });
 
         colRole.setCellValueFactory(cellData -> {
-            if (cellData.getValue().getStudent() != null) return new SimpleStringProperty("Estudiante");
-            if (cellData.getValue().getTeacher() != null) return new SimpleStringProperty("Docente");
+            Person p = cellData.getValue().getPerson();
+            if (p instanceof Student) return new SimpleStringProperty("Estudiante");
+            if (p instanceof Teacher) return new SimpleStringProperty("Docente");
             return new SimpleStringProperty("");
         });
 
@@ -78,12 +81,16 @@ public class HospitalPresenceController {
         colTimeIn.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("timeIn"));
 
         colService.setCellValueFactory(cellData -> {
-            if (cellData.getValue().getStudent() != null && cellData.getValue().getStudent().getAcademicData() != null) {
-                return new SimpleStringProperty(cellData.getValue().getStudent().getAcademicData().getAcademicProgram());
+            Person p = cellData.getValue().getPerson();
+            if (p instanceof Student) {
+                Student s = (Student) p;
+                if (s.getAcademicData() != null) {
+                    return new SimpleStringProperty(s.getAcademicData().getAcademicProgram());
+                }
             }
             return new SimpleStringProperty("-");
         });
-
+        
         colAlert.setCellValueFactory(cellData -> {
             Record r = cellData.getValue();
             if (r.getSchedule() != null && r.getSchedule().getEndTime().isBefore(LocalTime.now())) {

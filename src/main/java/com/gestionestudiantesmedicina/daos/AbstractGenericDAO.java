@@ -11,7 +11,7 @@ public class AbstractGenericDAO<T, K> implements GenericDAO<T, K> {
     protected Class<T> entityClass;
 
     // cambiar base de datos
-    protected static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("estudiantes_medicina");;
+    protected static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("estudiantes_medicina00");;
 
     protected AbstractGenericDAO(Class<T> entityClass) {
         this.entityClass = entityClass;

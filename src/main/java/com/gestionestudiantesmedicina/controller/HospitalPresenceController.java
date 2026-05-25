@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.gestionestudiantesmedicina.daos.RecordDAO;
+import com.gestionestudiantesmedicina.daos.StudentDAO;
 import com.gestionestudiantesmedicina.entities.Person;
 import com.gestionestudiantesmedicina.entities.Record;
 import com.gestionestudiantesmedicina.entities.Student;
@@ -107,9 +108,8 @@ public class HospitalPresenceController {
                     }
                 }
             } else if (r.getPerson() instanceof Teacher) {
-                TeacherDAO teacherDAO = new TeacherDAO();
-                Teacher teacher = teacherDAO.findByIdWithList(((Teacher) r.getPerson()).getId(), "schedules");
-
+               
+                Teacher teacher = (Teacher) r.getPerson();
                 if (teacher.getSchedules() != null && !teacher.getSchedules().isEmpty()) {
                     boolean expirado = teacher.getSchedules().stream()
                             .anyMatch(schedule -> schedule.getEndTime().isBefore(LocalTime.now()));

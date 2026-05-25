@@ -72,6 +72,11 @@ public class MenuAdminController {
        loadView("RecordViewAdmin");
     }
 
+    @FXML
+    void loadHospitalPresence(ActionEvent event) {
+        loadView("HospitalPresenceAdmin");
+    }
+
     private void loadView(String fxmlName) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource(fxmlName + ".fxml"));

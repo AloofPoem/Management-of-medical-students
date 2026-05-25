@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.TeacherAdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestionestudiantesmedicina.controller.HospitalPresenceController">
    <children>
       <!-- Header -->
       <AnchorPane layoutY="0.0" prefHeight="80.0" prefWidth="1200.0" style="-fx-background-color: #4a3470;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -29,7 +29,7 @@
                   <TableColumn fx:id="colPersonName" prefWidth="183.99999237060547" text="Nombre" />
                   <TableColumn fx:id="colRole" prefWidth="127.20001220703125" text="Rol" />
                   <TableColumn fx:id="colDate" prefWidth="180.0" text="Fecha" />
-                  <TableColumn fx:id="colTimeIn" prefWidth="143.19998168945312" text="Tiempo Dentro" />
+                  <TableColumn fx:id="colTimeIn" prefWidth="143.19998168945312" text="Hora de Entrada" />
                   <TableColumn fx:id="colService" prefWidth="266.4000244140625" text="Servicio" />
                   <TableColumn fx:id="colAlert" prefWidth="269.59991455078125" text="Alerta" />
                </columns>

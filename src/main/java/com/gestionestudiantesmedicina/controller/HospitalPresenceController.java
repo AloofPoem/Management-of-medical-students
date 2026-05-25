@@ -91,12 +91,34 @@ public class HospitalPresenceController {
             }
             return new SimpleStringProperty("-");
         });
-        
+
         colAlert.setCellValueFactory(cellData -> {
             Record r = cellData.getValue();
-            if (r.getSchedule() != null && r.getSchedule().getEndTime().isBefore(LocalTime.now())) {
-                return new SimpleStringProperty("Horario expirado");
+
+            if (r.getPerson() instanceof Student) {
+                StudentDAO studentDAO = new StudentDAO();
+                Student student = studentDAO.findByIdWithList(((Student) r.getPerson()).getId(), "schedules");
+
+                if (student.getSchedules() != null && !student.getSchedules().isEmpty()) {
+                    boolean expirado = student.getSchedules().stream()
+                            .anyMatch(schedule -> schedule.getEndTime().isBefore(LocalTime.now()));
+                    if (expirado) {
+                        return new SimpleStringProperty("Horario expirado");
+                    }
+                }
+            } else if (r.getPerson() instanceof Teacher) {
+                TeacherDAO teacherDAO = new TeacherDAO();
+                Teacher teacher = teacherDAO.findByIdWithList(((Teacher) r.getPerson()).getId(), "schedules");
+
+                if (teacher.getSchedules() != null && !teacher.getSchedules().isEmpty()) {
+                    boolean expirado = teacher.getSchedules().stream()
+                            .anyMatch(schedule -> schedule.getEndTime().isBefore(LocalTime.now()));
+                    if (expirado) {
+                        return new SimpleStringProperty("Horario expirado");
+                    }
+                }
             }
+
             return new SimpleStringProperty("");
         });
 

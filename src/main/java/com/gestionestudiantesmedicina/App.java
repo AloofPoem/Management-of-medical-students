@@ -26,7 +26,7 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
         Stage stage = (Stage) scene.getWindow();
         
-        if (fxml.equals("MenuAdmin")) { 
+        if (fxml.equals("MenuAdmin") || fxml.equals("MenuPortero")) { 
             stage.setMaximized(true);
         } else {
             stage.setMaximized(false);

@@ -3,61 +3,25 @@ package com.gestionestudiantesmedicina.controller;
 import java.io.IOException;
 
 import com.gestionestudiantesmedicina.App;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.Parent;
 
-public class MenuAdminController {
+public class MenuPorteroController {
 
     @FXML
     private BorderPane bpMenu;
 
     @FXML
-    void loadEstudentType(ActionEvent event) {
-        loadView("EstudentTypeViewAdmin");
+    private void loadRecord(ActionEvent event){
+       loadView("RecordViewPortero");
     }
 
-    @FXML
-    void loadPractice(ActionEvent event) {
-        loadView("ClassViewAdmin");
-    }
-
-    @FXML
-    void loadRelative(ActionEvent event) {
-        loadView("GestionFamiliaresAdmin");
-    }
-
-    @FXML
-    void loadSchedule(ActionEvent event) {
-        loadView("ScheduleViewAdmin");
-    }
-
-    @FXML
-    void loadStudent(ActionEvent event) {
-        loadView("EstuViewAdmin");
-    }
-
-    @FXML
-    void loadSubject(ActionEvent event) {
-        loadView("SubjectViewAdmin");
-    }
-    
-    @FXML
-    void loadTeacher(ActionEvent event) {
-        loadView("DocenteViewAdmin");
-    }
-    
-    @FXML
-    void loadUniversity(ActionEvent event) {
-        loadView("UniversityViewAdmin");
-    }
-
-    @FXML
+     @FXML
     void logout(ActionEvent event){
         try {
             App.setRoot("LoginView");
@@ -65,16 +29,6 @@ public class MenuAdminController {
             showAlert(AlertType.ERROR,"Error al cerrar sesion", "No se pudo cerrar sesion");
             e.printStackTrace();
         }
-    }
-    
-    @FXML
-    private void loadRecord(ActionEvent event){
-       loadView("RecordViewAdmin");
-    }
-
-    @FXML
-    void loadHospitalPresence(ActionEvent event) {
-        loadView("HospitalPresenceAdmin");
     }
 
     private void loadView(String fxmlName) {
@@ -88,7 +42,6 @@ public class MenuAdminController {
         }
     }
 
-
     private void showAlert(AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -96,4 +49,5 @@ public class MenuAdminController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }

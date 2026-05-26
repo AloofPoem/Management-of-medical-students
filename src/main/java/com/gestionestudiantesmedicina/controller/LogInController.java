@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -23,10 +24,10 @@ public class LogInController {
 
     @FXML
     private TextField txtId;
-    
-    @FXML
-    private TextField txtPassword;
 
+    @FXML
+    private PasswordField pdPassword;
+    
     private PersonDAO personDAO = new PersonDAO();
 
     @FXML
@@ -35,7 +36,7 @@ public class LogInController {
         try {
             Long id = Long.parseLong(txtId.getText());
             
-            String password = txtPassword.getText();
+            String password = pdPassword.getText();
             
             Person person = personDAO.findById(id);
             

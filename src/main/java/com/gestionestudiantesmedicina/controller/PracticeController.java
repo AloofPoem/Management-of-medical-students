@@ -1,12 +1,9 @@
 package com.gestionestudiantesmedicina.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.gestionestudiantesmedicina.daos.PersonDAO;
 import com.gestionestudiantesmedicina.daos.PracticeDAO;
-import com.gestionestudiantesmedicina.daos.TeacherDAO;
-import com.gestionestudiantesmedicina.daos.SubjectDAO;
 import com.gestionestudiantesmedicina.entities.Person;
 import com.gestionestudiantesmedicina.entities.Practice;
 import com.gestionestudiantesmedicina.entities.Teacher;
@@ -18,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;

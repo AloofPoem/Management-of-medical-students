@@ -59,7 +59,7 @@
             <!-- Schedule -->
             <VBox spacing="5" HBox.hgrow="ALWAYS">
                 <Label style="-fx-font-weight: bold; -fx-text-fill: #5B3A87;" text="ID Estudiante:" />
-                <TextField fx:id="txtIdEstudiante" promptText="Ej: 1051068340" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
+                <TextField fx:id="txtIdStudent" promptText="Ej: 1051068340" style="-fx-border-color: #D0D0D0; -fx-border-radius: 5; -fx-background-radius: 5;" />
             </VBox>
         </HBox>
 

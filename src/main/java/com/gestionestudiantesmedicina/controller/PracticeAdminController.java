@@ -111,6 +111,7 @@ public class PracticeAdminController {
 
         } catch (Exception e) {
             showAlert(AlertType.ERROR, "Error de Creación", "No se pudo crear la práctica: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

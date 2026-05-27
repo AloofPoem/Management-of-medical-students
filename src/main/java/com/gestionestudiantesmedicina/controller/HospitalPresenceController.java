@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.gestionestudiantesmedicina.daos.RecordDAO;
 import com.gestionestudiantesmedicina.daos.StudentDAO;
+import com.gestionestudiantesmedicina.daos.TeacherDAO;
 import com.gestionestudiantesmedicina.entities.Person;
 import com.gestionestudiantesmedicina.entities.Record;
 import com.gestionestudiantesmedicina.entities.Student;
@@ -52,30 +53,20 @@ public class HospitalPresenceController {
     private void initialize() {
         colPersonName.setCellValueFactory(cellData -> {
             Person p = cellData.getValue().getPerson();
-            if (p instanceof Student) {
-                Student s = (Student) p;
-                return new SimpleStringProperty(s.getName() + " " + s.getLastName());
-            } else if (p instanceof Teacher) {
-                Teacher t = (Teacher) p;
-                return new SimpleStringProperty(t.getName() + " " + t.getLastName());
-            }
-            return new SimpleStringProperty("");
+            return new SimpleStringProperty(p.getName() + " " + p.getLastName());
         });
 
         colPersonId.setCellValueFactory(cellData -> {
             Person p = cellData.getValue().getPerson();
-            if (p instanceof Student) {
-                return new SimpleStringProperty(String.valueOf(((Student) p).getId()));
-            } else if (p instanceof Teacher) {
-                return new SimpleStringProperty(String.valueOf(((Teacher) p).getId()));
-            }
-            return new SimpleStringProperty("");
+            return new SimpleStringProperty(String.valueOf((p.getId())));
         });
 
         colRole.setCellValueFactory(cellData -> {
             Person p = cellData.getValue().getPerson();
-            if (p instanceof Student) return new SimpleStringProperty("Estudiante");
-            if (p instanceof Teacher) return new SimpleStringProperty("Docente");
+            if (p instanceof Student)
+                return new SimpleStringProperty("Estudiante");
+            if (p instanceof Teacher)
+                return new SimpleStringProperty("Docente");
             return new SimpleStringProperty("");
         });
 
@@ -89,7 +80,11 @@ public class HospitalPresenceController {
                 if (s.getAcademicData() != null) {
                     return new SimpleStringProperty(s.getAcademicData().getAcademicProgram());
                 }
+            } else {
+                Teacher t = (Teacher) p;
+                return new SimpleStringProperty(t.getSpecialty());
             }
+
             return new SimpleStringProperty("-");
         });
 
@@ -100,7 +95,7 @@ public class HospitalPresenceController {
                 StudentDAO studentDAO = new StudentDAO();
                 Student student = studentDAO.findByIdWithList(((Student) r.getPerson()).getId(), "schedules");
 
-                if (student.getSchedules() != null && !student.getSchedules().isEmpty()) {
+                if (student != null && student.getSchedules() != null && !student.getSchedules().isEmpty()) {
                     boolean expirado = student.getSchedules().stream()
                             .anyMatch(schedule -> schedule.getEndTime().isBefore(LocalTime.now()));
                     if (expirado) {
@@ -108,9 +103,10 @@ public class HospitalPresenceController {
                     }
                 }
             } else if (r.getPerson() instanceof Teacher) {
-               
-                Teacher teacher = (Teacher) r.getPerson();
-                if (teacher.getSchedules() != null && !teacher.getSchedules().isEmpty()) {
+                TeacherDAO teacherDAO = new TeacherDAO(); // Instanciamos el DAO que acabas de corregir
+                Teacher teacher = teacherDAO.findByIdWithList(((Teacher) r.getPerson()).getId(), "schedules");
+
+                if (teacher != null && teacher.getSchedules() != null && !teacher.getSchedules().isEmpty()) {
                     boolean expirado = teacher.getSchedules().stream()
                             .anyMatch(schedule -> schedule.getEndTime().isBefore(LocalTime.now()));
                     if (expirado) {
@@ -126,11 +122,13 @@ public class HospitalPresenceController {
     }
 
     private void loadActivePresence() {
+        activeList.clear();
         List<Record> activeRecords = recordDAO.findAll().stream()
                 .filter(r -> r.getTimeIn() != null && r.getTimeOut() == null)
                 .collect(Collectors.toList());
 
-        activeList.setAll(activeRecords);
+        activeList.addAll(activeRecords);
+        // activeList.setAll(activeRecords);
         tablePresence.setItems(activeList);
     }
 }

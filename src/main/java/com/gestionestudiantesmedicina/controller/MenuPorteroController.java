@@ -18,7 +18,7 @@ public class MenuPorteroController {
 
     @FXML
     private void loadRecord(ActionEvent event){
-       loadView("RecordViewPortero");
+       loadView("RecordViewAdmin");
     }
 
      @FXML

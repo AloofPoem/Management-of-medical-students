@@ -13,6 +13,7 @@ import com.gestionestudiantesmedicina.entities.Person;
 import com.gestionestudiantesmedicina.entities.Record;
 import com.gestionestudiantesmedicina.entities.Schedule;
 import com.gestionestudiantesmedicina.entities.Student;
+import com.gestionestudiantesmedicina.entities.Teacher;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -151,6 +152,15 @@ public class RecordController {
                 if (schedule == null) {
                     showAlert(AlertType.INFORMATION, "Acceso Denegado", "No puede acceder fuera de su horario");
                     return;
+                }
+                
+                if (p instanceof Student) {
+                    Teacher t = schedule.getTeacher();
+                    Record lastRecordT = recordDAO.findLastByPersonId(t.getId());
+                    if (lastRecordT == null ||lastRecordT.getTimeOut() != null) {
+                        showAlert(AlertType.INFORMATION, "Acceso Denegado", "No puede acceder si su profesor no se encuentra");
+                        return;
+                    }
                 }
 
                 Record newRecord = new Record();

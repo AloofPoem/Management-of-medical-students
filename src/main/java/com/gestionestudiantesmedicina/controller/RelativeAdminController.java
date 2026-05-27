@@ -61,8 +61,6 @@ public class RelativeAdminController {
     @FXML
     private TableColumn<Relative, RelationShip> colRelRelationship;
 
-    // ponerlo de una vez con Student ???
-    private Long studentId;
     private RelativeDAO relativeDAO = new RelativeDAO();
     private ObservableList<Relative> relativeList = FXCollections.observableArrayList();
 
@@ -103,6 +101,7 @@ public class RelativeAdminController {
         txtRelName.setText(r.getName());
         txtRelLastName.setText(r.getLastName());
         cbRelRelationship.setValue(r.getRelationship());
+        txtIdStudent.setText(String.valueOf(r.getStudent().getId()));
     }
 
     @FXML
@@ -111,6 +110,7 @@ public class RelativeAdminController {
         txtRelName.clear();
         txtRelLastName.clear();
         cbRelRelationship.setValue(null);
+        txtIdStudent.clear();
         tableRelative.getSelectionModel().clearSelection();
         loadRlativeList();
     }
@@ -123,7 +123,7 @@ public class RelativeAdminController {
             String relLastName = txtRelLastName.getText();
             RelationShip relRelationShip = cbRelRelationship.getValue();
             StudentDAO studentDAO = new StudentDAO();
-            Student student = studentDAO.findById(studentId);
+            Student student = studentDAO.findById(Long.parseLong(txtIdStudent.getText()));
 
             Relative relative = new Relative(relName, relLastName, student, relRelationShip);
 
@@ -152,6 +152,11 @@ public class RelativeAdminController {
             relative.setName(txtRelName.getText());
             relative.setLastName(txtRelLastName.getText());
             relative.setRelationship(cbRelRelationship.getValue());
+
+            StudentDAO studentDAO = new StudentDAO();
+            Student s = studentDAO.findById(Long.parseLong(txtIdStudent.getText()));
+
+            relative.setStudent(s);
 
             relativeDAO.update(relative);
 
@@ -193,15 +198,6 @@ public class RelativeAdminController {
             Long relId = Long.parseLong(txtRelId.getText().trim());
             Relative relative = relativeDAO.findById(relId);
 
-            /*
-             * Revisar si se puede asi en vez del if else
-             * if (relative == null) {
-             * showAlert(AlertType.INFORMATION, "Búsqueda",
-             * "Familiar no encontrado con ID: " + relId);
-             * return;
-             * }
-             */
-
             if (relative != null) {
                 populateForm(relative);
                 tableRelative.getItems().setAll(relative);
@@ -213,10 +209,6 @@ public class RelativeAdminController {
         } catch (NumberFormatException e) {
             showAlert(AlertType.ERROR, "Error de Formato", "El ID debe ser un número.");
         }
-    }
-
-    public void setStudentId(Long id) {
-        this.studentId = id;
     }
 
     private void showAlert(AlertType alertType, String title, String message) {
